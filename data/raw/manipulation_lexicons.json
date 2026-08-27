@@ -1,0 +1,162 @@
+{
+  "version": "1.1",
+  "categories": {
+    "sensationalism_clickbait": {
+      "weight": 0.35,
+      "description": "Sensationalist, exaggerated, or classic clickbait baiting language",
+      "keywords": [
+        "shocking",
+        "bombshell",
+        "mindblowing",
+        "jawdropping",
+        "unbelievable",
+        "exposed",
+        "destroyed",
+        "humiliated",
+        "slams",
+        "blasts",
+        "obliterates",
+        "takedown"
+      ],
+      "phrases": [
+        "you won't believe",
+        "you wont believe",
+        "will blow your mind",
+        "mind-blowing",
+        "jaw-dropping",
+        "what happens next",
+        "what happened next",
+        "shocking truth",
+        "bombshell revelation",
+        "bombshell report",
+        "shocking evidence",
+        "exposed for what they are",
+        "leaves everyone speechless",
+        "the real reason why",
+        "breaks silence",
+        "breaks the internet",
+        "destroys in seconds",
+        "rips into",
+        "epic takedown",
+        "utterly destroys",
+        "shut down completely",
+        "this changes everything",
+        "cannot unsee",
+        "proof that will shock you"
+      ]
+    },
+    "fear_and_urgency": {
+      "weight": 0.25,
+      "description": "Language designed to provoke irrational panic, fear, or artificial urgency",
+      "keywords": [
+        "terrifying",
+        "catastrophic",
+        "apocalyptic",
+        "doomsday",
+        "panic",
+        "lethal",
+        "deadly",
+        "nightmare",
+        "peril",
+        "ruin"
+      ],
+      "phrases": [
+        "act now before it's too late",
+        "act now before it is too late",
+        "panic spreads",
+        "deadly threat",
+        "terrifying reality",
+        "catastrophic collapse",
+        "nightmare scenario",
+        "doomsday clock",
+        "apocalyptic warning",
+        "total ruin",
+        "danger lurking everywhere",
+        "mass hysteria",
+        "warning to all citizens",
+        "you are in grave danger",
+        "unprecedented disaster",
+        "impending doom",
+        "flee your homes",
+        "lethal outbreak covered up",
+        "emergency alert"
+      ]
+    },
+    "conspiracy_and_paranoia": {
+      "weight": 0.25,
+      "description": "Markers of conspiracy theories, paranoia, and delegitimization of factual institutions",
+      "keywords": [
+        "plandemic",
+        "chemtrails",
+        "illuminati",
+        "cabal",
+        "coverup",
+        "sheeple",
+        "globalist",
+        "deepstate"
+      ],
+      "phrases": [
+        "mainstream media won't tell you",
+        "mainstream media wont tell you",
+        "what the media is hiding",
+        "they don't want you to know",
+        "they dont want you to know",
+        "deep state cabal",
+        "deep state",
+        "shadow government",
+        "false flag operation",
+        "hidden elite agenda",
+        "secret plot to control",
+        "wake up sheeple",
+        "globalist depopulation",
+        "microchip implants",
+        "chem trails",
+        "stolen election proof",
+        "5g mind control",
+        "5g radiation poison",
+        "controlled opposition",
+        "illuminati confirmed",
+        "new world order agenda"
+      ]
+    },
+    "pseudoscience_miracle": {
+      "weight": 0.15,
+      "description": "Unverified medical, scientific, or miracle claims",
+      "keywords": [
+        "miracle cure",
+        "detox",
+        "alkaline",
+        "cure-all"
+      ],
+      "phrases": [
+        "doctors are baffled",
+        "one weird trick",
+        "secret doctors hate",
+        "100% natural cure for cancer",
+        "100% cure",
+        "cures 100%",
+        "cure 100%",
+        "instant cure",
+        "cures all diseases",
+        "big pharma is hiding this",
+        "big pharma",
+        "quantum frequency healing",
+        "alkaline water cures all diseases",
+        "instant weight loss miracle",
+        "vaccine shedding danger",
+        "ancient herb cures everything",
+        "guaranteed immunity forever"
+      ]
+    }
+  },
+  "stylistic_markers": {
+    "all_caps_heavy": {
+      "weight": 0.10,
+      "description": "Excessive usage of capitalized words in headlines"
+    },
+    "excessive_punctuation": {
+      "weight": 0.10,
+      "description": "Multiple exclamation marks or question marks"
+    }
+  }
+}

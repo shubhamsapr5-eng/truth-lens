@@ -1,0 +1,40 @@
+{
+  "articles": [
+    {
+      "id": "ART-001",
+      "type": "credible_news",
+      "source_domain": "reuters.com",
+      "headline": "Federal Reserve holds benchmark interest rate steady as inflation trends moderate",
+      "body": "WASHINGTON — The Federal Reserve on Wednesday held its benchmark overnight interest rate steady in the 5.25%-5.50% range, citing continued progress toward its 2 percent inflation objective while maintaining balanced economic expansion. Fed Chair Jerome Powell stated during a news conference that policymakers are carefully assessing incoming labor market data and quarterly consumer price indices before adjusting the monetary policy stance. Official data from the Bureau of Labor Statistics indicated unemployment remained steady at 4.1 percent.",
+      "expected_manipulation_score_max": 10.0,
+      "expected_source_credibility": "high"
+    },
+    {
+      "id": "ART-002",
+      "type": "fake_news_manipulation",
+      "source_domain": "secrettruthleak.biz",
+      "headline": "SHOCKING BOMBSHELL: Mainstream Media Hiding Deadly 5G Mind Control Towers Poisoning Millions!!!",
+      "body": "YOU WON'T BELIEVE what the corrupt globalist deep state cabal has been installing in your neighborhood! Terrifying secret documents leaked yesterday provide 100% indisputable proof that 5G cellular antennas are emitting deadly radiation frequencies designed to suppress human cognitive immunity. Mainstream media won't tell you the terrifying truth because big tech is profiting billions. ACT NOW BEFORE IT IS TOO LATE! Doctors are completely baffled as emergency rooms overflow with victims of this apocalyptic covert experiment. Share this before it gets deleted!",
+      "expected_manipulation_score_min": 75.0,
+      "expected_source_credibility": "unreliable"
+    },
+    {
+      "id": "ART-003",
+      "type": "satire",
+      "source_domain": "theonion.com",
+      "headline": "Nation's Dogs Agree Local Stick Deserves International Architectural Award",
+      "body": "CHICAGO — In a landmark joint press conference held in a local suburban park on Tuesday, an international consortium of golden retrievers and border collies overwhelmingly voted to award the prestigious Pritzker Architecture Prize to an oak branch discovered behind an old garage. Spokesdog Barnaby praised the branch's 'uncompromising structural integrity, earthy aroma, and ideal chewability coefficient.' Representatives confirmed plans to immediately bury the artifact under a flowerbed for safe keeping.",
+      "expected_manipulation_score_max": 20.0,
+      "expected_source_credibility": "satire"
+    },
+    {
+      "id": "ART-004",
+      "type": "credible_science",
+      "source_domain": "nature.com",
+      "headline": "Genomic sequencing identifies distinct evolutionary pathways in ancient hominin lineages",
+      "body": "High-coverage genomic sequencing of archaeological specimens recovered from the Denisova Cave has revealed previously unrecognized episodes of genetic introgression between Neanderthals, Denisovans, and early Homo sapiens populations across Eurasia. Comparative phylogenetic analysis demonstrated that adaptive alleles related to high-altitude hypoxia tolerance and immune response were selectively retained in specific ancestral populations.",
+      "expected_manipulation_score_max": 5.0,
+      "expected_source_credibility": "very high"
+    }
+  ]
+}

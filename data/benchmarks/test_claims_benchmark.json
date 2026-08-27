@@ -1,0 +1,132 @@
+{
+  "benchmark_metadata": {
+    "version": "1.0",
+    "description": "PSAIAC_61 Ground-Truth Claims Benchmark for Corroboration & NLI Evaluation",
+    "total_claims": 15,
+    "categories": ["Health & Medicine", "Science & Climate", "Global Politics", "Technology", "Economy", "Satire & Hoaxes"]
+  },
+  "claims": [
+    {
+      "claim_id": "CLM-001",
+      "category": "Technology",
+      "headline": "OpenAI announces GPT-4.5 with advanced multimodal capabilities",
+      "claim_text": "OpenAI officially launched GPT-4.5, expanding its multimodal reasoning architecture across vision and voice.",
+      "ground_truth_veracity": "TRUE",
+      "expected_agreement": "ENTAILMENT",
+      "trusted_corroborating_domains": ["reuters.com", "techcrunch.com", "theverge.com", "wired.com"],
+      "contradicting_domains": [],
+      "expected_credibility_range": [80, 100],
+      "difficulty": "Easy"
+    },
+    {
+      "claim_id": "CLM-002",
+      "category": "Health & Medicine",
+      "headline": "Drinking boiled garlic water cures 100% of viral infections in 24 hours",
+      "claim_text": "Consuming boiled garlic water completely eliminates viral pathogens from the bloodstream within 24 hours.",
+      "ground_truth_veracity": "FALSE",
+      "expected_agreement": "CONTRADICTION",
+      "trusted_corroborating_domains": [],
+      "contradicting_domains": ["who.int", "cdc.gov", "reuters.com", "apnews.com", "snopes.com"],
+      "expected_credibility_range": [0, 20],
+      "difficulty": "Easy"
+    },
+    {
+      "claim_id": "CLM-003",
+      "category": "Science & Climate",
+      "headline": "NASA James Webb Space Telescope discovers atmospheric carbon dioxide on habitable exoplanet",
+      "claim_text": "NASA's James Webb Space Telescope detected atmospheric carbon dioxide signatures on an exoplanet located in the habitable zone.",
+      "ground_truth_veracity": "TRUE",
+      "expected_agreement": "ENTAILMENT",
+      "trusted_corroborating_domains": ["nasa.gov", "nature.com", "scientificamerican.com", "bbc.com"],
+      "contradicting_domains": [],
+      "expected_credibility_range": [85, 100],
+      "difficulty": "Medium"
+    },
+    {
+      "claim_id": "CLM-004",
+      "category": "Satire & Hoaxes",
+      "headline": "Congress passes law requiring all citizens to check in with their local squirrel twice a week",
+      "claim_text": "A new federal law mandates that all citizens must report weekly wildlife interactions to local squirrels.",
+      "ground_truth_veracity": "SATIRE",
+      "expected_agreement": "NEUTRAL",
+      "origin_domain": "theonion.com",
+      "trusted_corroborating_domains": [],
+      "contradicting_domains": [],
+      "expected_credibility_range": [0, 10],
+      "difficulty": "Easy"
+    },
+    {
+      "claim_id": "CLM-005",
+      "category": "Global Politics",
+      "headline": "United Nations General Assembly adopts binding resolution banning artificial intelligence in warfare",
+      "claim_text": "The UN General Assembly passed a legally binding global resolution imposing an immediate total ban on AI military systems.",
+      "ground_truth_veracity": "MISLEADING",
+      "expected_agreement": "CONTRADICTION",
+      "trusted_corroborating_domains": [],
+      "contradicting_domains": ["un.org", "reuters.com", "apnews.com"],
+      "context": "The UN discussed non-binding guidelines and exploratory committees, but did not pass a legally binding ban.",
+      "expected_credibility_range": [25, 45],
+      "difficulty": "Hard"
+    },
+    {
+      "claim_id": "CLM-006",
+      "category": "Economy",
+      "headline": "Federal Reserve lowers benchmark interest rate by 25 basis points amid cooling inflation",
+      "claim_text": "The Federal Reserve reduced its key lending rate by 25 basis points following the latest economic policy meeting.",
+      "ground_truth_veracity": "TRUE",
+      "expected_agreement": "ENTAILMENT",
+      "trusted_corroborating_domains": ["bloomberg.com", "wsj.com", "reuters.com", "ft.com"],
+      "contradicting_domains": [],
+      "expected_credibility_range": [85, 100],
+      "difficulty": "Medium"
+    },
+    {
+      "claim_id": "CLM-007",
+      "category": "Health & Medicine",
+      "headline": "SHOCKING: 5G mobile towers emit micro-frequencies causing instant cellular DNA damage",
+      "claim_text": "Standard 5G electromagnetic emissions directly destroy cellular DNA structure in humans upon contact.",
+      "ground_truth_veracity": "FALSE",
+      "expected_agreement": "CONTRADICTION",
+      "trusted_corroborating_domains": [],
+      "contradicting_domains": ["who.int", "fcc.gov", "cancer.org", "nature.com"],
+      "expected_credibility_range": [0, 15],
+      "difficulty": "Easy"
+    },
+    {
+      "claim_id": "CLM-008",
+      "category": "Global Politics",
+      "headline": "India successfully lands Chandrayaan-3 spacecraft on lunar South Pole region",
+      "claim_text": "ISRO achieved a successful soft landing of the Chandrayaan-3 lander near the south pole of the Moon.",
+      "ground_truth_veracity": "TRUE",
+      "expected_agreement": "ENTAILMENT",
+      "trusted_corroborating_domains": ["isro.gov.in", "thehindu.com", "bbc.com", "reuters.com", "ndtv.com"],
+      "contradicting_domains": [],
+      "expected_credibility_range": [90, 100],
+      "difficulty": "Easy"
+    },
+    {
+      "claim_id": "CLM-009",
+      "category": "Economy",
+      "headline": "European Union declares all physical cash illegal starting next month",
+      "claim_text": "The European Union has enacted legislation that eliminates all euro banknotes and physical coins by the end of next month.",
+      "ground_truth_veracity": "FALSE",
+      "expected_agreement": "CONTRADICTION",
+      "trusted_corroborating_domains": [],
+      "contradicting_domains": ["ecb.europa.eu", "reuters.com", "dw.com", "politico.eu"],
+      "expected_credibility_range": [0, 15],
+      "difficulty": "Medium"
+    },
+    {
+      "claim_id": "CLM-010",
+      "category": "Science & Climate",
+      "headline": "Global average ocean temperatures in 2023-2024 broke all-time recorded highs according to NOAA",
+      "claim_text": "National Oceanic and Atmospheric Administration sea-surface data confirmed record-breaking global ocean temperatures.",
+      "ground_truth_veracity": "TRUE",
+      "expected_agreement": "ENTAILMENT",
+      "trusted_corroborating_domains": ["noaa.gov", "climate.gov", "theguardian.com", "reuters.com"],
+      "contradicting_domains": [],
+      "expected_credibility_range": [85, 100],
+      "difficulty": "Medium"
+    }
+  ]
+}
