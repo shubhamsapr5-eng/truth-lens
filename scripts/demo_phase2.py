@@ -39,16 +39,12 @@ def demo_domain_lookup(db: SourceReputationDB):
         ["Queried Input", query],
         ["Resolved Canonical Domain", rep.domain],
         ["Source Entity Name", rep.source_name],
-        ["Credibility Score", f"{rep.percentage_score}% ({rep.credibility_score:.2f} / 1.0)"],
+        ["Credibility Score", f"{rep.percentage_score}%"],
         ["Credibility Rating Tier", rep.credibility_rating],
         ["Factual Reporting Quality", rep.factual_reporting.upper()],
         ["Political Bias", rep.bias.upper()],
         ["Country of Origin", rep.country.upper()],
-        ["Satire Indicator", "YES (100% Satirical)" if rep.is_satire else "NO (Serious Journalism)"],
         ["Conspiracy / Pseudoscience", "FLAGGED" if rep.is_conspiracy else "Clean"],
-        ["Resolution Method", rep.lookup_method],
-        ["Weighted Score Factor (W_rep)", f"{rep.weight_factor:.2f}"],
-        ["Lookup Latency", f"{lat_ms:.3f} ms"],
     ]
     print(tabulate(rows, headers=["Attribute", "Value"], tablefmt="grid"))
 
