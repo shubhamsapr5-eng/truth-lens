@@ -161,9 +161,9 @@ def demo_batch_domain_scoring(db: SourceReputationDB):
         ])
         total_weight += r.weight_factor
 
-    headers = ["Domain", "Name", "Credibility", "Factuality", "Bias", "Corroboration Weight (W)", "Status"]
+    headers = ["Domain", "Source Name", "Credibility Score", "Factuality", "Political Bias", "Trust Weight", "Status"]
     print(tabulate(rows, headers=headers, tablefmt="grid"))
-    print(f"\nCombined Mean Source Pool Weight Factor: {total_weight / len(results):.2f}")
+    print(f"\nCombined Mean Source Pool Trust Weight: {total_weight / len(results):.2f}")
 
 
 def main():
@@ -176,13 +176,12 @@ def main():
         print("Select Demonstration Module:")
         print("  1. Query Single Source Reputation (Domain / Article URL)")
         print("  2. Detect Manipulation & Sensationalism in Text")
-        print("  3. Run Ground-Truth Benchmark Test Suite")
-        print("  4. Simulate Multi-Source Evidence Pool Scoring (Batch)")
-        print("  5. View Database EDA & Global Coverage Statistics")
+        print("  3. Simulate Multi-Source Evidence Pool Scoring (Batch)")
+        print("  4. View Database Coverage & Statistics")
         print("  0. Exit")
         print("-" * 76)
 
-        choice = input("Enter choice (0-5) [default=1]: ").strip()
+        choice = input("Enter choice (0-4) [default=1]: ").strip()
         if not choice:
             choice = "1"
 
@@ -191,10 +190,8 @@ def main():
         elif choice == "2":
             demo_manipulation_analysis(detector)
         elif choice == "3":
-            demo_benchmark_verification(db, detector)
-        elif choice == "4":
             demo_batch_domain_scoring(db)
-        elif choice == "5":
+        elif choice == "4":
             stats = db.get_statistics()
             print(f"\n[+] Total Indexed Outlets: {stats['total_sources']}")
             print(f"[+] Average Factuality Score: {stats['average_credibility_score']*100:.1f}%")
@@ -204,7 +201,7 @@ def main():
             print("\nExiting demonstration suite. Good luck with Phase 2 review!")
             break
         else:
-            print("[-] Invalid choice. Please select 0-5.")
+            print("[-] Invalid choice. Please select 0-4.")
 
     db.close()
 
