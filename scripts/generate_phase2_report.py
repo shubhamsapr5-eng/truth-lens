@@ -6,8 +6,25 @@ import sys
 import json
 import sqlite3
 import time
-from pathlib import Path
-from tabulate import tabulate
+try:
+    from tabulate import tabulate
+except ImportError:
+    def tabulate(rows, headers=None, tablefmt="grid"):
+        if not rows:
+            return ""
+        all_rows = [headers] + list(rows) if headers else list(rows)
+        num_cols = max(len(r) for r in all_rows)
+        col_widths = [max(len(str(r[i])) if i < len(r) else 0 for r in all_rows) for i in range(num_cols)]
+        sep = "+" + "+".join("-" * (w + 2) for w in col_widths) + "+"
+        lines = [sep]
+        if headers:
+            lines.append("| " + " | ".join(f"{str(h):<{col_widths[i]}}" for i, h in enumerate(headers)) + " |")
+            lines.append("+" + "+".join("=" * (w + 2) for w in col_widths) + "+")
+        for r in rows:
+            row_vals = [str(r[i]) if i < len(r) else "" for i in range(num_cols)]
+            lines.append("| " + " | ".join(f"{val:<{col_widths[i]}}" for i, val in enumerate(row_vals)) + " |")
+            lines.append(sep)
+        return "\n".join(lines)
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
