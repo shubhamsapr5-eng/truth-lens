@@ -1,6 +1,6 @@
 """
 Builds the complete, publication-grade Review 2 PowerPoint presentation for TruthLens.
-Mapped 1-to-1 to the 20-mark evaluation rubric.
+Clean student-ready presentation without rubric marks annotations, with enlarged fonts.
 """
 
 import os
@@ -37,7 +37,7 @@ def create_review2_presentation():
                 if "AI-Powered News Credibility Scorer" in p.text:
                     p.text = "TruthLens: AI-Powered Real-Time News Credibility Scorer"
 
-    # Helper: Clear shapes on a slide except background graphics
+    # Helper: Clear shapes on a slide
     def clear_slide(slide):
         shapes_to_remove = [s for s in slide.shapes]
         for s in shapes_to_remove:
@@ -45,19 +45,19 @@ def create_review2_presentation():
             sp.getparent().remove(sp)
 
     def add_slide_header(slide, title_text):
-        """Adds a unified styled title header to slide."""
-        tx_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.5), Inches(0.9))
+        """Adds a unified styled title header with enlarged font."""
+        tx_box = slide.shapes.add_textbox(Inches(0.8), Inches(0.4), Inches(11.8), Inches(0.9))
         tf = tx_box.text_frame
         tf.word_wrap = True
         tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
         p = tf.paragraphs[0]
         p.text = title_text
         p.font.name = "Arial"
-        p.font.size = Pt(24)
+        p.font.size = Pt(26)
         p.font.bold = True
         p.font.color.rgb = PRIMARY_COLOR
 
-    def format_cell(cell, text, font_size=10, bold=False, color=TEXT_DARK, bg_color=None, align=PP_ALIGN.LEFT):
+    def format_cell(cell, text, font_size=10.5, bold=False, color=TEXT_DARK, bg_color=None, align=PP_ALIGN.LEFT):
         """Formats a table cell with text, padding, and optional background."""
         cell.text = text
         cell.margin_left = Inches(0.08)
@@ -75,7 +75,7 @@ def create_review2_presentation():
         p.font.bold = bold
         p.font.color.rgb = color
 
-    # Ensure we have 16 slides total
+    # Ensure 16 slides total
     total_needed = 16
     while len(prs.slides) < total_needed:
         prs.slides.add_slide(slide_layout_content)
@@ -88,34 +88,34 @@ def create_review2_presentation():
     # SLIDE 3: Table of Contents
     # ==========================================
     s3 = prs.slides[2]
-    add_slide_header(s3, "Table of Contents (Review 2 Evaluation)")
+    add_slide_header(s3, "Table of Contents")
     
-    t_box = s3.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.5), Inches(5.5))
+    t_box = s3.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
     tf = t_box.text_frame
     tf.word_wrap = True
 
     toc_items = [
         ("1. Problem Statement & Official GitHub Repository", "PSAIAC_61 Project Scope & Repository"),
-        ("2. Abstract", "Problem, Objectives & Approach (Rubric: 2 Marks)"),
-        ("3. Literature Survey (12 IEEE / Scopus Papers)", "Critical Analysis & Comparative Matrix (Rubric: 3 Marks)"),
-        ("4. Project Objectives", "SMART Outcome-Focused Goals (Rubric: 2 Marks)"),
-        ("5. Existing Methods and Drawbacks", "Comparative Critique of Current Approaches (Rubric: 2 Marks)"),
-        ("6. Proposed Method & Feasibility Study", "Cross-Source NLI & Technical/Cost Feasibility (Rubric: 3 Marks)"),
-        ("7. System Architecture Diagram", "3-Tier Dataflow & Model Integration (Rubric: 3 Marks)"),
-        ("8. System Modules Breakdown", "Modules 1 to 6 Functional Details (Rubric: 2 Marks)"),
-        ("9. Hardware and Software Details", "Tech Stack, Dependencies & Hardware Specs (Rubric: 1 Mark)"),
-        ("10. Timeline of the Project (Gantt Chart)", "5-Phase Development Plan & Milestones (Rubric: 1 Mark)"),
-        ("11. References", "IEEE Standard Citation Format (Rubric: 1 Mark)"),
-        ("12. Review 2 Phase Deliverables & Live Demo", "MBFC SQLite Database & Baseline Verification")
+        ("2. Abstract", "Problem, Objectives & Approach"),
+        ("3. Literature Survey (12 IEEE / Scopus Papers)", "Critical Analysis & Comparative Matrix"),
+        ("4. Project Objectives", "SMART Outcome-Focused Goals"),
+        ("5. Existing Methods and Drawbacks", "Comparative Critique of Current Approaches"),
+        ("6. Proposed Method & Feasibility Study", "Cross-Source NLI & Technical / Cost Feasibility"),
+        ("7. System Architecture Diagram", "3-Tier Dataflow & Model Integration"),
+        ("8. System Modules Breakdown", "Modules 1 to 6 Functional Details"),
+        ("9. Hardware and Software Details", "Tech Stack, Dependencies & Hardware Specs"),
+        ("10. Timeline of the Project (Gantt Chart)", "5-Phase Development Plan & Milestones"),
+        ("11. References", "IEEE Standard Citation Format"),
+        ("12. Review 2 Deliverables & Demonstration", "MBFC SQLite Database & Verification Testbed")
     ]
 
     for idx, (title, desc) in enumerate(toc_items):
         p = tf.add_paragraph() if idx > 0 else tf.paragraphs[0]
         p.text = f"{title}  --  {desc}"
         p.font.name = "Arial"
-        p.font.size = Pt(12)
+        p.font.size = Pt(13)
         p.font.color.rgb = TEXT_DARK
-        p.space_after = Pt(4)
+        p.space_after = Pt(3.5)
 
     # ==========================================
     # SLIDE 4: Problem Statement & GitHub
@@ -123,17 +123,17 @@ def create_review2_presentation():
     s4 = prs.slides[3]
     add_slide_header(s4, "Problem Statement & GitHub Repository")
 
-    s4_box = s4.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(11.5), Inches(5.5))
+    s4_box = s4.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
     s4_tf = s4_box.text_frame
     s4_tf.word_wrap = True
 
     p = s4_tf.paragraphs[0]
     p.text = "Problem Statement Number: PSAIAC_61"
     p.font.name = "Arial"
-    p.font.size = Pt(16)
+    p.font.size = Pt(18)
     p.font.bold = True
     p.font.color.rgb = PRIMARY_COLOR
-    p.space_after = Pt(10)
+    p.space_after = Pt(12)
 
     details = [
         ("Organization:", "School of Artificial Intelligence and Advanced Computing (AI&AC), Presidency University"),
@@ -148,23 +148,23 @@ def create_review2_presentation():
         run1 = p.add_run()
         run1.text = f"{label} "
         run1.font.bold = True
-        run1.font.size = Pt(14)
+        run1.font.size = Pt(15)
         run1.font.color.rgb = ACCENT_COLOR if "GitHub" in label else PRIMARY_COLOR
 
         run2 = p.add_run()
         run2.text = val
         run2.font.bold = True if "GitHub" in label else False
-        run2.font.size = Pt(14)
+        run2.font.size = Pt(15)
         run2.font.color.rgb = SUCCESS_COLOR if "GitHub" in label else TEXT_DARK
         p.space_after = Pt(10)
 
     # ==========================================
-    # SLIDE 5: Abstract (2 Marks)
+    # SLIDE 5: Abstract
     # ==========================================
     s5 = prs.slides[4]
-    add_slide_header(s5, "Abstract (Rubric: 2 Marks)")
+    add_slide_header(s5, "Abstract")
 
-    s5_box = s5.shapes.add_textbox(Inches(0.8), Inches(1.4), Inches(11.5), Inches(5.5))
+    s5_box = s5.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
     s5_tf = s5_box.text_frame
     s5_tf.word_wrap = True
 
@@ -180,20 +180,20 @@ def create_review2_presentation():
         r1 = p.add_run()
         r1.text = f"{label} "
         r1.font.bold = True
-        r1.font.size = Pt(13)
+        r1.font.size = Pt(14)
         r1.font.color.rgb = PRIMARY_COLOR
 
         r2 = p.add_run()
         r2.text = text
-        r2.font.size = Pt(13)
+        r2.font.size = Pt(14)
         r2.font.color.rgb = TEXT_DARK
         p.space_after = Pt(10)
 
     # ==========================================
-    # SLIDE 6: Literature Survey Part 1 (3 Marks)
+    # SLIDE 6: Literature Survey Part 1
     # ==========================================
     s6 = prs.slides[5]
-    add_slide_header(s6, "Literature Survey -- Part 1 (Rubric: 3 Marks)")
+    add_slide_header(s6, "Literature Survey -- Part 1")
 
     rows_p1 = [
         ("Paper & Author", "Methodology", "Dataset", "Key Findings", "Research Gap / TruthLens Solution"),
@@ -217,13 +217,13 @@ def create_review2_presentation():
         bg = PRIMARY_COLOR if is_hdr else (BG_LIGHT if r_idx % 2 == 1 else None)
         fg = RGBColor(255, 255, 255) if is_hdr else TEXT_DARK
         for c_idx, val in enumerate(row):
-            format_cell(t6.cell(r_idx, c_idx), val, font_size=9 if not is_hdr else 10, bold=is_hdr, color=fg, bg_color=bg)
+            format_cell(t6.cell(r_idx, c_idx), val, font_size=10 if not is_hdr else 11, bold=is_hdr, color=fg, bg_color=bg)
 
     # ==========================================
-    # SLIDE 7: Literature Survey Part 2 (3 Marks)
+    # SLIDE 7: Literature Survey Part 2
     # ==========================================
     s7 = prs.slides[6]
-    add_slide_header(s7, "Literature Survey -- Part 2 (Rubric: 3 Marks)")
+    add_slide_header(s7, "Literature Survey -- Part 2")
 
     rows_p2 = [
         ("Paper & Author", "Methodology", "Dataset", "Key Findings", "Research Gap / TruthLens Solution"),
@@ -247,15 +247,15 @@ def create_review2_presentation():
         bg = PRIMARY_COLOR if is_hdr else (BG_LIGHT if r_idx % 2 == 1 else None)
         fg = RGBColor(255, 255, 255) if is_hdr else TEXT_DARK
         for c_idx, val in enumerate(row):
-            format_cell(t7.cell(r_idx, c_idx), val, font_size=9 if not is_hdr else 10, bold=is_hdr, color=fg, bg_color=bg)
+            format_cell(t7.cell(r_idx, c_idx), val, font_size=10 if not is_hdr else 11, bold=is_hdr, color=fg, bg_color=bg)
 
     # ==========================================
-    # SLIDE 8: Project Objectives (2 Marks)
+    # SLIDE 8: Project Objectives
     # ==========================================
     s8 = prs.slides[7]
-    add_slide_header(s8, "Project Objectives (Rubric: 2 Marks)")
+    add_slide_header(s8, "Project Objectives")
 
-    s8_box = s8.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.5), Inches(5.6))
+    s8_box = s8.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
     s8_tf = s8_box.text_frame
     s8_tf.word_wrap = True
 
@@ -273,20 +273,20 @@ def create_review2_presentation():
         r1 = p.add_run()
         r1.text = f"{title} "
         r1.font.bold = True
-        r1.font.size = Pt(11)
+        r1.font.size = Pt(12.5)
         r1.font.color.rgb = PRIMARY_COLOR
 
         r2 = p.add_run()
         r2.text = text
-        r2.font.size = Pt(11)
+        r2.font.size = Pt(12.5)
         r2.font.color.rgb = TEXT_DARK
-        p.space_after = Pt(6)
+        p.space_after = Pt(7)
 
     # ==========================================
-    # SLIDE 9: Existing Methods & Drawbacks (2 Marks)
+    # SLIDE 9: Existing Methods & Drawbacks
     # ==========================================
     s9 = prs.slides[8]
-    add_slide_header(s9, "Existing Methods and Drawbacks (Rubric: 2 Marks)")
+    add_slide_header(s9, "Existing Methods and Drawbacks")
 
     rows_em = [
         ("Existing Approach", "Working Principle", "Critical Drawbacks & Limitations"),
@@ -296,25 +296,25 @@ def create_review2_presentation():
         ("4. Shallow Keyword Matching", "Searches Google/News for shared keywords between articles.", "Semantic Blindness: Cannot differentiate whether the other article agrees, refutes, or merely mentions the topic in a different context. Semantic NLI is strictly required.")
     ]
 
-    t9 = s9.shapes.add_table(len(rows_em), 3, Inches(0.8), Inches(1.3), Inches(11.5), Inches(5.5)).table
+    t9 = s9.shapes.add_table(len(rows_em), 3, Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6)).table
     t9.columns[0].width = Inches(2.8)
     t9.columns[1].width = Inches(3.2)
-    t9.columns[2].width = Inches(5.5)
+    t9.columns[2].width = Inches(5.8)
 
     for r_idx, row in enumerate(rows_em):
         is_hdr = (r_idx == 0)
         bg = PRIMARY_COLOR if is_hdr else (BG_LIGHT if r_idx % 2 == 1 else None)
         fg = RGBColor(255, 255, 255) if is_hdr else TEXT_DARK
         for c_idx, val in enumerate(row):
-            format_cell(t9.cell(r_idx, c_idx), val, font_size=10 if not is_hdr else 11, bold=is_hdr, color=fg, bg_color=bg)
+            format_cell(t9.cell(r_idx, c_idx), val, font_size=11 if not is_hdr else 12, bold=is_hdr, color=fg, bg_color=bg)
 
     # ==========================================
-    # SLIDE 10: Proposed Method & Feasibility (3 Marks)
+    # SLIDE 10: Proposed Method & Feasibility
     # ==========================================
     s10 = prs.slides[9]
-    add_slide_header(s10, "Proposed Method & Feasibility Study (Rubric: 3 Marks)")
+    add_slide_header(s10, "Proposed Method & Feasibility Study")
 
-    s10_box = s10.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.5), Inches(5.6))
+    s10_box = s10.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
     s10_tf = s10_box.text_frame
     s10_tf.word_wrap = True
 
@@ -322,7 +322,7 @@ def create_review2_presentation():
     r = p.add_run()
     r.text = "Proposed Innovation -- Multi-Factor Cross-Source Corroboration:"
     r.font.bold = True
-    r.font.size = Pt(13)
+    r.font.size = Pt(14)
     r.font.color.rgb = PRIMARY_COLOR
     p.space_after = Pt(4)
 
@@ -331,7 +331,7 @@ def create_review2_presentation():
     r2.text = "Instead of trusting the article's text, TruthLens verifies the claim against the global consensus of independent reputable outlets:\n"
     r2.text += "Formula: Credibility Score C = 0.70 * [ Evidence_Score ] + 0.30 * Source_Origin_Score - (0.25 * Manipulation_Index)\n"
     r2.text += "Where Evidence_Score = sum(Source_Reputation_Weight * NLI_Agreement_Signal) / sum(Source_Reputation_Weight)"
-    r2.font.size = Pt(11)
+    r2.font.size = Pt(12)
     r2.font.color.rgb = TEXT_DARK
     p2.space_after = Pt(8)
 
@@ -347,20 +347,20 @@ def create_review2_presentation():
         r1 = p.add_run()
         r1.text = f"{title} "
         r1.font.bold = True
-        r1.font.size = Pt(11)
+        r1.font.size = Pt(12.5)
         r1.font.color.rgb = ACCENT_COLOR
 
         r2 = p.add_run()
         r2.text = text
-        r2.font.size = Pt(11)
+        r2.font.size = Pt(12.5)
         r2.font.color.rgb = TEXT_DARK
-        p.space_after = Pt(4)
+        p.space_after = Pt(5)
 
     # ==========================================
-    # SLIDE 11: System Architecture Diagram (3 Marks)
+    # SLIDE 11: System Architecture Diagram
     # ==========================================
     s11 = prs.slides[10]
-    add_slide_header(s11, "System Architecture Diagram (Rubric: 3 Marks)")
+    add_slide_header(s11, "System Architecture Diagram")
 
     layer_data = [
         ("1. Presentation Layer", Inches(0.8), Inches(1.4), Inches(3.4), Inches(5.3), [
@@ -417,7 +417,7 @@ def create_review2_presentation():
         p = tf.paragraphs[0]
         p.text = title
         p.font.name = "Arial"
-        p.font.size = Pt(12)
+        p.font.size = Pt(13)
         p.font.bold = True
         p.font.color.rgb = PRIMARY_COLOR
         p.space_after = Pt(6)
@@ -426,18 +426,18 @@ def create_review2_presentation():
             p = tf.add_paragraph()
             p.text = l
             p.font.name = "Arial"
-            p.font.size = Pt(10)
+            p.font.size = Pt(11)
             p.font.bold = True if ":" in l else False
             p.font.color.rgb = PRIMARY_COLOR if ":" in l else TEXT_DARK
-            p.space_after = Pt(2)
+            p.space_after = Pt(2.5)
 
     # ==========================================
-    # SLIDE 12: Modules Breakdown (2 Marks)
+    # SLIDE 12: Modules Breakdown
     # ==========================================
     s12 = prs.slides[11]
-    add_slide_header(s12, "System Modules Breakdown (Rubric: 2 Marks)")
+    add_slide_header(s12, "System Modules Breakdown")
 
-    s12_box = s12.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.5), Inches(5.6))
+    s12_box = s12.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
     s12_tf = s12_box.text_frame
     s12_tf.word_wrap = True
 
@@ -455,20 +455,20 @@ def create_review2_presentation():
         r1 = p.add_run()
         r1.text = f"{title} "
         r1.font.bold = True
-        r1.font.size = Pt(11)
+        r1.font.size = Pt(12.5)
         r1.font.color.rgb = PRIMARY_COLOR
 
         r2 = p.add_run()
         r2.text = text
-        r2.font.size = Pt(11)
+        r2.font.size = Pt(12.5)
         r2.font.color.rgb = TEXT_DARK
-        p.space_after = Pt(6)
+        p.space_after = Pt(7)
 
     # ==========================================
-    # SLIDE 13: Hardware & Software Details (1 Mark)
+    # SLIDE 13: Hardware & Software Details
     # ==========================================
     s13 = prs.slides[12]
-    add_slide_header(s13, "Hardware and Software Details (Rubric: 1 Mark)")
+    add_slide_header(s13, "Hardware and Software Details")
 
     rows_hw = [
         ("Component Category", "Technology / Specification", "Purpose in TruthLens Architecture"),
@@ -484,23 +484,23 @@ def create_review2_presentation():
         ("Hardware Specs", "Min: Quad-Core CPU, 8 GB RAM, 5 GB SSD\nRec: 8-Core CPU, 16 GB RAM, NVIDIA RTX GPU", "Enables local RoBERTa model execution with <4s latency")
     ]
 
-    t13 = s13.shapes.add_table(len(rows_hw), 3, Inches(0.8), Inches(1.3), Inches(11.5), Inches(5.6)).table
+    t13 = s13.shapes.add_table(len(rows_hw), 3, Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6)).table
     t13.columns[0].width = Inches(2.5)
-    t13.columns[1].width = Inches(4.2)
-    t13.columns[2].width = Inches(4.8)
+    t13.columns[1].width = Inches(4.3)
+    t13.columns[2].width = Inches(5.0)
 
     for r_idx, row in enumerate(rows_hw):
         is_hdr = (r_idx == 0)
         bg = PRIMARY_COLOR if is_hdr else (BG_LIGHT if r_idx % 2 == 1 else None)
         fg = RGBColor(255, 255, 255) if is_hdr else TEXT_DARK
         for c_idx, val in enumerate(row):
-            format_cell(t13.cell(r_idx, c_idx), val, font_size=8.5 if not is_hdr else 9.5, bold=is_hdr, color=fg, bg_color=bg)
+            format_cell(t13.cell(r_idx, c_idx), val, font_size=9.5 if not is_hdr else 11, bold=is_hdr, color=fg, bg_color=bg)
 
     # ==========================================
-    # SLIDE 14: Timeline / Gantt Chart (1 Mark)
+    # SLIDE 14: Timeline / Gantt Chart
     # ==========================================
     s14 = prs.slides[13]
-    add_slide_header(s14, "Timeline of the Project -- 5-Phase Plan (Rubric: 1 Mark)")
+    add_slide_header(s14, "Timeline of the Project -- 5-Phase Plan")
 
     rows_tl = [
         ("Phase", "Duration", "Core Deliverables & Scope", "Current Status"),
@@ -511,10 +511,10 @@ def create_review2_presentation():
         ("Phase 5", "Weeks 9-12", "Score aggregation engine, FastAPI REST API, Streamlit dashboard, end-to-end evaluation & final report.", "Upcoming")
     ]
 
-    t14 = s14.shapes.add_table(len(rows_tl), 4, Inches(0.8), Inches(1.4), Inches(11.5), Inches(5.2)).table
+    t14 = s14.shapes.add_table(len(rows_tl), 4, Inches(0.8), Inches(1.4), Inches(11.8), Inches(5.2)).table
     t14.columns[0].width = Inches(1.4)
     t14.columns[1].width = Inches(1.6)
-    t14.columns[2].width = Inches(6.5)
+    t14.columns[2].width = Inches(6.8)
     t14.columns[3].width = Inches(2.0)
 
     for r_idx, row in enumerate(rows_tl):
@@ -522,15 +522,15 @@ def create_review2_presentation():
         bg = PRIMARY_COLOR if is_hdr else (BG_LIGHT if r_idx % 2 == 1 else None)
         fg = RGBColor(255, 255, 255) if is_hdr else TEXT_DARK
         for c_idx, val in enumerate(row):
-            format_cell(t14.cell(r_idx, c_idx), val, font_size=10 if not is_hdr else 11, bold=is_hdr, color=fg, bg_color=bg)
+            format_cell(t14.cell(r_idx, c_idx), val, font_size=11 if not is_hdr else 12, bold=is_hdr, color=fg, bg_color=bg)
 
     # ==========================================
-    # SLIDE 15: References -- IEEE Format (1 Mark)
+    # SLIDE 15: References
     # ==========================================
     s15 = prs.slides[14]
-    add_slide_header(s15, "References (IEEE Format -- Rubric: 1 Mark)")
+    add_slide_header(s15, "References (IEEE Format)")
 
-    s15_box = s15.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.5), Inches(5.6))
+    s15_box = s15.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
     s15_tf = s15_box.text_frame
     s15_tf.word_wrap = True
 
@@ -553,7 +553,7 @@ def create_review2_presentation():
         p = s15_tf.add_paragraph() if idx > 0 else s15_tf.paragraphs[0]
         p.text = ref
         p.font.name = "Arial"
-        p.font.size = Pt(8.5)
+        p.font.size = Pt(9.5)
         p.font.color.rgb = TEXT_DARK
         p.space_after = Pt(2.5)
 
@@ -563,17 +563,17 @@ def create_review2_presentation():
     s16 = prs.slides[15]
     add_slide_header(s16, "Review 2 Summary & Demonstration")
 
-    s16_box = s16.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.5), Inches(5.6))
+    s16_box = s16.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
     s16_tf = s16_box.text_frame
     s16_tf.word_wrap = True
 
     p = s16_tf.paragraphs[0]
     p.text = "Review 2 Phase Deliverables Achieved (Weeks 3-4):"
     p.font.name = "Arial"
-    p.font.size = Pt(14)
+    p.font.size = Pt(15)
     p.font.bold = True
     p.font.color.rgb = PRIMARY_COLOR
-    p.space_after = Pt(6)
+    p.space_after = Pt(8)
 
     achievements = [
         ("Source Reputation Database:", "4,442 unique media domains indexed in SQLite with sub-millisecond lookups (<0.02ms)."),
@@ -589,19 +589,32 @@ def create_review2_presentation():
         r1 = p.add_run()
         r1.text = f"[+] {label} "
         r1.font.bold = True
-        r1.font.size = Pt(11)
+        r1.font.size = Pt(12.5)
         r1.font.color.rgb = SUCCESS_COLOR
 
         r2 = p.add_run()
         r2.text = desc
-        r2.font.size = Pt(11)
+        r2.font.size = Pt(12.5)
         r2.font.color.rgb = TEXT_DARK
-        p.space_after = Pt(4)
+        p.space_after = Pt(5)
 
     # Save presentations
-    prs.save(DST_PPT)
+    saved_paths = []
+    try:
+        prs.save(DST_PPT)
+        saved_paths.append(DST_PPT)
+    except PermissionError:
+        alt_path = r"C:\Users\shubh\Desktop\AI_News_Credibility_Scorer_Review2_Updated.pptx"
+        prs.save(alt_path)
+        saved_paths.append(alt_path)
+        print(f"[!] Note: '{DST_PPT}' is currently open in PowerPoint.")
+        print(f"[+] Saved updated version to: '{alt_path}'")
+
     prs.save(DOCS_PPT)
-    print(f"Successfully generated Review 2 PPT with 0 warnings at:\n  1. {DST_PPT}\n  2. {DOCS_PPT}")
+    saved_paths.append(DOCS_PPT)
+    print(f"Successfully generated Review 2 PPT with larger fonts and no marks annotations at:")
+    for p in saved_paths:
+        print(f"  - {p}")
 
 
 if __name__ == "__main__":
