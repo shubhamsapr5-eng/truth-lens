@@ -198,7 +198,7 @@ if not st.session_state.authenticated:
 with st.sidebar:
     st.markdown("### 🛡️ **TruthLens Dashboard**")
     st.markdown(f"👤 Logged in as: **{st.session_state.username}**")
-    if st.button("Logout", size="small"):
+    if st.button("Logout", key="btn_logout"):
         st.session_state.authenticated = False
         st.rerun()
 
@@ -559,10 +559,10 @@ elif menu == "ℹ️ Project Methodology & Architecture":
     st.markdown("---")
     st.subheader("🗺️ 5-Phase Project Roadmap")
     roadmap_df = pd.DataFrame([
-        {"Phase": "Phase 1 (Review 1)", "Scope": "Literature Survey (12 IEEE Papers), Problem Definition & Architecture", "Status": "✅ Completed"},
-        {"Phase 2 (Review 2)", "Scope": "MBFC Knowledge Base (4,442 Outlets), Manipulation Engine, Benchmark Tests", "Status": "✅ Completed"},
-        {"Phase 3 (Current 50%)", "Scope": "Interactive Web Dashboard, NewsAPI Live Retrieval, Multi-Source Pool", "Status": "🚀 50% Milestone Ready"},
-        {"Phase 4 (Next Phase)", "Scope": "RoBERTa-MNLI Pairwise Cross-Checking & Semantic Stance Detection", "Status": "⏳ Scheduled"},
-        {"Phase 5 (Final Review)", "Scope": "Unified Score Aggregator, Production REST API, Final Comprehensive Report", "Status": "⏳ Scheduled"}
+        {"Phase": "Phase 1 (Review 1)", "Scope": "Literature Survey (12 IEEE Papers), Problem Definition & Architecture", "Status": "Completed"},
+        {"Phase": "Phase 2 (Review 2)", "Scope": "MBFC Knowledge Base (4,442 Outlets), Manipulation Engine, Benchmark Tests", "Status": "Completed"},
+        {"Phase": "Phase 3 (Current 50%)", "Scope": "Interactive Web Dashboard, NewsAPI Live Retrieval, Multi-Source Pool", "Status": "50% Milestone Ready"},
+        {"Phase": "Phase 4 (Next Phase)", "Scope": "RoBERTa-MNLI Pairwise Cross-Checking & Semantic Stance Detection", "Status": "Scheduled"},
+        {"Phase": "Phase 5 (Final Review)", "Scope": "Unified Score Aggregator, Production REST API, Final Comprehensive Report", "Status": "Scheduled"}
     ])
     st.table(roadmap_df)
