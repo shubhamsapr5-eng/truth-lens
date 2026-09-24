@@ -351,8 +351,8 @@ if menu == "🔍 Credibility Verification Suite":
                 st.markdown(f"""
                 <div class="metric-card">
                     <div class="metric-label">Manipulation Risk</div>
-                    <div class="metric-value" style="color: {'#dc2626' if res.manipulation_score > 40 else ('#d97706' if res.manipulation_score > 15 else '#16a34a')};">
-                        {res.manipulation_score:.1f}%
+                    <div class="metric-value" style="color: {'#dc2626' if res.overall_manipulation_score > 40 else ('#d97706' if res.overall_manipulation_score > 15 else '#16a34a')};">
+                        {res.overall_manipulation_score:.1f}%
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -367,25 +367,34 @@ if menu == "🔍 Credibility Verification Suite":
                 st.markdown(f"""
                 <div class="metric-card">
                     <div class="metric-label">Triggers Caught</div>
-                    <div class="metric-value">{res.total_triggers} triggers</div>
+                    <div class="metric-value">{len(res.flagged_phrases)} triggers</div>
                 </div>
                 """, unsafe_allow_html=True)
 
             # Highlighting trigger words in the text
             st.markdown("#### 🔎 **Highlighted Manipulation Markers in Text:**")
             highlighted = text_input
-            for m in res.matched_sensationalism:
-                highlighted = re.sub(re.escape(m), f'<span style="background-color: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">{m} [Sensational]</span>', highlighted, flags=re.IGNORECASE)
-            for m in res.matched_urgency:
-                highlighted = re.sub(re.escape(m), f'<span style="background-color: #fed7aa; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #9a3412;">{m} [Panic]</span>', highlighted, flags=re.IGNORECASE)
-            for m in res.matched_conspiracy:
-                highlighted = re.sub(re.escape(m), f'<span style="background-color: #fecaca; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #991b1b;">{m} [Conspiracy]</span>', highlighted, flags=re.IGNORECASE)
+            seen_terms = set()
+            for fp in res.flagged_phrases:
+                term = fp.get("term", "")
+                cat = fp.get("category", "")
+                if term and term.lower() not in seen_terms:
+                    seen_terms.add(term.lower())
+                    if "sensational" in cat:
+                        badge = f'<span style="background-color: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">{term} [Sensational]</span>'
+                    elif "fear" in cat or "urgency" in cat:
+                        badge = f'<span style="background-color: #fed7aa; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #9a3412;">{term} [Panic]</span>'
+                    elif "conspiracy" in cat:
+                        badge = f'<span style="background-color: #fecaca; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #991b1b;">{term} [Conspiracy]</span>'
+                    else:
+                        badge = f'<span style="background-color: #e0e7ff; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #3730a3;">{term} [Trigger]</span>'
+                    highlighted = re.sub(re.escape(term), badge, highlighted, flags=re.IGNORECASE)
             
             st.markdown(f'<div style="background-color: #f3f4f6; padding: 1.2rem; border-radius: 8px; font-size: 1.1rem; line-height: 1.8;">{highlighted}</div>', unsafe_allow_html=True)
 
-            if res.flags:
+            if res.stylistic_flags:
                 st.markdown("**Identified Stylistic Red Flags:**")
-                for f in res.flags:
+                for f in res.stylistic_flags:
                     st.warning(f"• {f}")
 
     # ----------------------------------------------------
