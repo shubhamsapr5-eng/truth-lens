@@ -2,18 +2,18 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.104+-009688.svg)](https://fastapi.tiangolo.com)
-[![Transformers](https://img.shields.io/badge/%F0%9F%A4%97%20Transformers-RoBERTa--MNLI-orange)](https://huggingface.co/roberta-large-mnli)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.64+-FF4B4B.svg)](https://streamlit.io)
 [![Database](https://img.shields.io/badge/SQLite-4%2C442%20Domains-lightgrey)](https://mediabiasfactcheck.com/)
-[![Tests](https://img.shields.io/badge/pytest-13%20passed-brightgreen)](https://docs.pytest.org/)
+[![Tests](https://img.shields.io/badge/pytest-16%20passed-brightgreen)](https://docs.pytest.org/)
 
 > **Problem Statement (PSAIAC_61):** Misinformation spreads ~6x faster than real news online (*Science*, 2018). **TruthLens** evaluates news articles in real time and scores them on **factual accuracy**, **source credibility**, and **manipulation indicators** using Natural Language Inference (NLI) and cross-source consensus.
 
 ---
 
-## 📑 Academic Review 2 Documents (20 Marks Evaluation)
+## 📑 Project Review & Evaluation Documents
 
-- 📊 **[Slide-by-Slide Presentation Deck](docs/REVIEW_2_SLIDES.md)** *(Strictly mapped to the 10-point evaluation rubric)*
+- 🚀 **[50% Project Milestone Deliverable Report](docs/50_PERCENT_MILESTONE.md)** *(Comprehensive 50% completion matrix & remaining 50% roadmap)*
+- 📊 **[Slide-by-Slide Presentation Deck](docs/REVIEW_2_SLIDES.md)** *(Mapped to evaluation rubric)*
 - 📄 **[Comprehensive Academic Project Report](docs/REVIEW_2_REPORT.md)** *(Complete with 12 IEEE/Scopus papers critical analysis)*
 - 🗺️ **[5-Phase Project Roadmap](docs/FIVE_PHASE_PROJECT_ROADMAP.md)** *(Detailed milestone & mathematical formulation breakdown)*
 
@@ -73,19 +73,20 @@ Fill in free API keys from [NewsAPI](https://newsapi.org/register) and [GNews](h
 python scripts/build_mbfc_db.py
 ```
 
-### 4. Run Automated Test Suite (13/13 Passing)
+### 4. Run Automated Test Suite (16/16 Passing)
 ```bash
 python -m pytest tests/ -v
 ```
 
-### 5. Launch the Interactive Phase 2 Demo CLI
+### 5. Launch the 50% Milestone Web Dashboard
+```bash
+python -m streamlit run app.py
+```
+*(On Windows: Simply double-click `Run_TruthLens.bat` on your Desktop).*
+
+### 6. Alternative: Interactive Phase 2 Demo CLI
 ```bash
 python scripts/demo_phase2.py
-```
-
-### 6. Generate Dataset EDA Report
-```bash
-python scripts/generate_phase2_report.py
 ```
 
 ---
@@ -95,10 +96,10 @@ python scripts/generate_phase2_report.py
 | Phase | Timeline | Focus Area | Status |
 |:---|:---:|---|:---:|
 | **Phase 1** | Weeks 1–2 | Problem Formulation, Literature Survey (12 Papers) & Architecture Blueprint | ✅ **Completed** |
-| **Phase 2** | Weeks 3–4 | Dataset Acquisition, MBFC Source DB (4,442 outlets) & Manipulation Lexicons | 🚀 **Completed (Review 2)** |
-| **Phase 3** | Weeks 5–6 | Web Scraping Pipeline, Claim Extractor & NewsAPI Retrieval Pool | ⏳ *Upcoming* |
-| **Phase 4** | Weeks 7–8 | RoBERTa-MNLI Pairwise Inference & Manipulation Scoring Engine | ⏳ *Upcoming* |
-| **Phase 5** | Weeks 9–12 | Weighted Score Aggregator, FastAPI Backend & Interactive UI Dashboard | ⏳ *Upcoming* |
+| **Phase 2** | Weeks 3–4 | Dataset Acquisition, MBFC Source DB (4,442 outlets) & Manipulation Lexicons | ✅ **Completed (Review 2)** |
+| **Phase 3** | Weeks 5–6 | Live NewsAPI Retrieval Pool & Interactive Streamlit Web Dashboard | 🚀 **Completed (50% Milestone)** |
+| **Phase 4** | Weeks 7–8 | RoBERTa-MNLI Pairwise Cross-Checking & Factual Claim Extraction | ⏳ *Scheduled (Next)* |
+| **Phase 5** | Weeks 9–12 | Weighted Score Aggregator, Production REST API & Final Evaluation | ⏳ *Scheduled (Final Review)* |
 
 ---
 
