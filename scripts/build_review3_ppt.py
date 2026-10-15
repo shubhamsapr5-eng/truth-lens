@@ -316,32 +316,31 @@ def create_review3_presentation():
     s10 = prs.slides[9]
     add_slide_header(s10, "Proposed Method & Feasibility Study")
 
-    s10_box = s10.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
+    s10_box = s10.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(5.9), Inches(5.6))
     s10_tf = s10_box.text_frame
     s10_tf.word_wrap = True
 
     p = s10_tf.paragraphs[0]
     r = p.add_run()
-    r.text = "Proposed Innovation -- Multi-Factor Cross-Source Corroboration:"
+    r.text = "Proposed Multi-Factor Corroboration Innovation:\n"
     r.font.bold = True
-    r.font.size = Pt(14)
+    r.font.size = Pt(12)
     r.font.color.rgb = PRIMARY_COLOR
-    p.space_after = Pt(4)
+    p.space_after = Pt(2)
 
     p2 = s10_tf.add_paragraph()
     r2 = p2.add_run()
-    r2.text = "Instead of trusting the article's text, TruthLens verifies the claim against the global consensus of independent reputable outlets:\n"
-    r2.text += "Formula: Credibility Score C = 0.70 * [ Evidence_Score ] + 0.30 * Source_Origin_Score - (0.25 * Manipulation_Index)\n"
-    r2.text += "Where Evidence_Score = sum(Source_Reputation_Weight * NLI_Agreement_Signal) / sum(Source_Reputation_Weight)"
-    r2.font.size = Pt(12)
+    r2.text = "TruthLens verifies claims against the global consensus of independent reputable journalism using a 3-pillar formula:\n"
+    r2.text += "C_final = 0.70 * S_evidence + 0.30 * W_origin - (0.25 * M_index)\n"
+    r2.font.size = Pt(10.5)
     r2.font.color.rgb = TEXT_DARK
-    p2.space_after = Pt(8)
+    p2.space_after = Pt(6)
 
     feas_items = [
-        ("1. Technical Feasibility:", "Pretrained RoBERTa-MNLI achieves 90%+ zero-shot NLI accuracy without expensive re-training. SQLite provides <0.02ms indexed lookups locally."),
-        ("2. Economic / Cost Feasibility ($0 Cost):", "Uses free developer tiers of NewsAPI (100 req/day) & GNews API. RoBERTa runs locally with zero cloud API billing."),
-        ("3. Computational Feasibility:", "GPU inference takes <50ms per pair (<250ms on CPU). Limiting evidence to top 5 sentences guarantees <4s end-to-end latency."),
-        ("4. Resource Availability:", "Idiap research corpus (4,400+ domains), Hugging Face model hub, and standard open-source Python libraries are fully accessible.")
+        ("1. Technical Feasibility:", "Pretrained RoBERTa-MNLI achieves 90%+ zero-shot NLI accuracy. SQLite provides <0.02ms lookups locally."),
+        ("2. Economic Feasibility ($0 Cost):", "Free developer tiers of NewsAPI & GNews API. RoBERTa executes locally with zero cloud API billing."),
+        ("3. Computational Feasibility:", "GPU inference takes <50ms per pair (<250ms on CPU). Limiting to top-5 sentences guarantees <3s latency."),
+        ("4. Resource Availability:", "Idiap corpus (4,442 domains), Hugging Face model hub, and standard open-source Python libraries.")
     ]
 
     for title, text in feas_items:
@@ -349,14 +348,18 @@ def create_review3_presentation():
         r1 = p.add_run()
         r1.text = f"{title} "
         r1.font.bold = True
-        r1.font.size = Pt(12)
+        r1.font.size = Pt(10.5)
         r1.font.color.rgb = ACCENT_COLOR
 
         r2 = p.add_run()
         r2.text = text
-        r2.font.size = Pt(12)
+        r2.font.size = Pt(10)
         r2.font.color.rgb = TEXT_DARK
-        p.space_after = Pt(4)
+        p.space_after = Pt(3)
+
+    fig_scoring = r"C:\Users\shubh\Desktop\truth-lens\data\figures\fig3_2_scoring_pipeline.png"
+    if os.path.exists(fig_scoring):
+        s10.shapes.add_picture(fig_scoring, Inches(6.9), Inches(1.35), Inches(5.6), Inches(5.35))
 
     # ==========================================
     # SLIDE 11: System Architecture Diagram
@@ -367,92 +370,24 @@ def create_review3_presentation():
     fig_arch = r"C:\Users\shubh\Desktop\truth-lens\data\figures\fig3_1_architecture.png"
     if os.path.exists(fig_arch):
         s11.shapes.add_picture(fig_arch, Inches(0.8), Inches(1.35), Inches(11.73), Inches(5.35))
-    else:
-        layer_data = [
-            ("1. Presentation Layer [LIVE]", Inches(0.8), Inches(1.4), Inches(3.4), Inches(5.3), [
-                "Streamlit Web Dashboard:",
-                " * Evaluator Login Portal",
-                " * 1-Click Desktop Launcher",
-                "",
-                "3 Verification Tabs:",
-                " * URL Domain Inspector",
-                " * Text Manipulation Scanner",
-                " * Live Claim Cross-Search",
-                "",
-                "Media Knowledge Directory:",
-                " * 4,442 Searchable Outlets"
-            ]),
-            ("2. Retrieval & Data Pipeline [LIVE]", Inches(4.6), Inches(1.4), Inches(3.8), Inches(5.3), [
-                "News Retrieval Engine:",
-                " * NewsAPI Live Integration",
-                " * GNews Backup Integration",
-                " * Corroboration Pool (5-10 Outlets)",
-                "",
-                "MBFC SQLite Database:",
-                " * 4,442 Domains Indexed",
-                " * Canonical Domain Resolver",
-                " * <0.02ms Query Latency",
-                " * Source Weights (W_rep)"
-            ]),
-            ("3. Intelligence & Scoring", Inches(8.8), Inches(1.4), Inches(3.5), Inches(5.3), [
-                "Manipulation Detector [LIVE]:",
-                " * 109 Lexical Triggers",
-                " * Clickbait & Panic Analyzer",
-                " * Text Highlight Generator",
-                "",
-                "RoBERTa-MNLI Engine [Phase 4]:",
-                " * Stance Inference (Phi_NLI)",
-                " * Agree / Disagree / Neutral",
-                "",
-                "Multi-Factor Aggregator [Phase 5]"
-            ])
-        ]
-
-        for title, left, top, width, height, lines in layer_data:
-            shape = s11.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
-            shape.fill.solid()
-            shape.fill.fore_color.rgb = BG_LIGHT
-            shape.line.color.rgb = SUCCESS_COLOR if "[LIVE]" in title else ACCENT_COLOR
-            shape.line.width = Pt(1.5)
-
-            tf = shape.text_frame
-            tf.word_wrap = True
-            tf.margin_left = Inches(0.12)
-            tf.margin_top = Inches(0.12)
-            p = tf.paragraphs[0]
-            p.text = title
-            p.font.name = "Arial"
-            p.font.size = Pt(13)
-            p.font.bold = True
-            p.font.color.rgb = SUCCESS_COLOR if "[LIVE]" in title else PRIMARY_COLOR
-            p.space_after = Pt(6)
-
-            for l in lines:
-                p = tf.add_paragraph()
-                p.text = l
-                p.font.name = "Arial"
-                p.font.size = Pt(10.5)
-                p.font.bold = True if ":" in l else False
-                p.font.color.rgb = PRIMARY_COLOR if ":" in l else TEXT_DARK
-                p.space_after = Pt(2.5)
 
     # ==========================================
     # SLIDE 12: Modules Breakdown
     # ==========================================
     s12 = prs.slides[11]
-    add_slide_header(s12, "System Modules Breakdown")
+    add_slide_header(s12, "System Modules Breakdown & Data Flow")
 
-    s12_box = s12.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
+    s12_box = s12.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(5.9), Inches(5.6))
     s12_tf = s12_box.text_frame
     s12_tf.word_wrap = True
 
     modules = [
-        ("Module 1 -- Article Ingestion & Web Scraper:", "Parses news URLs, strips HTML boilerplate, extracts clean headline and body text, and identifies publisher domain."),
-        ("Module 2 -- Factual Claim Extractor:", "Applies Named Entity Recognition (NER) and syntactic heuristics to identify checkable factual assertions from subjective opinion sentences. [Phase 4]"),
-        ("Module 3 -- Evidence Retrieval Engine [Phase 3 - DONE]:", "Constructs targeted search queries from claims and fetches 5-10 contemporary articles from NewsAPI & GNews API."),
-        ("Module 4 -- MBFC Source Reputation Database [Phase 2 - DONE]:", "Queries an indexed SQLite database of 4,442 news outlets; applies canonical domain matching and assigns reliability weights (W_rep)."),
-        ("Module 5 -- RoBERTa-MNLI & Manipulation Engine [5A: Phase 4, 5B: DONE]:", "Submodule 5A evaluates semantic stance (Agree/Disagree); Submodule 5B scans for 109 clickbait/panic triggers."),
-        ("Module 6 -- Score Aggregation & Web Dashboard [Phase 3 - DONE]:", "Computes credibility metrics and renders the interactive Streamlit user dashboard with evidence cards.")
+        ("Module 1 -- Article Ingestion & Scraper:", "Parses news URLs, extracts clean text, and identifies canonical domain."),
+        ("Module 2 -- Factual Claim Extractor:", "Extracts checkable factual assertions using NER & POS heuristics. [Phase 4]"),
+        ("Module 3 -- Evidence Retrieval [DONE]:", "Constructs search queries and fetches 5-10 articles from NewsAPI."),
+        ("Module 4 -- MBFC SQLite Database [DONE]:", "Queries 4,442 outlets with <0.02ms query speed and assigns reliability weights."),
+        ("Module 5 -- Manipulation Engine [DONE]:", "Scans text for 109 clickbait, panic, and conspiracy markers in 1.4ms."),
+        ("Module 6 -- Streamlit Web Dashboard [DONE]:", "Interactive UI with evaluator login, URL inspector, text scanner, and evidence pool.")
     ]
 
     for idx, (title, text) in enumerate(modules):
@@ -460,14 +395,18 @@ def create_review3_presentation():
         r1 = p.add_run()
         r1.text = f"{title} "
         r1.font.bold = True
-        r1.font.size = Pt(12)
+        r1.font.size = Pt(10.5)
         r1.font.color.rgb = SUCCESS_COLOR if "DONE" in title else PRIMARY_COLOR
 
         r2 = p.add_run()
         r2.text = text
-        r2.font.size = Pt(12)
+        r2.font.size = Pt(9.5)
         r2.font.color.rgb = TEXT_DARK
-        p.space_after = Pt(6)
+        p.space_after = Pt(3)
+
+    fig_dfd = r"C:\Users\shubh\Desktop\truth-lens\data\figures\fig5_2_dfd.png"
+    if os.path.exists(fig_dfd):
+        s12.shapes.add_picture(fig_dfd, Inches(6.9), Inches(1.35), Inches(5.6), Inches(5.35))
 
     # ==========================================
     # SLIDE 13: Phase 3 Core Achievements (50% Milestone)
