@@ -591,147 +591,104 @@ if menu == "🔍 Credibility Verification Suite":
                                 st.toast(f"Claim #{c.claim_id} loaded into Tab 3! Switch to Tab 3 to execute verification.")
 
     # ----------------------------------------------------
-    # TAB 3: UNIFIED STANCE CONSENSUS & CREDIBILITY DIAL (65% MILESTONE)
+    # TAB 3: EVIDENCE RETRIEVAL & STANCE DETECTION (65% MILESTONE)
     # ----------------------------------------------------
     with tab_claim:
-        st.subheader("3. Unified Evidence Cross-Search, NLI Stance & Final Credibility Dial (65% Milestone)")
-        st.write("Cross-examine any claim against live global news sources, compute directional Natural Language Inference (NLI) stances, and calculate the unified credibility score.")
+        st.subheader("3. Multi-Source Evidence Retrieval & Semantic Stance Detection (65% Milestone)")
+        st.write("Cross-examine factual claims against live global news sources and detect whether each outlet **Supports (🟢)**, **Refutes (🔴)**, or is **Neutral (⚪)** using Natural Language Inference (NLI).")
 
         if "active_claim" not in st.session_state:
             st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
-        if "claim_origin" not in st.session_state:
-            st.session_state.claim_origin = "https://www.reuters.com"
 
         # Preset test cases for evaluation demo
         st.markdown("**Quick Preset Claims for Review Demo:**")
-        qc1, qc2, qc3, qc4 = st.columns(4)
-        if qc1.button("🟢 Chandrayaan-3 Landing (Verified)", use_container_width=True):
+        qc1, qc2, qc3 = st.columns(3)
+        if qc1.button("🟢 Chandrayaan-3 Landing (Supports)", use_container_width=True):
             st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
-            st.session_state.claim_origin = "https://www.reuters.com"
             st.rerun()
-        if qc2.button("🔴 Bleach Viral Cure (Debunked)", use_container_width=True):
+        if qc2.button("🔴 Bleach Viral Cure (Refutes)", use_container_width=True):
             st.session_state.active_claim = "Drinking bleach is a proven miracle cure for viral infections"
-            st.session_state.claim_origin = "https://viralnews-rumors.net"
             st.rerun()
-        if qc3.button("🎭 The Onion Sleep Pill (Satire)", use_container_width=True):
-            st.session_state.active_claim = "Scientists invent miracle pill that eliminates the need for human sleep"
-            st.session_state.claim_origin = "https://www.theonion.com"
-            st.rerun()
-        if qc4.button("⚠️ Miracle Cancer Cure (Clickbait)", use_container_width=True):
-            st.session_state.active_claim = "SHOCKING BOMBSHELL: Big Pharma is hiding a simple secret miracle cure from the public"
-            st.session_state.claim_origin = "https://naturalcuretruth.com"
+        if qc3.button("⚪ Mars Rover Geology (Neutral / Mixed)", use_container_width=True):
+            st.session_state.active_claim = "NASA rover discovered signs of microbial life on Mars surface"
             st.rerun()
 
-        f_col1, f_col2 = st.columns([2.5, 1.2])
-        with f_col1:
-            claim_input = st.text_input(
-                "Enter Factual Claim to Cross-Examine:",
-                value=st.session_state.active_claim
-            )
-            st.session_state.active_claim = claim_input
-        with f_col2:
-            origin_url_input = st.text_input(
-                "Originating Publisher URL / Domain:",
-                value=st.session_state.claim_origin
-            )
-            st.session_state.claim_origin = origin_url_input
+        claim_input = st.text_input(
+            "Enter Factual Claim to Cross-Examine:",
+            value=st.session_state.active_claim
+        )
+        st.session_state.active_claim = claim_input
 
         num_articles = st.slider("Number of independent news sources to retrieve for evidence pool:", 3, 8, 5)
 
-        if st.button("🚀 Execute Full 65% Cross-Verification Pipeline", type="primary", use_container_width=True):
-            with st.spinner("Step 1/4: Retrieving independent global news evidence articles..."):
+        if st.button("🚀 Retrieve Evidence & Detect Stance (65% Milestone)", type="primary", use_container_width=True):
+            with st.spinner("Step 1/2: Querying independent global news channels via NewsAPI..."):
                 t_pipe_start = time.perf_counter()
                 articles = retriever.search_evidence(claim_input, max_results=num_articles)
 
-            with st.spinner("Step 2/4: Running Semantic Stance Classification & NLI Inference..."):
+            with st.spinner("Step 2/2: Running Semantic Stance Classification & NLI Inference..."):
                 stances = []
                 for art in articles:
                     evidence_text = f"{art.title}. {art.snippet}"
                     res_st = stance_classifier.classify_pair(claim_input, evidence_text)
                     stances.append(res_st)
-
-            with st.spinner("Step 3/4: Analyzing Linguistic Manipulation and Origin Source Reputation..."):
-                manip_rep = detector.analyze(headline=claim_input, body="")
-                origin_rep = db.lookup(origin_url_input)
-
-            with st.spinner("Step 4/4: Computing Unified Mathematical Credibility Formula..."):
-                assessment = score_aggregator.aggregate(
-                    origin_score=origin_rep.percentage_score,
-                    articles=articles,
-                    stances=stances,
-                    manipulation_report=manip_rep,
-                    is_satire=origin_rep.is_satire,
-                    is_conspiracy=origin_rep.is_conspiracy
-                )
                 t_total = time.perf_counter() - t_pipe_start
 
             st.write("---")
 
-            # Executive Verdict Banner
-            if assessment.verdict == VerdictTier.VERIFIED_CREDIBLE:
-                st.success(f"### {assessment.verdict_badge} — Credibility Score: **{assessment.final_score:.1f}%**\n{assessment.summary_verdict}")
-            elif assessment.verdict == VerdictTier.LIKELY_CREDIBLE:
-                st.info(f"### {assessment.verdict_badge} — Credibility Score: **{assessment.final_score:.1f}%**\n{assessment.summary_verdict}")
-            elif assessment.verdict in [VerdictTier.LOW_CREDIBILITY, VerdictTier.CONSPIRACY_PSEUDOSCIENCE]:
-                st.error(f"### {assessment.verdict_badge} — Credibility Score: **{assessment.final_score:.1f}%**\n{assessment.summary_verdict}")
-            elif assessment.verdict == VerdictTier.SATIRE_PARODY:
-                st.warning(f"### {assessment.verdict_badge} — Credibility Score: **{assessment.final_score:.1f}%**\n{assessment.summary_verdict}")
+            # Calculate Consensus Stats
+            sup_cnt = sum(1 for s in stances if s.stance == StanceType.SUPPORTS)
+            ref_cnt = sum(1 for s in stances if s.stance == StanceType.REFUTES)
+            neu_cnt = sum(1 for s in stances if s.stance == StanceType.NEUTRAL)
+            total_art = len(articles)
+
+            # Consensus Verdict Banner
+            if ref_cnt > 0 and ref_cnt >= sup_cnt:
+                st.error(f"### 🔴 REFUTED BY INDEPENDENT NEWS CONSENSUS\n**{ref_cnt} of {total_art}** independent news sources explicitly contradict, debunk, or disprove this claim.")
+            elif sup_cnt > ref_cnt and sup_cnt >= 2:
+                st.success(f"### 🟢 CORROBORATED BY NEWS CONSENSUS (SUPPORTED)\n**{sup_cnt} of {total_art}** reputable news outlets independently affirm and corroborate this claim.")
             else:
-                st.warning(f"### {assessment.verdict_badge} — Credibility Score: **{assessment.final_score:.1f}%**\n{assessment.summary_verdict}")
+                st.warning(f"### ⚪ MIXED OR INCONCLUSIVE STANCE\nRetrieved reporting shows neutral or divided alignment ({sup_cnt} Supports, {ref_cnt} Refutes, {neu_cnt} Neutral).")
 
-            # 4-Pillar Metric Gauges
-            g1, g2, g3, g4 = st.columns([1.2, 1, 1, 1])
-            with g1:
-                fin_col = "#10b981" if assessment.final_score >= 75 else ("#f59e0b" if assessment.final_score >= 45 else ("#8b5cf6" if assessment.verdict == VerdictTier.SATIRE_PARODY else "#ef4444"))
-                st.markdown(render_circular_gauge(assessment.final_score, "Final Credibility", color_hex=fin_col, subtitle=assessment.verdict.name[:10]), unsafe_allow_html=True)
-            with g2:
-                ev_col = "#10b981" if assessment.evidence_score >= 70 else ("#f59e0b" if assessment.evidence_score >= 40 else "#ef4444")
+            # 4 Summary Metric Cards
+            m1, m2, m3, m4 = st.columns(4)
+            with m1:
                 st.markdown(f"""
                 <div class="metric-card" style="height: 100%;">
-                    <div class="metric-label">1. Evidence Consensus (S_ev)</div>
-                    <div class="metric-value" style="color: {ev_col};">{assessment.evidence_score:.1f}%</div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">
-                        Weight: <strong>70%</strong> | Phi: <strong>{assessment.weighted_consensus_phi:+.2f}</strong><br>
-                        🟢 {assessment.supporting_sources_count} Sup | 🔴 {assessment.refuting_sources_count} Ref | ⚪ {assessment.neutral_sources_count} Neu
-                    </div>
+                    <div class="metric-label">Retrieved Outlets</div>
+                    <div class="metric-value" style="color: #1e40af;">{total_art} <span style="font-size: 1rem; color: #64748b;">sources</span></div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Independent press pool</div>
                 </div>
                 """, unsafe_allow_html=True)
-            with g3:
+            with m2:
                 st.markdown(f"""
                 <div class="metric-card" style="height: 100%;">
-                    <div class="metric-label">2. Origin Authority (W_org)</div>
-                    <div class="metric-value" style="color: #1e40af;">{assessment.origin_score:.1f}%</div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">
-                        Weight: <strong>30%</strong> | Domain: <strong>{origin_rep.domain}</strong><br>
-                        MBFC Rating: <strong>{origin_rep.factual_reporting.upper()}</strong>
-                    </div>
+                    <div class="metric-label">Supporting Sources</div>
+                    <div class="metric-value" style="color: #065f46;">{sup_cnt} <span style="font-size: 1rem; color: #64748b;">outlets</span></div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">🟢 Positive entailment (Phi = +1.0)</div>
                 </div>
                 """, unsafe_allow_html=True)
-            with g4:
-                m_color = "#ef4444" if assessment.manipulation_index > 40 else ("#f59e0b" if assessment.manipulation_index > 15 else "#10b981")
+            with m3:
                 st.markdown(f"""
                 <div class="metric-card" style="height: 100%;">
-                    <div class="metric-label">3. Manipulation Penalty (M)</div>
-                    <div class="metric-value" style="color: {m_color};">-{assessment.manipulation_penalty:.1f}</div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">
-                        Raw Index: <strong>{assessment.manipulation_index:.1f}/100</strong><br>
-                        Equation penalty: <strong>-0.25 × M_index</strong>
-                    </div>
+                    <div class="metric-label">Refuting Sources</div>
+                    <div class="metric-value" style="color: #991b1b;">{ref_cnt} <span style="font-size: 1rem; color: #64748b;">outlets</span></div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">🔴 Contradiction / Debunked (Phi = -1.0)</div>
+                </div>
+                """, unsafe_allow_html=True)
+            with m4:
+                st.markdown(f"""
+                <div class="metric-card" style="height: 100%;">
+                    <div class="metric-label">Neutral / Unrelated</div>
+                    <div class="metric-value" style="color: #475569;">{neu_cnt} <span style="font-size: 1rem; color: #64748b;">outlets</span></div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">⚪ Contextual overlap (Phi = 0.0)</div>
                 </div>
                 """, unsafe_allow_html=True)
 
-            # Mathematical Formula Callout Box
+            # Stance Consensus Callout Box
             st.markdown(f"""
-            <div class="math-callout">
-                <div style="font-size: 0.82rem; font-weight: 700; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem;">
-                    📐 Verified Mathematical Audit Formula (PSAIAC_61)
-                </div>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; color: #ffffff; line-height: 1.6;">
-                    {assessment.math_formula_explanation}
-                </div>
-                <div style="font-size: 0.8rem; color: #94a3b8; margin-top: 0.4rem;">
-                    Pipeline verified across {len(articles)} independent media outlets in <strong>{t_total:.2f} seconds</strong> (<0.05s NLI inference).
-                </div>
+            <div style="background: #f1f5f9; border-left: 5px solid #2563eb; border-radius: 8px; padding: 12px 16px; margin: 12px 0; font-size: 0.9rem; color: #334155;">
+                ⚡ <strong>NLI Stance Evaluation Time:</strong> {t_total:.2f} seconds (<0.05s per claim-evidence pair). Analyzed across {total_art} independent media organizations.
             </div>
             """, unsafe_allow_html=True)
 
@@ -777,6 +734,8 @@ if menu == "🔍 Credibility Verification Suite":
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
+
+            st.caption("💡 *Note for Review 4: Unified Mathematical Score Aggregator (C_final formula) and REST API will be fused in Phase 5 (Final Review).*")
 
 
 # ==============================================================================
@@ -896,7 +855,7 @@ elif menu == "ℹ️ Project Methodology & Architecture":
         {"Phase": "Phase 1 (Review 1)", "Scope": "Literature Survey (12 IEEE Papers), Problem Definition & Architecture", "Status": "Completed (100%)"},
         {"Phase": "Phase 2 (Review 2)", "Scope": "MBFC Knowledge Base (4,442 Outlets), Manipulation Engine, Benchmark Tests", "Status": "Completed (100%)"},
         {"Phase": "Phase 3 (Review 3 - 50%)", "Scope": "Interactive Web Dashboard, NewsAPI Live Retrieval, Multi-Source Pool", "Status": "Completed (100%)"},
-        {"Phase": "Phase 4 (Review 4 - 65%)", "Scope": "Automated Claim Extractor, NLI Stance Classifier, Unified Score Dial", "Status": "Completed (65% Milestone Verified)"},
-        {"Phase": "Phase 5 (Final Review)", "Scope": "Production REST API, Multi-lingual NLP, Final Comprehensive Report & Demo", "Status": "Scheduled for Review 5"}
+        {"Phase": "Phase 4 (Review 4 - 65%)", "Scope": "Automated Claim Extractor, Semantic Stance Classifier & Stance Badges", "Status": "Completed (65% Milestone Verified)"},
+        {"Phase": "Phase 5 (Final Review)", "Scope": "Unified Mathematical Score Dial (C_final), Production REST API, Final Comprehensive Report & Demo", "Status": "Scheduled for Final Review"}
     ])
     st.table(roadmap_df)
