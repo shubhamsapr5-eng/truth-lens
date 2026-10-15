@@ -42,89 +42,166 @@ st.set_page_config(
 # Custom CSS for modern card UI, badges, and meters
 st.markdown("""
 <style>
-    /* Global Typography & Background */
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    
+    /* Global Typography & Hero */
     .main-title {
         font-size: 2.2rem;
         font-weight: 800;
-        color: #102c57;
-        margin-bottom: 0.2rem;
+        background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.3rem;
+        letter-spacing: -0.02em;
     }
     .sub-title {
         font-size: 1.05rem;
-        color: #4b5563;
-        margin-bottom: 1.2rem;
+        color: #64748b;
+        margin-bottom: 1.4rem;
+        line-height: 1.5;
     }
     
-    /* Metric Cards */
+    /* Modern Glassmorphic / Elevated Card */
     .metric-card {
         background: #ffffff;
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 1.2rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 1.25rem 1.3rem;
+        box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
         margin-bottom: 1rem;
     }
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.09);
+        border-color: #cbd5e1;
+    }
     .metric-value {
-        font-size: 1.8rem;
+        font-size: 1.85rem;
         font-weight: 800;
-        color: #102c57;
+        color: #0f172a;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
     }
     .metric-label {
-        font-size: 0.85rem;
-        font-weight: 600;
-        color: #6b7280;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #64748b;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
+        margin-bottom: 0.3rem;
     }
     
     /* Badges */
     .badge-verified {
-        background-color: #d1fae5;
+        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
         color: #065f46;
-        padding: 4px 12px;
+        border: 1px solid #a7f3d0;
+        padding: 4px 14px;
         border-radius: 9999px;
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         font-weight: 700;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
     }
     .badge-mixed {
-        background-color: #fef3c7;
+        background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
         color: #92400e;
-        padding: 4px 12px;
+        border: 1px solid #fde68a;
+        padding: 4px 14px;
         border-radius: 9999px;
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         font-weight: 700;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
     }
     .badge-satire {
-        background-color: #ede9fe;
+        background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
         color: #5b21b6;
-        padding: 4px 12px;
+        border: 1px solid #ddd6fe;
+        padding: 4px 14px;
         border-radius: 9999px;
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         font-weight: 700;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
     }
     .badge-danger {
-        background-color: #fee2e2;
+        background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
         color: #991b1b;
-        padding: 4px 12px;
+        border: 1px solid #fecaca;
+        padding: 4px 14px;
         border-radius: 9999px;
-        font-size: 0.85rem;
+        font-size: 0.82rem;
         font-weight: 700;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
     }
     
     /* Evidence Card */
     .evidence-box {
-        background-color: #f9fafb;
-        border-left: 4px solid #3b82f6;
-        border-radius: 8px;
-        padding: 1rem;
-        margin-bottom: 0.8rem;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-left: 5px solid #2563eb;
+        border-radius: 12px;
+        padding: 1.25rem 1.4rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .evidence-box:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px -3px rgba(15, 23, 42, 0.08);
+    }
+    .evidence-box.high { border-left-color: #10b981; }
+    .evidence-box.mixed { border-left-color: #f59e0b; }
+    .evidence-box.low { border-left-color: #ef4444; }
+
+    /* Mono Pill */
+    .mono-pill {
+        font-family: 'JetBrains Mono', monospace;
+        background: #f1f5f9;
+        color: #334155;
+        font-size: 0.78rem;
+        padding: 3px 8px;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
     }
 </style>
 """, unsafe_allow_html=True)
+
+
+def render_circular_gauge(score: float, label: str, color_hex: str = "#2563eb", size: int = 140, subtitle: str = ""):
+    """Renders a responsive, clean SVG circular score gauge."""
+    radius = 42
+    circumference = 2 * 3.14159265 * radius
+    clamped_score = max(0.0, min(100.0, float(score)))
+    dashoffset = circumference - (clamped_score / 100.0) * circumference
+    
+    return f"""
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.2rem 1rem; box-shadow: 0 4px 20px -2px rgba(15,23,42,0.05); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+        <div style="font-size: 0.78rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;">{label}</div>
+        <div style="position: relative; width: {size}px; height: {size}px; display: flex; align-items: center; justify-content: center;">
+            <svg width="{size}" height="{size}" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
+                <circle cx="50" cy="50" r="{radius}" stroke="#f1f5f9" stroke-width="9" fill="transparent" />
+                <circle cx="50" cy="50" r="{radius}" stroke="{color_hex}" stroke-width="9" stroke-linecap="round" fill="transparent"
+                    stroke-dasharray="{circumference}" stroke-dashoffset="{dashoffset}" />
+            </svg>
+            <div style="position: absolute; text-align: center;">
+                <div style="font-size: 1.65rem; font-weight: 800; color: #0f172a; line-height: 1;">{clamped_score:.0f}<span style="font-size: 0.95rem; font-weight: 600; color: #64748b;">%</span></div>
+                <div style="font-size: 0.68rem; font-weight: 700; color: {color_hex}; text-transform: uppercase; margin-top: 2px;">{subtitle or 'Index'}</div>
+            </div>
+        </div>
+    </div>
+    """
 
 
 # ==============================================================================
@@ -272,34 +349,35 @@ if menu == "🔍 Credibility Verification Suite":
 
             st.success(f"Lookup resolved in **{t_ms:.3f} ms** via {rep.lookup_method.upper()} resolver!")
 
-            # Metric Cards
-            m1, m2, m3, m4 = st.columns(4)
+            # Metric Cards with Circular Gauge
+            m1, m2, m3, m4 = st.columns([1.2, 1, 1, 1])
             with m1:
-                st.markdown(f"""
-                <div class="metric-card">
-                    <div class="metric-label">Credibility Score</div>
-                    <div class="metric-value">{rep.percentage_score:.1f}%</div>
-                </div>
-                """, unsafe_allow_html=True)
+                g_col = "#10b981" if rep.percentage_score >= 80 else ("#f59e0b" if rep.percentage_score >= 40 else ("#8b5cf6" if rep.is_satire else "#ef4444"))
+                g_sub = "Verified" if rep.percentage_score >= 80 else ("Mixed" if rep.percentage_score >= 40 else ("Satire" if rep.is_satire else "Low Trust"))
+                st.markdown(render_circular_gauge(rep.percentage_score, "Credibility Score", color_hex=g_col, subtitle=g_sub), unsafe_allow_html=True)
             with m2:
+                fact_color = "#065f46" if "HIGH" in rep.factual_reporting else ("#92400e" if "MIXED" in rep.factual_reporting else "#991b1b")
                 st.markdown(f"""
-                <div class="metric-card">
+                <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Factual Reporting</div>
-                    <div class="metric-value" style="font-size: 1.4rem;">{rep.factual_reporting.upper()}</div>
+                    <div class="metric-value" style="font-size: 1.35rem; color: {fact_color};">{rep.factual_reporting.upper()}</div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Editorial standard evaluation</div>
                 </div>
                 """, unsafe_allow_html=True)
             with m3:
                 st.markdown(f"""
-                <div class="metric-card">
+                <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Political Bias</div>
-                    <div class="metric-value" style="font-size: 1.4rem;">{rep.bias.upper()}</div>
+                    <div class="metric-value" style="font-size: 1.35rem; color: #1e40af;">{rep.bias.upper()}</div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Spectrum orientation</div>
                 </div>
                 """, unsafe_allow_html=True)
             with m4:
                 st.markdown(f"""
-                <div class="metric-card">
+                <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Corroboration Weight</div>
-                    <div class="metric-value">{rep.weight_factor:.2f} / 1.0</div>
+                    <div class="metric-value" style="font-size: 1.6rem; color: #0f172a;">{rep.weight_factor:.2f} <span style="font-size: 0.95rem; color: #64748b;">/ 1.0</span></div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Equation factor (W_origin)</div>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -346,28 +424,26 @@ if menu == "🔍 Credibility Verification Suite":
             res = detector.analyze(text_input)
 
             st.write("---")
-            k1, k2, k3 = st.columns(3)
+            # Manipulation Metric Cards with Circular Gauge
+            k1, k2, k3 = st.columns([1.2, 1, 1])
             with k1:
-                st.markdown(f"""
-                <div class="metric-card">
-                    <div class="metric-label">Manipulation Risk</div>
-                    <div class="metric-value" style="color: {'#dc2626' if res.overall_manipulation_score > 40 else ('#d97706' if res.overall_manipulation_score > 15 else '#16a34a')};">
-                        {res.overall_manipulation_score:.1f}%
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+                r_col = "#ef4444" if res.overall_manipulation_score > 40 else ("#f59e0b" if res.overall_manipulation_score > 15 else "#10b981")
+                r_sub = "High Risk" if res.overall_manipulation_score > 40 else ("Moderate" if res.overall_manipulation_score > 15 else "Low Risk")
+                st.markdown(render_circular_gauge(res.overall_manipulation_score, "Manipulation Risk", color_hex=r_col, subtitle=r_sub), unsafe_allow_html=True)
             with k2:
                 st.markdown(f"""
-                <div class="metric-card">
+                <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Risk Category</div>
-                    <div class="metric-value" style="font-size: 1.3rem;">{res.risk_level.upper()}</div>
+                    <div class="metric-value" style="font-size: 1.35rem; color: {r_col};">{res.risk_level.upper()}</div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Evaluated against 109 triggers</div>
                 </div>
                 """, unsafe_allow_html=True)
             with k3:
                 st.markdown(f"""
-                <div class="metric-card">
+                <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Triggers Caught</div>
-                    <div class="metric-value">{len(res.flagged_phrases)} triggers</div>
+                    <div class="metric-value" style="font-size: 1.6rem; color: #0f172a;">{len(res.flagged_phrases)} <span style="font-size: 1rem; color: #64748b;">triggers</span></div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Sensational, panic & conspiracy flags</div>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -433,24 +509,54 @@ if menu == "🔍 Credibility Verification Suite":
 
                 # Calculate average pool trust
                 avg_pool_trust = sum(a.percentage_score for a in articles) / len(articles)
-                p1, p2 = st.columns(2)
+                
+                # Consensus Pool Metric Cards with Circular Gauge
+                p1, p2, p3 = st.columns([1.2, 1, 1])
                 with p1:
-                    st.metric("Consensus Source Pool Trust", f"{avg_pool_trust:.1f}%")
+                    pool_col = "#10b981" if avg_pool_trust >= 75 else ("#f59e0b" if avg_pool_trust >= 50 else "#ef4444")
+                    pool_sub = "Consensus" if avg_pool_trust >= 75 else ("Contested" if avg_pool_trust >= 50 else "Low Trust")
+                    st.markdown(render_circular_gauge(avg_pool_trust, "Consensus Pool Trust", color_hex=pool_col, subtitle=pool_sub), unsafe_allow_html=True)
                 with p2:
-                    st.metric("Independent Publishers Found", f"{len(articles)} Outlets")
+                    st.markdown(f"""
+                    <div class="metric-card" style="height: 100%;">
+                        <div class="metric-label">Reporting Outlets</div>
+                        <div class="metric-value" style="font-size: 1.6rem; color: #1e40af;">{len(articles)} <span style="font-size: 1rem; color: #64748b;">sources</span></div>
+                        <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Independent publishers retrieved</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                with p3:
+                    high_trust_cnt = sum(1 for a in articles if a.credibility_score >= 0.7)
+                    st.markdown(f"""
+                    <div class="metric-card" style="height: 100%;">
+                        <div class="metric-label">Tier-1 Authoritative</div>
+                        <div class="metric-value" style="font-size: 1.6rem; color: #065f46;">{high_trust_cnt} / {len(articles)}</div>
+                        <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">High / Very High MBFC rating</div>
+                    </div>
+                    """, unsafe_allow_html=True)
 
                 st.markdown("#### 📰 **Retrieved Cross-Examination Articles (Evidence Pool):**")
                 for idx, art in enumerate(articles, 1):
                     badge_style = "badge-verified" if art.credibility_score >= 0.7 else ("badge-mixed" if art.credibility_score >= 0.4 else "badge-danger")
+                    card_tier = "high" if art.credibility_score >= 0.7 else ("mixed" if art.credibility_score >= 0.4 else "low")
                     st.markdown(f"""
-                    <div class="evidence-box">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
-                            <strong>#{idx} {art.source_name} ({art.domain})</strong>
+                    <div class="evidence-box {card_tier}">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <div>
+                                <span class="mono-pill">#{idx}</span>
+                                <strong style="font-size: 1.05rem; color: #0f172a; margin-left: 6px;">{art.source_name}</strong>
+                                <span style="color: #64748b; font-size: 0.85rem; margin-left: 4px;">({art.domain})</span>
+                            </div>
                             <span class="{badge_style}">Trust: {art.percentage_score:.0f}% • {art.factuality}</span>
                         </div>
-                        <h4 style="margin: 0.2rem 0; font-size: 1.1rem;"><a href="{art.url}" target="_blank" style="text-decoration: none; color: #1e40af;">{art.title}</a></h4>
-                        <p style="color: #4b5563; font-size: 0.95rem; margin-top: 0.3rem;">{art.snippet}</p>
-                        <div style="font-size: 0.8rem; color: #6b7280;">Published Date: {art.published_at} • Political Bias: {art.bias} • Corroboration Weight (W_rep): {art.weight_factor:.2f}</div>
+                        <h4 style="margin: 0.3rem 0; font-size: 1.15rem; font-weight: 700;">
+                            <a href="{art.url}" target="_blank" style="text-decoration: none; color: #1e40af;">{art.title}</a>
+                        </h4>
+                        <p style="color: #334155; font-size: 0.95rem; margin: 0.4rem 0 0.6rem 0; line-height: 1.5;">{art.snippet}</p>
+                        <div style="display: flex; gap: 12px; font-size: 0.8rem; color: #64748b; flex-wrap: wrap; border-top: 1px solid #f1f5f9; padding-top: 6px;">
+                            <span>📅 Published: <strong>{art.published_at}</strong></span>
+                            <span>⚖️ Bias: <strong>{art.bias}</strong></span>
+                            <span>📊 Weight (W_rep): <strong>{art.weight_factor:.2f}</strong></span>
+                        </div>
                     </div>
                     """, unsafe_allow_html=True)
 
@@ -553,17 +659,17 @@ elif menu == "ℹ️ Project Methodology & Architecture":
     with a2:
         st.subheader("👥 Team Member Roles & Responsibilities")
         with st.container(border=True):
-            st.markdown("**1. Shubham Pandey (Team Leader):**")
-            st.caption("Engineered the Multi-Tier Domain Resolution Engine (<0.02ms), MBFC SQLite knowledge base (4,442 outlets), and system architecture.")
+            st.markdown("**1. Shubham Pandey (Team Leader — 20231CAI0046):**")
+            st.caption("Engineered the Multi-Tier Canonical Domain Resolution Engine (<0.02ms), MBFC SQLite knowledge base (4,442 outlets), core schemas, and system architecture.")
             
-            st.markdown("**2. Member 2 (Manipulation Specialist):**")
-            st.caption("Engineered the 109-trigger manipulation lexicon engine and headline clickbait analyzer.")
+            st.markdown("**2. Ikram Inayathulla Khan (20231CAI0006):**")
+            st.caption("Engineered the 109-trigger lexical manipulation detection engine, stylistic pattern matching, and emotional panic indicators.")
             
-            st.markdown("**3. Member 3 (News Retrieval & Dataset Engineer):**")
-            st.caption("Integrated NewsAPI & GNews live multi-source article retrieval pipelines and benchmark ground truth.")
+            st.markdown("**3. Karanam Radha Pranathi (20231CAI0003):**")
+            st.caption("Developed the NewsAPI live multi-source article retrieval pipeline, evidence pool builder, and ground-truth benchmark datasets.")
             
-            st.markdown("**4. Member 4 (AI Fact-Checker & Full-Stack):**")
-            st.caption("Designed the RoBERTa-MNLI stance classification pipeline and interactive Streamlit web dashboard.")
+            st.markdown("**4. Bhagyesh (20231CAI0068):**")
+            st.caption("Engineered the interactive Streamlit web dashboard, evaluator authentication portal, UI card design, and RoBERTa environment.")
 
     st.markdown("---")
     st.subheader("🗺️ 5-Phase Project Roadmap")

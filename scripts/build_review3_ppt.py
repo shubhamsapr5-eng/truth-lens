@@ -364,73 +364,77 @@ def create_review3_presentation():
     s11 = prs.slides[10]
     add_slide_header(s11, "System Architecture Diagram (50% Milestone State)")
 
-    layer_data = [
-        ("1. Presentation Layer [LIVE]", Inches(0.8), Inches(1.4), Inches(3.4), Inches(5.3), [
-            "Streamlit Web Dashboard:",
-            " * Evaluator Login Portal",
-            " * 1-Click Desktop Launcher",
-            "",
-            "3 Verification Tabs:",
-            " * URL Domain Inspector",
-            " * Text Manipulation Scanner",
-            " * Live Claim Cross-Search",
-            "",
-            "Media Knowledge Directory:",
-            " * 4,442 Searchable Outlets"
-        ]),
-        ("2. Retrieval & Data Pipeline [LIVE]", Inches(4.6), Inches(1.4), Inches(3.8), Inches(5.3), [
-            "News Retrieval Engine:",
-            " * NewsAPI Live Integration",
-            " * GNews Backup Integration",
-            " * Corroboration Pool (5-10 Outlets)",
-            "",
-            "MBFC SQLite Database:",
-            " * 4,442 Domains Indexed",
-            " * Canonical Domain Resolver",
-            " * <0.02ms Query Latency",
-            " * Source Weights (W_rep)"
-        ]),
-        ("3. Intelligence & Scoring", Inches(8.8), Inches(1.4), Inches(3.5), Inches(5.3), [
-            "Manipulation Detector [LIVE]:",
-            " * 109 Lexical Triggers",
-            " * Clickbait & Panic Analyzer",
-            " * Text Highlight Generator",
-            "",
-            "RoBERTa-MNLI Engine [Phase 4]:",
-            " * Stance Inference (Phi_NLI)",
-            " * Agree / Disagree / Neutral",
-            "",
-            "Multi-Factor Aggregator [Phase 5]"
-        ])
-    ]
+    fig_arch = r"C:\Users\shubh\Desktop\truth-lens\data\figures\fig3_1_architecture.png"
+    if os.path.exists(fig_arch):
+        s11.shapes.add_picture(fig_arch, Inches(0.8), Inches(1.35), Inches(11.73), Inches(5.35))
+    else:
+        layer_data = [
+            ("1. Presentation Layer [LIVE]", Inches(0.8), Inches(1.4), Inches(3.4), Inches(5.3), [
+                "Streamlit Web Dashboard:",
+                " * Evaluator Login Portal",
+                " * 1-Click Desktop Launcher",
+                "",
+                "3 Verification Tabs:",
+                " * URL Domain Inspector",
+                " * Text Manipulation Scanner",
+                " * Live Claim Cross-Search",
+                "",
+                "Media Knowledge Directory:",
+                " * 4,442 Searchable Outlets"
+            ]),
+            ("2. Retrieval & Data Pipeline [LIVE]", Inches(4.6), Inches(1.4), Inches(3.8), Inches(5.3), [
+                "News Retrieval Engine:",
+                " * NewsAPI Live Integration",
+                " * GNews Backup Integration",
+                " * Corroboration Pool (5-10 Outlets)",
+                "",
+                "MBFC SQLite Database:",
+                " * 4,442 Domains Indexed",
+                " * Canonical Domain Resolver",
+                " * <0.02ms Query Latency",
+                " * Source Weights (W_rep)"
+            ]),
+            ("3. Intelligence & Scoring", Inches(8.8), Inches(1.4), Inches(3.5), Inches(5.3), [
+                "Manipulation Detector [LIVE]:",
+                " * 109 Lexical Triggers",
+                " * Clickbait & Panic Analyzer",
+                " * Text Highlight Generator",
+                "",
+                "RoBERTa-MNLI Engine [Phase 4]:",
+                " * Stance Inference (Phi_NLI)",
+                " * Agree / Disagree / Neutral",
+                "",
+                "Multi-Factor Aggregator [Phase 5]"
+            ])
+        ]
 
-    for title, left, top, width, height, lines in layer_data:
-        shape = s11.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
-        shape.fill.solid()
-        shape.fill.fore_color.rgb = BG_LIGHT
-        shape.line.color.rgb = SUCCESS_COLOR if "[LIVE]" in title else ACCENT_COLOR
-        shape.line.width = Pt(1.5)
+        for title, left, top, width, height, lines in layer_data:
+            shape = s11.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, left, top, width, height)
+            shape.fill.solid()
+            shape.fill.fore_color.rgb = BG_LIGHT
+            shape.line.color.rgb = SUCCESS_COLOR if "[LIVE]" in title else ACCENT_COLOR
+            shape.line.width = Pt(1.5)
 
-        tf = shape.text_frame
-        tf.word_wrap = True
-        tf.margin_left = Inches(0.12)
-        tf.margin_top = Inches(0.12)
-        p = tf.paragraphs[0]
-        p.text = title
-        p.font.name = "Arial"
-        p.font.size = Pt(13)
-        p.font.bold = True
-        p.font.color.rgb = SUCCESS_COLOR if "[LIVE]" in title else PRIMARY_COLOR
-        p.space_after = Pt(6)
-
-        for l in lines:
-            p = tf.add_paragraph()
-            p.text = l
+            tf = shape.text_frame
+            tf.word_wrap = True
+            tf.margin_left = Inches(0.12)
+            tf.margin_top = Inches(0.12)
+            p = tf.paragraphs[0]
+            p.text = title
             p.font.name = "Arial"
-            p.font.size = Pt(10.5)
-            p.font.bold = True if ":" in l else False
-            p.font.color.rgb = PRIMARY_COLOR if ":" in l else TEXT_DARK
-            p.space_after = Pt(2.5)
+            p.font.size = Pt(13)
+            p.font.bold = True
+            p.font.color.rgb = SUCCESS_COLOR if "[LIVE]" in title else PRIMARY_COLOR
+            p.space_after = Pt(6)
+
+            for l in lines:
+                p = tf.add_paragraph()
+                p.text = l
+                p.font.name = "Arial"
+                p.font.size = Pt(10.5)
+                p.font.bold = True if ":" in l else False
+                p.font.color.rgb = PRIMARY_COLOR if ":" in l else TEXT_DARK
+                p.space_after = Pt(2.5)
 
     # ==========================================
     # SLIDE 12: Modules Breakdown
@@ -471,16 +475,16 @@ def create_review3_presentation():
     s13 = prs.slides[12]
     add_slide_header(s13, "Phase 3 Core Achievements (50% Milestone)")
 
-    s13_box = s13.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(11.8), Inches(5.6))
+    s13_box = s13.shapes.add_textbox(Inches(0.8), Inches(1.3), Inches(5.9), Inches(5.6))
     s13_tf = s13_box.text_frame
     s13_tf.word_wrap = True
 
     achieve_points = [
-        ("1. Live Multi-Source News Retrieval (NewsAPI Integration):", "Engineered live retrieval pipeline querying 80,000+ global publications via NewsAPI. System constructs an independent evidence pool of 5-10 articles per claim with attached publisher credibility weights."),
-        ("2. Interactive Streamlit Web Application Dashboard:", "Transformed CLI prototypes into a full-featured web portal with evaluator authentication, URL reputation inspector, text manipulation scanner with in-line word highlighting, and live claim cross-search."),
-        ("3. 4,442 Media Outlet Knowledge Explorer:", "Built an interactive database search and filtering module allowing evaluators to search any global outlet and inspect its factuality rating, political bias, and satire/conspiracy status."),
-        ("4. Automated Quality Assurance & 16 Passing Unit Tests:", "16 out of 16 unit tests passing across domain resolution, lexical triggers, and retrieval pipeline via pytest."),
-        ("5. 1-Click Desktop Launcher (`Run_TruthLens.bat`):", "One-click batch script for instant presentation launch without manual terminal commands.")
+        ("1. Live Multi-Source News Retrieval (NewsAPI):", "Live NewsAPI querying across 80,000+ publications to construct an independent corroboration pool with publisher trust ratings."),
+        ("2. Interactive Streamlit Dashboard:", "Evaluator authentication, URL inspector, text manipulation scanner with highlight spans, and live claim cross-search."),
+        ("3. 4,442 Media Outlet Knowledge Base:", "Indexed SQLite catalog with search and filtering for factuality, bias, and satire flags."),
+        ("4. Automated QA (16/16 Unit Tests):", "100% pytest pass rate covering domain resolution, lexical triggers, and retrieval."),
+        ("5. 1-Click Desktop Launcher:", "`Run_TruthLens.bat` for instant faculty demonstration.")
     ]
 
     for title, text in achieve_points:
@@ -488,14 +492,18 @@ def create_review3_presentation():
         r1 = p.add_run()
         r1.text = f"{title}\n"
         r1.font.bold = True
-        r1.font.size = Pt(12.5)
+        r1.font.size = Pt(11)
         r1.font.color.rgb = PRIMARY_COLOR
 
         r2 = p.add_run()
         r2.text = f"{text}\n"
-        r2.font.size = Pt(11.5)
+        r2.font.size = Pt(10)
         r2.font.color.rgb = TEXT_DARK
-        p.space_after = Pt(4)
+        p.space_after = Pt(2.5)
+
+    fig_ui = r"C:\Users\shubh\Desktop\truth-lens\data\figures\fig6_2_streamlit_ui.png"
+    if os.path.exists(fig_ui):
+        s13.shapes.add_picture(fig_ui, Inches(6.9), Inches(1.35), Inches(5.6), Inches(5.35))
 
     # ==========================================
     # SLIDE 14: 50% vs Remaining 50% Engineering Division
@@ -529,29 +537,33 @@ def create_review3_presentation():
     # SLIDE 15: Timeline / Gantt Chart
     # ==========================================
     s15 = prs.slides[14]
-    add_slide_header(s15, "Timeline of the Project -- 5-Phase Plan")
+    add_slide_header(s15, "Project Timeline & 5-Phase Gantt Chart")
 
-    rows_tl = [
-        ("Phase", "Duration", "Core Deliverables & Scope", "Current Status"),
-        ("Phase 1", "Weeks 1-2", "Problem formulation (PSAIAC_61), literature survey (12 papers), architecture design, tech stack selection.", "Completed"),
-        ("Phase 2", "Weeks 3-4", "Dataset collection, MBFC SQLite database (4,442 outlets), domain resolver, manipulation lexicons, baseline testing.", "Completed (Review 2)"),
-        ("Phase 3", "Weeks 5-6", "Live NewsAPI retrieval engine, corroboration pool builder, and interactive Streamlit web dashboard.", "Completed (50% Milestone)"),
-        ("Phase 4", "Weeks 7-8", "RoBERTa-MNLI model integration, pairwise stance classification pipeline, semantic similarity threshold filtering.", "Scheduled (Next Review)"),
-        ("Phase 5", "Weeks 9-12", "Score aggregation engine, FastAPI REST API, Streamlit dashboard refinement, end-to-end evaluation & thesis.", "Scheduled (Final Review)")
-    ]
+    fig_gantt = r"C:\Users\shubh\Desktop\truth-lens\data\figures\fig4_1_gantt.png"
+    if os.path.exists(fig_gantt):
+        s15.shapes.add_picture(fig_gantt, Inches(0.8), Inches(1.35), Inches(11.73), Inches(5.35))
+    else:
+        rows_tl = [
+            ("Phase", "Duration", "Core Deliverables & Scope", "Current Status"),
+            ("Phase 1", "Weeks 1-2", "Problem formulation (PSAIAC_61), literature survey (12 papers), architecture design, tech stack selection.", "Completed"),
+            ("Phase 2", "Weeks 3-4", "Dataset collection, MBFC SQLite database (4,442 outlets), domain resolver, manipulation lexicons, baseline testing.", "Completed (Review 2)"),
+            ("Phase 3", "Weeks 5-6", "Live NewsAPI retrieval engine, corroboration pool builder, and interactive Streamlit web dashboard.", "Completed (50% Milestone)"),
+            ("Phase 4", "Weeks 7-8", "RoBERTa-MNLI model integration, pairwise stance classification pipeline, semantic similarity threshold filtering.", "Scheduled (Next Review)"),
+            ("Phase 5", "Weeks 9-12", "Score aggregation engine, FastAPI REST API, Streamlit dashboard refinement, end-to-end evaluation & thesis.", "Scheduled (Final Review)")
+        ]
 
-    t15 = s15.shapes.add_table(len(rows_tl), 4, Inches(0.8), Inches(1.4), Inches(11.8), Inches(5.2)).table
-    t15.columns[0].width = Inches(1.4)
-    t15.columns[1].width = Inches(1.6)
-    t15.columns[2].width = Inches(6.8)
-    t15.columns[3].width = Inches(2.0)
+        t15 = s15.shapes.add_table(len(rows_tl), 4, Inches(0.8), Inches(1.4), Inches(11.8), Inches(5.2)).table
+        t15.columns[0].width = Inches(1.4)
+        t15.columns[1].width = Inches(1.6)
+        t15.columns[2].width = Inches(6.8)
+        t15.columns[3].width = Inches(2.0)
 
-    for r_idx, row in enumerate(rows_tl):
-        is_hdr = (r_idx == 0)
-        bg = PRIMARY_COLOR if is_hdr else (BG_LIGHT if r_idx % 2 == 1 else None)
-        fg = RGBColor(255, 255, 255) if is_hdr else TEXT_DARK
-        for c_idx, val in enumerate(row):
-            format_cell(t15.cell(r_idx, c_idx), val, font_size=10.5 if not is_hdr else 11.5, bold=is_hdr, color=fg, bg_color=bg)
+        for r_idx, row in enumerate(rows_tl):
+            is_hdr = (r_idx == 0)
+            bg = PRIMARY_COLOR if is_hdr else (BG_LIGHT if r_idx % 2 == 1 else None)
+            fg = RGBColor(255, 255, 255) if is_hdr else TEXT_DARK
+            for c_idx, val in enumerate(row):
+                format_cell(t15.cell(r_idx, c_idx), val, font_size=10.5 if not is_hdr else 11.5, bold=is_hdr, color=fg, bg_color=bg)
 
     # ==========================================
     # SLIDE 16: Team Member Contribution Matrix

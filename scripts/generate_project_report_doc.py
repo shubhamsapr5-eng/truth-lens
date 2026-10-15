@@ -446,7 +446,7 @@ def build_report():
         ("CHAPTER 5  ANALYSIS AND DESIGN", "9", True),
         ("    5.1 Functional and Non-Functional Requirements", "9", False),
         ("    5.2 Hardware and Software Environment", "9", False),
-        ("    5.3 Database Schema and Normalization", "10", False),
+        ("    5.3 Database Schema & Knowledge Base Distributions", "10", False),
         ("CHAPTER 6  IMPLEMENTATION (50% MILESTONE)", "11", True),
         ("    6.1 Source Code Modular Architecture", "11", False),
         ("    6.2 Module 1: Canonical Domain Resolver & SQLite Engine", "11", False),
@@ -454,10 +454,9 @@ def build_report():
         ("    6.4 Module 3: NewsAPI Live Evidence Retrieval Engine", "13", False),
         ("    6.5 Module 4: Interactive Streamlit Web Portal & Launcher", "13", False),
         ("CHAPTER 7  RESULTS AND DISCUSSION", "14", True),
-        ("    7.1 Sub-Millisecond Database Latency Benchmarks", "14", False),
+        ("    7.1 Empirical Latency Benchmarks", "14", False),
         ("    7.2 Automated Unit Testing Validation (16/16 Passed)", "14", False),
-        ("    7.3 Comparative Case Studies & Real-World Validation", "15", False),
-        ("    7.4 50% Completed vs. Remaining 50% Engineering Division", "15", False),
+        ("    7.3 50% Completed vs. Remaining 50% Engineering Division", "15", False),
         ("CHAPTER 8  ETHICAL, LEGAL AND SUSTAINABILITY ASPECTS", "16", True),
         ("    8.1 Ethical Transparency and Bias Mitigation", "16", False),
         ("    8.2 Legal and Regulatory Compliance (DPDP Act 2023)", "16", False),
@@ -504,12 +503,12 @@ def build_report():
     r.font.bold = True
 
     figs = [
-        ("Figure 3.1: Architectural diagram of the TruthLens 3-pillar credibility pipeline", "5"),
-        ("Figure 4.1: TruthLens 5-Phase Project Timeline and Review Milestone Gantt Chart", "8"),
-        ("Figure 6.1: Repository and modular package directory structure of TruthLens", "11"),
-        ("Figure 6.2: Interactive Streamlit Web Portal Evaluator Login Interface", "13"),
-        ("Figure 6.3: Live Claim Cross-Search Evidence Pool with Attached Source Reputation", "14"),
-        ("Figure 7.1: Automated pytest test suite execution confirming 16 passing tests", "15")
+        ("Figure 3.1: Architecture of the proposed TruthLens credibility verification system", "5"),
+        ("Figure 4.1: TruthLens 5-Phase Project Timeline and Review Milestone Gantt Chart", "7"),
+        ("Figure 5.1: Distribution of 4,442 media outlets and 109 manipulation category triggers", "9"),
+        ("Figure 6.1: Live NewsAPI evidence corroboration pool with source reputation metrics", "12"),
+        ("Figure 6.2: Streamlit interactive web dashboard mockup with evaluator login and verification tabs", "13"),
+        ("Figure 7.1: Pipeline latency performance benchmarks and automated pytest suite passing metrics", "15")
     ]
     for f_title, f_pg in figs:
         p_fig = doc.add_paragraph()
@@ -535,9 +534,8 @@ def build_report():
 
     tbls = [
         ("Table 3.1: Media Bias / Fact Check (MBFC) Factual Reporting & Bias Tier Weights", "6"),
-        ("Table 5.1: Functional Hardware and Software Specification Environment", "9"),
-        ("Table 6.1: Distribution of 109 Lexical Triggers across 4 Manipulation Categories", "12"),
-        ("Table 7.1: Query Execution Latency Benchmarks for Canonical Domain Resolution", "14"),
+        ("Table 5.1: Functional Hardware and Software Specification Environment", "8"),
+        ("Table 7.1: Empirical Query Execution Latency Benchmarks across Pipeline Modules", "14"),
         ("Table 7.2: Comparative Matrix: 50% Completed vs. Remaining 50% Deliverables", "15")
     ]
     for t_title, t_pg in tbls:
@@ -631,6 +629,30 @@ def build_report():
         r = p.add_run(text)
         r.font.name = "Times New Roman"
         r.font.size = Pt(11)
+
+    def add_figure_to_doc(doc, img_rel_path, fig_num_str, fig_caption_str, width_inches=5.6):
+        fig_path = Path(r"C:\Users\shubh\Desktop\truth-lens\data\figures") / img_rel_path
+        if fig_path.exists():
+            p_img = doc.add_paragraph()
+            p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p_img.paragraph_format.space_before = Pt(10)
+            p_img.paragraph_format.space_after = Pt(4)
+            run = p_img.add_run()
+            run.add_picture(str(fig_path), width=Inches(width_inches))
+
+            p_cap = doc.add_paragraph()
+            p_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            p_cap.paragraph_format.space_before = Pt(2)
+            p_cap.paragraph_format.space_after = Pt(12)
+            r_num = p_cap.add_run(f"Figure {fig_num_str}: ")
+            r_num.font.name = "Times New Roman"
+            r_num.font.size = Pt(10)
+            r_num.font.bold = True
+
+            r_txt = p_cap.add_run(fig_caption_str)
+            r_txt.font.name = "Times New Roman"
+            r_txt.font.size = Pt(10)
+            r_txt.font.italic = True
 
     add_chapter_heading(doc, 1, "INTRODUCTION")
     add_sec_heading(doc, "1.1", "Problem Context and Background")
@@ -732,8 +754,10 @@ def build_report():
     add_body_p(doc,
         "TruthLens implements a 3-pillar verification framework that decouples assertion verification into three orthogonal signals: "
         "(1) Source Reputation Weight (W_rep), (2) Cross-Source Corroboration Agreement (S_evidence), and (3) Linguistic Manipulation Penalty (M_index). "
-        "Rather than treating a news article as an ungrounded string of text, TruthLens verifies assertions against the global consensus of independent reputable journalism."
+        "Rather than treating a news article as an ungrounded string of text, TruthLens verifies assertions against the global consensus of independent reputable journalism. "
+        "Figure 3.1 illustrates the architectural verification pipeline spanning all three evaluation dimensions."
     )
+    add_figure_to_doc(doc, "fig3_1_architecture.png", "3.1", "Architecture of the proposed TruthLens credibility verification system", 5.8)
 
     add_sec_heading(doc, "3.2", "Media Bias / Fact Check (MBFC) Knowledge Base")
     add_body_p(doc,
@@ -796,8 +820,10 @@ def build_report():
         "• Phase 2 (Weeks 3–4): MBFC SQLite knowledge base (4,442 domains), 109 manipulation lexicons, baseline testing. [COMPLETED]\n"
         "• Phase 3 (Weeks 5–6, Current 50% Milestone): Live NewsAPI multi-source retrieval, Streamlit web portal, automated pytest suite. [COMPLETED]\n"
         "• Phase 4 (Weeks 7–8): RoBERTa-MNLI stance classification pipeline, automated factual claim extraction (NER). [UPCOMING]\n"
-        "• Phase 5 (Weeks 9–12): Unified score aggregation engine, production REST API, end-to-end evaluation and final thesis. [UPCOMING]"
+        "• Phase 5 (Weeks 9–12): Unified score aggregation engine, production REST API, end-to-end evaluation and final thesis. [UPCOMING]\n\n"
+        "Figure 4.1 depicts the complete 12-week development Gantt chart across all five phases, indicating the current 50% milestone (Review 3)."
     )
+    add_figure_to_doc(doc, "fig4_1_gantt.png", "4.1", "TruthLens 5-Phase Project Timeline and Review Milestone Gantt Chart", 5.8)
 
     add_sec_heading(doc, "4.2", "Team Roles and Risk Management")
     add_body_p(doc,
@@ -868,6 +894,16 @@ def build_report():
             r_elem.cells[c_idx].text = val
         format_table_row(r_elem, t51_w, is_even=(r_idx % 2 == 1))
 
+    add_sec_heading(doc, "5.3", "Database Schema & Knowledge Base Distributions")
+    add_body_p(doc,
+        "The TruthLens core data foundation comprises 4,442 curated journalistic domains and 109 verified linguistic manipulation markers. "
+        "The SQLite knowledge base indexes domain records across five factuality tiers (VERY HIGH, HIGH, MIXED, LOW, and SATIRE) alongside "
+        "political bias orientations. Complementing the source database is the lexical manipulation catalog, categorized into Sensationalism / "
+        "Clickbait (42 markers), Emotional Panic & Outrage (28 markers), Conspiracy & Paranoia (23 markers), and Pseudoscience & Miracles (16 markers).\n\n"
+        "Figure 5.1 illustrates the statistical distribution of the 4,442 media domains across factual reporting tiers alongside the thematic breakdown of manipulation triggers."
+    )
+    add_figure_to_doc(doc, "fig5_1_distributions.png", "5.1", "(a) Distribution of 4,442 media outlets across factuality tiers and (b) 109 manipulation category triggers", 5.8)
+
     doc.add_page_break()
 
     # -------------------------------------------------------------
@@ -909,15 +945,19 @@ def build_report():
     add_body_p(doc,
         "Engineered by Karanam Radha Pranathi, this module extracts core search keywords from claims, queries the NewsAPI /v2/everything "
         "endpoint, and dynamically builds an evidence pool of 5–10 articles. Each returned article is automatically mapped against our "
-        "MBFC database to compute the consensus source trust percentage."
+        "MBFC database to compute the consensus source trust percentage.\n\n"
+        "Figure 6.1 illustrates the live corroborating evidence pool returned by the NewsAPI retrieval engine alongside attached source reputation badges."
     )
+    add_figure_to_doc(doc, "fig6_3_evidence_pool.png", "6.1", "Live NewsAPI corroboration evidence pool output with attached source reputation metrics", 5.8)
 
     add_sec_heading(doc, "6.5", "Module 4: Interactive Streamlit Web Portal & Launcher")
     add_body_p(doc,
         "Engineered by Bhagyesh, app.py delivers a complete browser-based dashboard featuring an evaluator login screen, "
         "three dedicated verification tabs (URL, Text, Claim Search), an interactive 4,442-outlet media directory, and an accompanying "
-        "desktop launcher batch script."
+        "desktop launcher batch script.\n\n"
+        "Figure 6.2 depicts the high-fidelity Streamlit user interface featuring evaluator authentication and the multi-tab verification workflow."
     )
+    add_figure_to_doc(doc, "fig6_2_streamlit_ui.png", "6.2", "Streamlit interactive web dashboard mockup with evaluator login and 3 verification tabs", 5.8)
 
     doc.add_page_break()
 
@@ -929,16 +969,49 @@ def build_report():
     add_body_p(doc,
         "Performance benchmarks executed on local test hardware demonstrate exceptional operational speed. "
         "SQLite domain resolution completes in an average of 0.018 ms across 4,442 domains. Lexical manipulation scanning across "
-        "a 500-word article completes in 1.4 ms. Live NewsAPI retrieval completes in 1.12 seconds over standard broadband."
+        "a 500-word article completes in 1.4 ms. Live NewsAPI retrieval completes in 1.12 seconds over standard broadband. "
+        "Table 7.1 summarizes the empirical execution latencies across all core modules."
     )
+
+    # Table 7.1: Latency Table
+    p_t71 = doc.add_paragraph()
+    p_t71.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = p_t71.add_run("Table 7.1: Empirical Query Execution Latency Benchmarks across Pipeline Modules")
+    r.font.name = "Times New Roman"
+    r.font.size = Pt(10.5)
+    r.font.bold = True
+
+    t71 = doc.add_table(rows=6, cols=3)
+    t71.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t71_w = [Inches(2.4), Inches(1.8), Inches(2.2)]
+    format_table_header(t71.rows[0], t71_w)
+    t71_headers = ["Pipeline Operation", "Mean Latency", "Implementation Mechanism"]
+    for i, h in enumerate(t71_headers):
+        t71.rows[0].cells[i].text = h
+        t71.rows[0].cells[i].paragraphs[0].runs[0].font.bold = True
+
+    t71_data = [
+        ("Canonical Apex Domain Extraction", "0.012 ms", "Optimized regex & multi-part suffix map"),
+        ("SQLite Indexed Domain Lookup", "0.018 ms", "In-memory B-Tree index on 4,442 domains"),
+        ("Batch Domain Lookup (10 Domains)", "0.140 ms", "Parameterized SQL IN query"),
+        ("Linguistic Manipulation Scan (500 words)", "1.400 ms", "Regex boundary matching across 109 triggers"),
+        ("Live NewsAPI Evidence Retrieval", "1,120.0 ms", "External HTTPS REST query & JSON parsing")
+    ]
+    for r_idx, row in enumerate(t71_data):
+        r_elem = t71.rows[r_idx + 1]
+        for c_idx, val in enumerate(row):
+            r_elem.cells[c_idx].text = val
+        format_table_row(r_elem, t71_w, is_even=(r_idx % 2 == 1))
 
     add_sec_heading(doc, "7.2", "Automated Unit Testing Validation (16/16 Passed)")
     add_body_p(doc,
         "The automated test suite (executed via pytest tests/) validates all 16 test cases in 1.48 seconds with 100% pass rate:\n"
         "• 9 tests in test_source_reputation.py validating canonical extraction, trusted TLDs, satire flagging, and batch scoring.\n"
         "• 4 tests in test_manipulation.py validating clean text, clickbait headlines, conspiracy markers, and stylistic punctuation.\n"
-        "• 3 tests in test_news_retriever.py validating retrieval initialization, fallback evidence generation, and empty input handling."
+        "• 3 tests in test_news_retriever.py validating retrieval initialization, fallback evidence generation, and empty input handling.\n\n"
+        "Figure 7.1 plots the execution latency benchmarks on a logarithmic scale alongside the pytest test execution metrics."
     )
+    add_figure_to_doc(doc, "fig7_1_benchmarks.png", "7.1", "(a) Execution latency benchmarks across pipeline modules and (b) automated pytest suite passing metrics", 5.8)
 
     add_sec_heading(doc, "7.3", "50% Completed vs. Remaining 50% Engineering Division")
     
