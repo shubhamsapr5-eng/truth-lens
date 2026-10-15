@@ -485,19 +485,23 @@ if menu == "🔍 Credibility Verification Suite":
         st.subheader("2. Article Text, Manipulation Scanner & Automated Claim Extractor")
         st.write("Scan news articles for sensationalism and clickbait markers, or automatically isolate verifiable factual claims using NLP entity parsing.")
 
+        if "tab2_text_val" not in st.session_state:
+            st.session_state.tab2_text_val = "ISRO successfully launched the Chandrayaan-3 spacecraft from the Satish Dhawan Space Centre on July 14, 2023. The mission completed a soft landing on the lunar South Pole on August 23, 2023."
+
         b1, b2 = st.columns(2)
-        sample_text = None
         if b1.button("Load Viral Clickbait Sample", use_container_width=True):
-            sample_text = "SHOCKING BOMBSHELL: Big Pharma is HIDING this one simple secret miracle cure that doctors DON'T want you to know about!!! You won't believe what happens next, act now before it's too late!"
+            st.session_state.tab2_text_val = "SHOCKING BOMBSHELL: Big Pharma is HIDING this one simple secret miracle cure that doctors DON'T want you to know about!!! You won't believe what happens next, act now before it's too late!"
+            st.rerun()
         if b2.button("Load Factual News Article Sample", use_container_width=True):
-            sample_text = "ISRO successfully launched the Chandrayaan-3 spacecraft from the Satish Dhawan Space Centre on July 14, 2023. The mission completed a soft landing on the lunar South Pole on August 23, 2023. Prime Minister Modi congratulated the scientists in Bengaluru for this historic achievement. In my opinion, space exploration inspires the entire next generation."
+            st.session_state.tab2_text_val = "ISRO successfully launched the Chandrayaan-3 spacecraft from the Satish Dhawan Space Centre on July 14, 2023. The mission completed a soft landing on the lunar South Pole on August 23, 2023. Prime Minister Modi congratulated the scientists in Bengaluru for this historic achievement. In my opinion, space exploration inspires the entire next generation."
+            st.rerun()
 
         text_input = st.text_area(
             "Enter Article Headline or News Paragraph to Analyze:",
-            value=sample_text or "ISRO successfully launched the Chandrayaan-3 spacecraft from Sriharikota on July 14, 2023. The lander module completed a soft landing on the lunar south pole on August 23, 2023.",
-            height=130,
-            key="input_article_text"
+            value=st.session_state.tab2_text_val,
+            height=130
         )
+        st.session_state.tab2_text_val = text_input
 
         col_act1, col_act2 = st.columns(2)
         with col_act1:
@@ -509,6 +513,9 @@ if menu == "🔍 Credibility Verification Suite":
             res = detector.analyze(text_input)
 
             st.write("---")
+            if res.overall_manipulation_score == 0 and not res.flagged_phrases:
+                st.success("✅ **Clean Journalistic Phrasing:** No clickbait, sensationalism, or emotional panic triggers detected in this text.")
+            
             # Manipulation Metric Cards with Circular Gauge
             k1, k2, k3 = st.columns([1.2, 1, 1])
             with k1:
@@ -532,26 +539,27 @@ if menu == "🔍 Credibility Verification Suite":
                 </div>
                 """, unsafe_allow_html=True)
 
-            # Highlighting trigger words in the text
-            st.markdown("#### 🔎 **Highlighted Manipulation Markers in Text:**")
-            highlighted = text_input
-            seen_terms = set()
-            for fp in res.flagged_phrases:
-                term = fp.get("term", "")
-                cat = fp.get("category", "")
-                if term and term.lower() not in seen_terms:
-                    seen_terms.add(term.lower())
-                    if "sensational" in cat:
-                        badge = f'<span style="background-color: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">{term} [Sensational]</span>'
-                    elif "fear" in cat or "urgency" in cat:
-                        badge = f'<span style="background-color: #fed7aa; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #9a3412;">{term} [Panic]</span>'
-                    elif "conspiracy" in cat:
-                        badge = f'<span style="background-color: #fecaca; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #991b1b;">{term} [Conspiracy]</span>'
-                    else:
-                        badge = f'<span style="background-color: #e0e7ff; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #3730a3;">{term} [Trigger]</span>'
-                    highlighted = re.sub(re.escape(term), badge, highlighted, flags=re.IGNORECASE)
-            
-            st.markdown(f'<div style="background-color: #f3f4f6; padding: 1.2rem; border-radius: 8px; font-size: 1.1rem; line-height: 1.8;">{highlighted}</div>', unsafe_allow_html=True)
+            if res.flagged_phrases:
+                # Highlighting trigger words in the text
+                st.markdown("#### 🔎 **Highlighted Manipulation Markers in Text:**")
+                highlighted = text_input
+                seen_terms = set()
+                for fp in res.flagged_phrases:
+                    term = fp.get("term", "")
+                    cat = fp.get("category", "")
+                    if term and term.lower() not in seen_terms:
+                        seen_terms.add(term.lower())
+                        if "sensational" in cat:
+                            badge = f'<span style="background-color: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">{term} [Sensational]</span>'
+                        elif "fear" in cat or "urgency" in cat:
+                            badge = f'<span style="background-color: #fed7aa; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #9a3412;">{term} [Panic]</span>'
+                        elif "conspiracy" in cat:
+                            badge = f'<span style="background-color: #fecaca; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #991b1b;">{term} [Conspiracy]</span>'
+                        else:
+                            badge = f'<span style="background-color: #e0e7ff; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #3730a3;">{term} [Trigger]</span>'
+                        highlighted = re.sub(re.escape(term), badge, highlighted, flags=re.IGNORECASE)
+                
+                st.markdown(f'<div style="background-color: #f3f4f6; padding: 1.2rem; border-radius: 8px; font-size: 1.1rem; line-height: 1.8;">{highlighted}</div>', unsafe_allow_html=True)
 
             if res.stylistic_flags:
                 st.markdown("**Identified Stylistic Red Flags:**")
@@ -564,9 +572,9 @@ if menu == "🔍 Credibility Verification Suite":
 
             st.write("---")
             if not extracted:
-                st.info("ℹ️ No testable empirical claims found. Ensure the text contains declarative sentences with specific entities or numbers, rather than opinions or questions.")
+                st.info("ℹ️ No testable empirical claims found. Ensure the text contains declarative statements.")
             else:
-                st.success(f"🎯 Extracted **{len(extracted)} testable factual claims** ranked by empirical salience:")
+                st.success(f"🎯 Extracted **{len(extracted)} testable factual claim(s)** ranked by empirical salience:")
                 for c in extracted:
                     with st.container(border=True):
                         ec1, ec2 = st.columns([3.5, 1])
@@ -589,35 +597,44 @@ if menu == "🔍 Credibility Verification Suite":
         st.subheader("3. Unified Evidence Cross-Search, NLI Stance & Final Credibility Dial (65% Milestone)")
         st.write("Cross-examine any claim against live global news sources, compute directional Natural Language Inference (NLI) stances, and calculate the unified credibility score.")
 
+        if "active_claim" not in st.session_state:
+            st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
+        if "claim_origin" not in st.session_state:
+            st.session_state.claim_origin = "https://www.reuters.com"
+
         # Preset test cases for evaluation demo
         st.markdown("**Quick Preset Claims for Review Demo:**")
         qc1, qc2, qc3, qc4 = st.columns(4)
         if qc1.button("🟢 Chandrayaan-3 Landing (Verified)", use_container_width=True):
             st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
             st.session_state.claim_origin = "https://www.reuters.com"
+            st.rerun()
         if qc2.button("🔴 Bleach Viral Cure (Debunked)", use_container_width=True):
             st.session_state.active_claim = "Drinking bleach is a proven miracle cure for viral infections"
             st.session_state.claim_origin = "https://viralnews-rumors.net"
+            st.rerun()
         if qc3.button("🎭 The Onion Sleep Pill (Satire)", use_container_width=True):
             st.session_state.active_claim = "Scientists invent miracle pill that eliminates the need for human sleep"
             st.session_state.claim_origin = "https://www.theonion.com"
+            st.rerun()
         if qc4.button("⚠️ Miracle Cancer Cure (Clickbait)", use_container_width=True):
             st.session_state.active_claim = "SHOCKING BOMBSHELL: Big Pharma is hiding a simple secret miracle cure from the public"
             st.session_state.claim_origin = "https://naturalcuretruth.com"
+            st.rerun()
 
         f_col1, f_col2 = st.columns([2.5, 1.2])
         with f_col1:
             claim_input = st.text_input(
                 "Enter Factual Claim to Cross-Examine:",
-                value=st.session_state.active_claim,
-                key="active_claim_input"
+                value=st.session_state.active_claim
             )
+            st.session_state.active_claim = claim_input
         with f_col2:
             origin_url_input = st.text_input(
                 "Originating Publisher URL / Domain:",
-                value=st.session_state.claim_origin,
-                key="active_origin_input"
+                value=st.session_state.claim_origin
             )
+            st.session_state.claim_origin = origin_url_input
 
         num_articles = st.slider("Number of independent news sources to retrieve for evidence pool:", 3, 8, 5)
 

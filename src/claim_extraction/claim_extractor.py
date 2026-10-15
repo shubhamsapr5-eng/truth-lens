@@ -91,7 +91,7 @@ class ClaimExtractor:
             s_clean = sentence.strip()
             # Basic validation: sentence length
             words = s_clean.split()
-            if len(words) < 5 or len(words) > 60:
+            if len(words) < 3 or len(words) > 75:
                 continue
 
             # Exclude interrogative or rhetorical questions
@@ -105,8 +105,17 @@ class ClaimExtractor:
 
             # Analyze sentence
             claim_obj = self._analyze_candidate_sentence(idx + 1, s_clean)
-            if claim_obj.salience_score >= 0.35:
-                scored_claims.append(claim_obj)
+            scored_claims.append(claim_obj)
+
+        # Fallback: if no claim was extracted, check if any sentence has at least 3 words and is declarative
+        valid_fallback = [
+            s for s in sentences
+            if len(s.split()) >= 3 and not s.endswith("?") and not any(re.search(pat, s, flags=re.IGNORECASE) for pat in OPINION_MARKERS)
+        ]
+        if not scored_claims and valid_fallback:
+            fallback_claim = self._analyze_candidate_sentence(1, valid_fallback[0])
+            fallback_claim.salience_score = max(0.50, fallback_claim.salience_score)
+            scored_claims.append(fallback_claim)
 
         # Sort claims by factual salience descending
         scored_claims.sort(key=lambda c: c.salience_score, reverse=True)
