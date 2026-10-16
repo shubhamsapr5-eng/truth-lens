@@ -60,7 +60,9 @@ class NewsRetriever:
                 if articles:
                     return articles
             except Exception as e:
-                print(f"[!] Warning: Live NewsAPI query failed ({e}). Falling back to test evidence.")
+                # Mask API key if it appears in error string
+                err_msg = re.sub(r'apiKey=[a-zA-Z0-9]+', 'apiKey=***REDACTED***', str(e))
+                print(f"[!] Warning: Live NewsAPI query failed ({err_msg}). Falling back to test evidence.")
 
         # Fallback to realistic curated test evidence
         return self._get_fallback_evidence(clean_query, max_results)

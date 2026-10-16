@@ -19,6 +19,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+import html
 import streamlit as st
 import pandas as pd
 from dotenv import load_dotenv
@@ -321,14 +322,18 @@ def render_login():
         with st.container(border=True):
             st.subheader("🔐 Project Review Evaluation Login")
             u_input = st.text_input("Username / Evaluator ID", value="Reviewer")
-            p_input = st.text_input("Access Password", type="password", value="truthlens2026")
+            p_input = st.text_input("Access Password", type="password", placeholder="Enter review access password...")
             
             c_btn1, c_btn2 = st.columns(2)
             with c_btn1:
                 if st.button("Sign In", type="primary", use_container_width=True):
-                    st.session_state.authenticated = True
-                    st.session_state.username = u_input
-                    st.rerun()
+                    valid_password = os.getenv("EVALUATOR_PASSWORD", "truthlens2026")
+                    if p_input == valid_password:
+                        st.session_state.authenticated = True
+                        st.session_state.username = u_input.strip() or "Evaluator"
+                        st.rerun()
+                    else:
+                        st.error("❌ Invalid access password. Please try again or use 1-Click Demo Login.")
             with c_btn2:
                 if st.button("⚡ 1-Click Demo Login", type="secondary", use_container_width=True):
                     st.session_state.authenticated = True
@@ -542,22 +547,24 @@ if menu == "🔍 Credibility Verification Suite":
             if res.flagged_phrases:
                 # Highlighting trigger words in the text
                 st.markdown("#### 🔎 **Highlighted Manipulation Markers in Text:**")
-                highlighted = text_input
+                safe_text = html.escape(text_input)
+                highlighted = safe_text
                 seen_terms = set()
                 for fp in res.flagged_phrases:
                     term = fp.get("term", "")
                     cat = fp.get("category", "")
                     if term and term.lower() not in seen_terms:
                         seen_terms.add(term.lower())
+                        escaped_term = html.escape(term)
                         if "sensational" in cat:
-                            badge = f'<span style="background-color: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">{term} [Sensational]</span>'
+                            badge = f'<span style="background-color: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">{escaped_term} [Sensational]</span>'
                         elif "fear" in cat or "urgency" in cat:
-                            badge = f'<span style="background-color: #fed7aa; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #9a3412;">{term} [Panic]</span>'
+                            badge = f'<span style="background-color: #fed7aa; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #9a3412;">{escaped_term} [Panic]</span>'
                         elif "conspiracy" in cat:
-                            badge = f'<span style="background-color: #fecaca; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #991b1b;">{term} [Conspiracy]</span>'
+                            badge = f'<span style="background-color: #fecaca; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #991b1b;">{escaped_term} [Conspiracy]</span>'
                         else:
-                            badge = f'<span style="background-color: #e0e7ff; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #3730a3;">{term} [Trigger]</span>'
-                        highlighted = re.sub(re.escape(term), badge, highlighted, flags=re.IGNORECASE)
+                            badge = f'<span style="background-color: #e0e7ff; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #3730a3;">{escaped_term} [Trigger]</span>'
+                        highlighted = re.sub(re.escape(escaped_term), badge, highlighted, flags=re.IGNORECASE)
                 
                 st.markdown(f'<div style="background-color: #f3f4f6; padding: 1.2rem; border-radius: 8px; font-size: 1.1rem; line-height: 1.8;">{highlighted}</div>', unsafe_allow_html=True)
 
@@ -706,13 +713,22 @@ if menu == "🔍 Credibility Verification Suite":
                     stance_badge_html = f'<span class="badge-stance-neutral">⚪ NEUTRAL (0.0) • {st_res.confidence * 100:.0f}% Conf</span>'
                     card_border = "#94a3b8"
 
+                safe_source = html.escape(art.source_name)
+                safe_domain = html.escape(art.domain)
+                safe_title = html.escape(art.title)
+                safe_snippet = html.escape(art.snippet)
+                safe_expl = html.escape(st_res.explanation)
+                safe_pub = html.escape(art.published_at)
+                safe_bias = html.escape(art.bias)
+                safe_url = art.url if art.url.startswith(("http://", "https://")) else "#"
+
                 st.markdown(f"""
                 <div class="evidence-box" style="border-left-color: {card_border};">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 8px;">
                         <div>
                             <span class="mono-pill">Source #{idx}</span>
-                            <strong style="font-size: 1.05rem; color: #0f172a; margin-left: 6px;">{art.source_name}</strong>
-                            <span style="color: #64748b; font-size: 0.85rem; margin-left: 4px;">({art.domain})</span>
+                            <strong style="font-size: 1.05rem; color: #0f172a; margin-left: 6px;">{safe_source}</strong>
+                            <span style="color: #64748b; font-size: 0.85rem; margin-left: 4px;">({safe_domain})</span>
                         </div>
                         <div style="display: flex; gap: 8px; align-items: center;">
                             {stance_badge_html}
@@ -720,15 +736,15 @@ if menu == "🔍 Credibility Verification Suite":
                         </div>
                     </div>
                     <h4 style="margin: 0.3rem 0; font-size: 1.15rem; font-weight: 700;">
-                        <a href="{art.url}" target="_blank" style="text-decoration: none; color: #1e40af;">{art.title}</a>
+                        <a href="{safe_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #1e40af;">{safe_title}</a>
                     </h4>
-                    <p style="color: #334155; font-size: 0.95rem; margin: 0.4rem 0 0.6rem 0; line-height: 1.5;">{art.snippet}</p>
+                    <p style="color: #334155; font-size: 0.95rem; margin: 0.4rem 0 0.6rem 0; line-height: 1.5;">{safe_snippet}</p>
                     <div style="background: #f8fafc; border-radius: 6px; padding: 6px 10px; font-size: 0.82rem; color: #475569; margin-bottom: 8px;">
-                        💡 <strong>NLI Stance Analysis:</strong> {st_res.explanation}
+                        💡 <strong>NLI Stance Analysis:</strong> {safe_expl}
                     </div>
                     <div style="display: flex; gap: 12px; font-size: 0.8rem; color: #64748b; flex-wrap: wrap; border-top: 1px solid #f1f5f9; padding-top: 6px;">
-                        <span>📅 Published: <strong>{art.published_at}</strong></span>
-                        <span>⚖️ Political Bias: <strong>{art.bias}</strong></span>
+                        <span>📅 Published: <strong>{safe_pub}</strong></span>
+                        <span>⚖️ Political Bias: <strong>{safe_bias}</strong></span>
                         <span>📊 Consensus Weight (W_rep): <strong>{art.weight_factor:.2f}</strong></span>
                         <span>🎯 Overlap: <strong>{st_res.overlap_score * 100:.0f}%</strong></span>
                     </div>

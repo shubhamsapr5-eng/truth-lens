@@ -35,9 +35,18 @@ ENV/
 env.bak/
 venv.bak/
 
-# Environment Variables & Secrets
+# Environment Variables, Keys & Secrets
 .env
-.env.local
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+secrets/
+credentials.json
+*.id_rsa
 
 # IDE & Editor files
 .idea/
