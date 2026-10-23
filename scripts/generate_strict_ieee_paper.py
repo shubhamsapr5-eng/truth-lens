@@ -3,7 +3,7 @@ TruthLens: Strict IEEE Conference Research Paper Generator
 Strictly adheres to official IEEE 2-Column Conference Proceedings Format:
 - Paper Size: US Letter (8.5 x 11.0 in)
 - Margins: Top 0.75 in, Bottom 1.0 in, Left 0.625 in, Right 0.625 in
-- Title: 24 pt Regular/Bold, Centered
+- Title: 24 pt Bold, Centered
 - Authors: 4-Column Table, 10 pt Bold Name, 8.5 pt Affiliation
 - Abstract & Index Terms: 9 pt Bold Justified with 0.2 in Indents
 - Section Headings: Roman Numerals, 10 pt Bold Centered UPPERCASE
@@ -12,8 +12,8 @@ Strictly adheres to official IEEE 2-Column Conference Proceedings Format:
 - Equations: Centered with Right-Aligned Equation Numbers
 - Tables: IEEE Horizontal Borders Only, Centered Small Caps Header
 - Figures: Single-Column Width (3.35 in) with Centered/Justified 8 pt Caption Below
-- References: 9 pt IEEE Numbered Format with Hanging Indent
-Calibrated to strictly span between 6 and 7 pages.
+- References: Strict 7 Foundational Research Papers (+ 2 Governance Frameworks = 9 total)
+Calibrated to strictly span exactly 6 full pages (at least 6 pages, max 7).
 """
 
 import os
@@ -208,7 +208,6 @@ def create_strict_ieee_paper():
         cols_elm = parse_xml(f'<w:cols {nsdecls("w")} w:num="2" w:space="288"/>')
         sectPr.append(cols_elm)
 
-    # Helper functions for 2-column IEEE formatting
     def add_sec_head(num_str, title_str):
         p = doc.add_paragraph()
         p.paragraph_format.space_before = Pt(12)
@@ -301,23 +300,23 @@ def create_strict_ieee_paper():
     # -------------------------------------------------------------------------
     add_sec_head("I", "Introduction")
     add_body(
-        "THE explosive proliferation of algorithmic disinformation across online digital platforms constitutes a formidable peril to modern democratic governance, public health resilience, and socio-economic equilibrium. Landmark empirical investigations conducted by Vosoughi et al. [1] in Science revealed that false narratives diffuse significantly farther, faster, deeper, and more broadly than verified reporting across all news domains, with political and medical disinformation exhibiting a velocity differential exceeding six-fold compared to verified factual reportage. This asymmetric diffusion is driven primarily by cognitive exploitation: deceptive narratives are intentionally crafted to evoke high-arousal negative affect, sensational novelty, and collective panic [2].",
+        "THE explosive proliferation of algorithmic disinformation across online digital platforms constitutes a formidable peril to modern democratic governance, public health resilience, and socio-economic equilibrium. Landmark empirical investigations conducted by Vosoughi et al. [1] in Science revealed that false narratives diffuse significantly farther, faster, deeper, and more broadly than verified reporting across all news domains, with political and medical disinformation exhibiting a velocity differential exceeding six-fold compared to verified factual reportage. This asymmetric diffusion is driven primarily by cognitive exploitation: deceptive narratives are intentionally crafted to evoke high-arousal negative affect, sensational novelty, and collective panic, which maximize algorithmic engagement and viral reach.",
         indent=False
     )
     add_body(
-        "Historically, the computational linguistics and data mining communities have treated automated fake news detection as a conventional closed-world natural language processing (NLP) classification challenge. Supervised architectures—ranging from early Support Vector Machines (SVM) trained on lexical n-grams to fine-tuned contextual transformers such as BERT [3] and RoBERTa [4]—endeavor to discern truthfulness solely from stylistic attributes, syntactic complexity, or sentiment cues within isolated text strings. Extensive empirical literature [5]–[7], however, establishes three fatal structural vulnerabilities in this closed-world paradigm:"
+        "Historically, the computational linguistics and data mining communities have treated automated fake news detection as a conventional closed-world natural language processing (NLP) classification challenge. Supervised architectures—ranging from early Support Vector Machines (SVM) trained on lexical n-grams to deep neural networks evaluated on benchmark datasets such as LIAR [2]—endeavor to discern truthfulness solely from stylistic attributes, syntactic complexity, or sentiment cues within isolated text strings. Extensive empirical literature, however, establishes three fatal structural vulnerabilities in this closed-world paradigm:"
     )
     add_bullet(
-        "1) The Sophisticated Impersonator Dilemma: Hostile state actors and professional disinformation networks increasingly mimic formal, authoritative journalistic syntax, deploying passive voice, balanced rhetoric, and AP-style vocabulary to propagate total fabrications. Stylistic classifiers invariably certify such content as genuine [6]."
+        "1) The Sophisticated Impersonator Dilemma: Hostile state actors and professional disinformation networks increasingly mimic formal, authoritative journalistic syntax, deploying passive voice, balanced rhetoric, and AP-style vocabulary to propagate total fabrications. Stylistic classifiers invariably certify such content as genuine because the surface grammar is flawless."
     )
     add_bullet(
-        "2) The Atypical Breaking News Vulnerability: Authentic reporting regarding unprecedented catastrophes, military conflicts, or volatile epidemiological emergencies inherently incorporates urgent terminology, rapid revisions, and high emotional shock. Style-based models systematically misclassify authentic emergency journalism as clickbait [7]."
+        "2) The Atypical Breaking News Vulnerability: Authentic reporting regarding unprecedented catastrophes, military conflicts, or volatile epidemiological emergencies inherently incorporates urgent terminology, rapid revisions, and high emotional shock. Style-based models systematically misclassify authentic emergency journalism as clickbait due to elevated emotional intensity."
     )
     add_bullet(
-        "3) Entity and Topical Keyword Overfitting: Classifiers trained on static benchmark corpora (such as LIAR [5] or FakeNewsNet) overfit heavily to transient political figures or topical entities, precipitating severe performance collapse when deployed against emerging, out-of-domain news streams [8]."
+        "3) Entity and Topical Keyword Overfitting: As conclusively demonstrated by Baly et al. [3] at ACL 2020, neural classifiers trained on static fake news corpora overfit heavily to transient political figures, topical keywords, and temporal entities rather than learning invariant representations of factuality. When evaluated against out-of-domain articles or unfolding crises, classification accuracy frequently collapses to near-random chance."
     )
     add_body(
-        "Crucially, the veracity of an empirical assertion cannot be deduced from syntax in isolation: whether a geopolitical treaty occurred or a novel virus emerged depends upon real-world occurrence, not literary phrasing. Human journalists resolve credibility not by analyzing sentence structure, but by multi-source cross-examination: evaluating publisher provenance, detecting manipulative intent, and determining whether independent wire services corroborate the claim."
+        "Crucially, the veracity of an empirical assertion cannot be deduced from syntax in isolation: whether a geopolitical treaty occurred or a novel virus emerged depends upon real-world occurrence, not literary phrasing. Human journalists resolve credibility not by analyzing sentence structure in a vacuum, but by multi-source cross-examination: evaluating publisher provenance, detecting manipulative intent, and determining whether independent wire services corroborate the claim."
     )
     add_body(
         "To operationalize this journalistic methodology computationally, we introduce TruthLens, an open-world multi-modal credibility verification system. Rather than guessing truthfulness from isolated literary style, TruthLens extracts testable factual claims and examines whether reputable independent news organizations corroborate, refute, or dispute the assertion in real time. Specifically, this paper makes the following contributions:"
@@ -343,28 +342,28 @@ def create_strict_ieee_paper():
     # -------------------------------------------------------------------------
     add_sec_head("II", "Related Work")
     add_body(
-        "Automated veracity assessment intersects multiple subfields within artificial intelligence, computational journalism, and network science. Existing research trajectories can be categorized into four dominant paradigms.",
+        "Automated veracity assessment intersects multiple subfields within artificial intelligence, computational journalism, and network science. Existing research trajectories can be categorized across four foundational research themes.",
         indent=False
     )
 
-    add_subsec_head("A", "Stylistic and Lexical Manipulation Analysis")
+    add_subsec_head("A", "Information Diffusion & Deceptive Stylistics")
     add_body(
-        "Pioneering studies concentrated upon linguistic markers indicative of deception. Horne and Adali [9] demonstrated that deceptive articles exhibit distinct title-to-body complexity ratios, shorter sentence structures, and higher verbosity in headlines. Rashkin et al. [10] applied Linguistic Inquiry and Word Count (LIWC) lexicons, documenting an elevation in hyperbolic modifiers, first-person plural pronouns, and subjective qualifiers within fabricated news. Although lexical analysis reliably identifies viral clickbait and yellow journalism, it remains epistemologically blind to empirical truth: well-written falsehoods evade detection entirely [11]."
+        "The mathematical foundation of online falsehood diffusion was established by Vosoughi, Roy, and Aral [1], who tracked 126,000 rumor cascades across ten years, proving that falsehood travels six times faster than truth due to human novelty preferences. Complementing diffusion kinetics, Horne and Adali [5] analyzed the structural text characteristics of viral news articles across legitimate, fake, and satirical outlets. Their empirical findings proved that deceptive articles pack substantially more emotional and subjective words into shorter sentences, using repetitive lexical patterns designed to evoke arousal rather than convey informative nuance. Although lexical analysis reliably identifies viral clickbait, it remains epistemologically blind to empirical truth: well-written falsehoods evade detection entirely."
     )
 
-    add_subsec_head("B", "Content-Only Deep NLP Classification & Overfitting")
+    add_subsec_head("B", "Content-Only Classifiers & Topic Shortcut Vulnerability")
     add_body(
-        "Supervised classification of news text saw rapid adoption following Wang's introduction of the LIAR benchmark [5], comprising 12.8k PolitiFact statements. Subsequent benchmarks explored CNN, Bi-LSTM, and transformer architectures [3], [6]. However, Baly et al. [7] delivered a definitive critique at ACL 2020: by masking named entities and topic keywords during adversarial evaluation, they demonstrated that transformer classifiers experience accuracy drops exceeding 35%, confirming that models learn topic-specific correlation shortcuts rather than factuality representations."
+        "Early supervised verification research focused upon training classifiers directly on textual corpora. Wang [2] introduced the LIAR benchmark (12.8k PolitiFact statements), establishing that surface text models struggle to achieve high generalizability across disparate topics. The definitive critique of content-only deep classifiers was delivered by Baly et al. [3] at ACL 2020. Conducting adversarial ablation experiments across transformer architectures, the authors demonstrated that masking named entities and topic keywords caused severe performance degradation, confirming that deep neural models memorize topical shortcuts rather than learning factual veracity."
     )
 
-    add_subsec_head("C", "Source Reputation and Provenance Modeling")
+    add_subsec_head("C", "Source Provenance and Media Reputation Modeling")
     add_body(
-        "Recognizing that individual claims are ephemeral while publishing mastheads exhibit consistent longitudinal standards, Baly et al. [14] at EMNLP 2018 demonstrated that source-level profiling (using Wikipedia presence, Twitter metadata, and web traffic) dramatically outperforms claim-level text classifiers. Norregaard, Horne, and Adali [12] reinforced this with the NELA-GT-2018 dataset (713k articles across 194 outlets), proving that domain-level credibility ratings from Media Bias/Fact Check (MBFC) remain extraordinarily stable over time. TruthLens builds directly upon this foundation by scaling MBFC coverage to 4,442 indexed domains."
+        "Recognizing that individual claims are ephemeral while publishing mastheads exhibit consistent longitudinal editorial discipline, Baly et al. [4] at EMNLP 2018 proposed shifting the unit of analysis from individual claims to the news source itself. By profiling media outlets across Twitter metadata, Wikipedia presence, URL structure, and historical fact-checking evaluations, their model achieved high macro-F1 scores in predicting publication factuality and political bias tiers. Their work validated the institutional epistemology premise: a media outlet that has maintained rigorous journalistic review standards over decades exhibits a high baseline probability of reporting verified facts. TruthLens builds directly upon this foundation by scaling Media Bias / Fact Check coverage to 4,442 indexed media domains."
     )
 
     add_subsec_head("D", "Fact Verification, Corroboration & Stance Detection")
     add_body(
-        "To introduce factual grounding, large-scale benchmarks have emerged. Thorne et al. [15] introduced the FEVER dataset, formalizing verification as a 3-stage pipeline: document retrieval, evidence sentence selection, and Natural Language Inference (NLI) against Wikipedia. Aly et al. [16] extended this to multi-modal tabular evidence in FEVEROUS. In parallel, Hanselowski et al. [17] analyzed the Fake News Challenge (FNC-1) stance-detection task, and Hardalov et al. [18] surveyed stance paradigms in NAACL 2022, establishing that cross-source stance consensus yields an objective veracity signal. TruthLens adapts this principle to the live news web."
+        "To introduce factual grounding, Thorne et al. [6] at NAACL 2018 introduced the FEVER dataset (185k claims), formalizing fact verification as a 3-stage pipeline: document retrieval, evidence sentence selection, and Natural Language Inference (NLI) to predict whether evidence Supports, Refutes, or exhibits NotEnoughInfo regarding a claim. In parallel, Hardalov et al. [7] published a comprehensive survey in Findings of NAACL 2022 on cross-source stance detection for misinformation identification. They established that aggregating stance vectors across diverse independent news sources provides an objective, crowdsourced veracity signal that resists individual outlet bias. TruthLens unifies these paradigms into a live, real-time web verification pipeline."
     )
 
     # -------------------------------------------------------------------------
@@ -397,7 +396,6 @@ def create_strict_ieee_paper():
     set_ieee_borders(tbl_w)
     col_w_mbfc = [Inches(1.2), Inches(0.8), Inches(1.4)]
 
-    # Caption Table I
     p_t1_c = doc.add_paragraph()
     p_t1_c.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_t1_c.paragraph_format.space_before = Pt(8)
@@ -461,7 +459,7 @@ def create_strict_ieee_paper():
 
     add_subsec_head("D", "Multi-Source Evidence Retrieval & Semantic Stance NLI")
     add_body(
-        "Target hypothesis H is transformed into an optimized keyword query dispatched to the NewsAPI global news endpoint, retrieving top-N (N=10) contemporaneous articles published within a 30-day temporal window. For each retrieved evidence snippet E_i, TruthLens evaluates directional stance using a RoBERTa cross-encoder fine-tuned on MNLI and FEVER. Stance polarity Phi_i is discretized across three polarities:"
+        "Target hypothesis H is transformed into an optimized keyword query dispatched to the NewsAPI global news endpoint, retrieving top-N (N=10) contemporaneous articles published within a 30-day temporal window. For each retrieved evidence snippet E_i, TruthLens evaluates directional stance using a RoBERTa cross-encoder fine-tuned on MNLI and FEVER [6]. Stance polarity Phi_i is discretized across three polarities:"
     )
     add_bullet(
         "• SUPPORTS (Phi_i = +1.0): Evidence affirms or entails the claim (overlap >= 0.50, no negation markers)."
@@ -653,7 +651,7 @@ def create_strict_ieee_paper():
 
     add_subsec_head("D", "Ablation Analysis: Component Contribution")
     add_body(
-        "To quantify the indispensability of each subsystem, ablation experiments were conducted. Removing Pillar 1 (Source Reputation) causes Case 2 (Natural News) to jump erroneously from 14% to 48%, because sophisticated grammatical phrasing masks the low credibility of the publisher. Removing Pillar 2 (Linguistic Scanner) fails to penalize clickbait variants published on mainstream portals. Deactivating Pillar 3 (Corroboration) leaves the system vulnerable to breaking falsehoods originating from unrated blogs. Only the tripartite fusion ensures robust veracity calibration."
+        "To quantify the indispensability of each subsystem, ablation experiments were conducted. Removing Pillar 1 (Source Reputation) causes Case 2 (Natural News) to jump erroneously from 14% to 48%, because sophisticated grammatical phrasing masks the low credibility of the publisher. Removing Pillar 2 (Linguistic Scanner) fails to penalize clickbait variants published on mainstream portals. Deactivating Pillar 3 (Corroboration) leaves the system vulnerable to breaking falsehoods originating from unrated blogs. Only the tripartite fusion ensures robust veracity calibration across diverse reporting scenarios."
     )
 
     # -------------------------------------------------------------------------
@@ -667,7 +665,7 @@ def create_strict_ieee_paper():
 
     add_subsec_head("A", "Epistemic Explainability vs. Black-Box Classification")
     add_body(
-        "A profound failure mode of end-to-end deep learning models (such as GPT-4 or fine-tuned BERT classifiers) is opacity: when a deep network generates a veracity probability of '0.87 Fake', human users and editorial professionals cannot verify which specific factors justified the decision. TruthLens resolves this epistemic crisis by decomposing verification into explicit, auditable metrics: the user observes the exact publisher factuality rating, the specific manipulative phrases triggered, and the exact independent news articles corroborating or contradicting the assertion."
+        "A profound failure mode of end-to-end deep learning models (such as commercial LLMs or fine-tuned BERT classifiers) is opacity: when a deep network generates a veracity probability of '0.87 Fake', human users and editorial professionals cannot verify which specific factors justified the decision. TruthLens resolves this epistemic crisis by decomposing verification into explicit, auditable metrics: the user observes the exact publisher factuality rating, the specific manipulative phrases triggered, and the exact independent news articles corroborating or contradicting the assertion."
     )
 
     add_subsec_head("B", "Algorithmic Fairness and Ideological Decoupling")
@@ -698,7 +696,7 @@ def create_strict_ieee_paper():
     )
 
     # -------------------------------------------------------------------------
-    # REFERENCES (IEEE FORMAT)
+    # REFERENCES (STRICT 7 CORE PAPERS + 2 GOVERNANCE = 9 TOTAL)
     # -------------------------------------------------------------------------
     p_ref_h = doc.add_paragraph()
     p_ref_h.paragraph_format.space_before = Pt(12)
@@ -712,31 +710,20 @@ def create_strict_ieee_paper():
 
     references = [
         "[1] S. Vosoughi, D. Roy, and S. Aral, 'The spread of true and false news online,' Science, vol. 359, no. 6380, pp. 1146-1151, Mar. 2018.",
-        "[2] B. D. Horne and S. Adali, 'This Just In: Fake News Packs a Lot in Title, Uses Less Words, and Is More Repetitive,' in Proc. 11th Int. AAAI Conf. Web and Social Media (ICWSM), Montreal, Canada, 2017, pp. 759-766.",
-        "[3] J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova, 'BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding,' in Proc. NAACL-HLT 2019, Minneapolis, MN, pp. 4171-4186.",
-        "[4] Y. Liu, M. Ott, N. Goyal, J. Du, M. Joshi, D. Chen, O. Levy, M. Lewis, L. Zettlemoyer, and V. Stoyanov, 'RoBERTa: A Robustly Optimized BERT Pretraining Approach,' arXiv:1907.11692, 2019.",
-        "[5] W. Y. Wang, '\"Liar, Liar Pants on Fire\": A New Benchmark Dataset for Fake News Detection,' in Proc. 55th Annu. Meeting Assoc. Comput. Linguistics (ACL), Vancouver, Canada, 2017, pp. 422-426.",
-        "[6] K. Shu, A. Sliva, S. Wang, J. Tang, and H. Liu, 'Fake News Detection on Social Media: A Data Mining Perspective,' ACM SIGKDD Explorations Newsletter, vol. 19, no. 1, pp. 22-36, Sep. 2017.",
-        "[7] R. Baly, G. Karadzhov, J. Glass, and P. Nakov, 'We Can Detect Fake News with High Accuracy, but What Did We Learn? A Quantitative and Qualitative Analysis,' in Proc. 58th Annu. Meeting Assoc. Comput. Linguistics (ACL), Online, 2020, pp. 5182-5197.",
-        "[8] R. K. Kaliyar, A. Goswami, P. Narang, and S. Sinha, 'FNDNet—A deep convolutional neural network for fake news detection,' Cognitive Systems Research, vol. 61, pp. 32-44, 2020.",
-        "[9] B. D. Horne, J. Norregaard, and S. Adali, 'Robust Fake News Detection Over Time and Attack,' ACM Trans. Intell. Syst. Technol., vol. 11, no. 1, pp. 1-23, 2019.",
-        "[10] H. Rashkin, E. Choi, J. Y. Jang, S. Volkova, and Y. Choi, 'Truth of Varying Shades: Analyzing Language in Fake News and Political Fact-Checking,' in Proc. EMNLP 2017, Copenhagen, Denmark, pp. 2931-2937.",
-        "[11] E. Ferrara, 'What types of COVID-19 conspiracies are populated by Twitter bots?' First Monday, vol. 25, no. 6, Jun. 2020.",
-        "[12] J. Norregaard, B. D. Horne, and S. Adali, 'NELA-GT-2018: A Large Multi-Labelled News Dataset for The Study of Misinformation in News Articles,' in Proc. 13th Int. AAAI Conf. Web and Social Media (ICWSM), Munich, Germany, 2019, pp. 630-638.",
-        "[13] P. Nakov et al., 'Automated Fact-Checking for Assisting Human Fact-Checkers,' in Proc. 30th Int. Joint Conf. Artif. Intell. (IJCAI), 2021, pp. 4551-4558.",
-        "[14] R. Baly, G. Karadzhov, D. Alexandrov, J. Glass, and P. Nakov, 'Predicting factuality of reporting and bias of news media sources,' in Proc. EMNLP 2018, Brussels, Belgium, pp. 3528-3539.",
-        "[15] J. Thorne, A. Vlachos, C. Christodoulopoulos, and A. Mittal, 'FEVER: A large-scale dataset for Fact Extraction and VERification,' in Proc. NAACL-HLT 2018, New Orleans, LA, pp. 809-819.",
-        "[16] R. Aly et al., 'FEVEROUS: Fact Extraction and VERification Over Unstructured and Structured information,' in Adv. Neural Inf. Process. Syst. (NeurIPS), vol. 34, 2021, pp. 25674-25687.",
-        "[17] A. Hanselowski, H. P. Ji, V. Stoyanov, and I. Gurevych, 'A Retrospective Analysis of the Fake News Challenge Stance-Detection Task,' in Proc. 27th Int. Conf. Comput. Linguistics (COLING), Santa Fe, NM, 2018, pp. 1859-1874.",
-        "[18] M. Hardalov, A. Arora, P. Nakov, and I. Augenstein, 'A Survey on Stance Detection for Mis- and Disinformation Identification,' in Findings Assoc. Comput. Linguistics: NAACL 2022, Seattle, WA, 2022, pp. 1259-1277.",
-        "[19] United Nations General Assembly, 'Transforming our world: The 2030 Agenda for Sustainable Development,' Resolution A/RES/70/1, United Nations, New York, NY, USA, 2015.",
-        "[20] Government of India, 'The Digital Personal Data Protection Act, 2023,' Act No. 22 of 2023, The Gazette of India, New Delhi, India, Aug. 2023."
+        "[2] W. Y. Wang, '\"Liar, Liar Pants on Fire\": A New Benchmark Dataset for Fake News Detection,' in Proc. 55th Annu. Meeting Assoc. Comput. Linguistics (ACL), Vancouver, Canada, 2017, pp. 422-426.",
+        "[3] R. Baly, G. Karadzhov, J. Glass, and P. Nakov, 'We Can Detect Fake News with High Accuracy, but What Did We Learn? A Quantitative and Qualitative Analysis,' in Proc. 58th Annu. Meeting Assoc. Comput. Linguistics (ACL), Online, 2020, pp. 5182-5197.",
+        "[4] R. Baly, G. Karadzhov, D. Alexandrov, J. Glass, and P. Nakov, 'Predicting factuality of reporting and bias of news media sources,' in Proc. 2018 Conf. Empirical Methods Natural Lang. Process. (EMNLP), Brussels, Belgium, 2018, pp. 3528-3539.",
+        "[5] B. D. Horne and S. Adali, 'This Just In: Fake News Packs a Lot in Title, Uses Less Words, and Is More Repetitive,' in Proc. 11th Int. AAAI Conf. Web and Social Media (ICWSM), Montreal, Canada, 2017, pp. 759-766.",
+        "[6] J. Thorne, A. Vlachos, C. Christodoulopoulos, and A. Mittal, 'FEVER: A large-scale dataset for Fact Extraction and VERification,' in Proc. NAACL-HLT 2018, New Orleans, LA, pp. 809-819.",
+        "[7] M. Hardalov, A. Arora, P. Nakov, and I. Augenstein, 'A Survey on Stance Detection for Mis- and Disinformation Identification,' in Findings Assoc. Comput. Linguistics: NAACL 2022, Seattle, WA, 2022, pp. 1259-1277.",
+        "[8] United Nations General Assembly, 'Transforming our world: The 2030 Agenda for Sustainable Development,' Resolution A/RES/70/1, United Nations, New York, NY, USA, 2015.",
+        "[9] Government of India, 'The Digital Personal Data Protection Act, 2023,' Act No. 22 of 2023, The Gazette of India, New Delhi, India, Aug. 2023."
     ]
 
     for ref in references:
         p_ref = doc.add_paragraph()
-        p_ref.paragraph_format.space_after = Pt(2)
-        p_ref.paragraph_format.line_spacing = 1.0
+        p_ref.paragraph_format.space_after = Pt(2.5)
+        p_ref.paragraph_format.line_spacing = 1.05
         p_ref.paragraph_format.left_indent = Inches(0.2)
         p_ref.paragraph_format.first_line_indent = Inches(-0.2)
         p_ref.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY

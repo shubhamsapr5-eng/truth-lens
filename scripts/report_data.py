@@ -1,6 +1,7 @@
 """
 Data and text content module for TruthLens Mini Project Report (CSS7102).
 Contains all academic text, tables, structured matrices, and references.
+Focuses strictly on the 7 foundational peer-reviewed research studies.
 """
 
 STUDENTS = [
@@ -90,17 +91,12 @@ ABBREVIATIONS = [
 
 REFERENCES_LIST = [
     "[1] S. Vosoughi, D. Roy, and S. Aral, \"The spread of true and false news online,\" Science, vol. 359, no. 6380, pp. 1146-1151, Mar. 2018.",
-    "[2] J. Thorne, A. Vlachos, C. Christodoulopoulos, and A. Mittal, \"FEVER: a large-scale dataset for Fact Extraction and VERification,\" in Proc. 2018 Conf. North American Chapter Assoc. Comput. Linguistics: Human Lang. Technol. (NAACL-HLT), New Orleans, LA, 2018, pp. 809-819.",
-    "[3] R. Baly, G. Karadzhov, D. Alexandrov, J. Glass, and P. Nakov, \"Predicting factuality of reporting and bias of news media sources,\" in Proc. 2018 Conf. Empirical Methods Natural Lang. Process. (EMNLP), Brussels, Belgium, 2018, pp. 3528-3539.",
-    "[4] Y. Liu, M. Ott, N. Goyal, J. Du, M. Joshi, D. Chen, O. Levy, M. Lewis, L. Zettlemoyer, and V. Stoyanov, \"RoBERTa: A Robustly Optimized BERT Pretraining Approach,\" arXiv:1907.11692, 2019.",
-    "[5] W. Y. Wang, \"\"Liar, Liar Pants on Fire\": A New Benchmark Dataset for Fake News Detection,\" in Proc. 55th Annu. Meeting Assoc. Comput. Linguistics (ACL), Vancouver, Canada, 2017, pp. 422-426.",
-    "[6] K. Shu, A. Sliva, S. Wang, J. Tang, and H. Liu, \"Fake News Detection on Social Media: A Data Mining Perspective,\" ACM SIGKDD Explorations Newsletter, vol. 19, no. 1, pp. 22-36, Sep. 2017.",
-    "[7] R. Baly, G. Karadzhov, J. Glass, and P. Nakov, \"We Can Detect Fake News with High Accuracy, but What Did We Learn? A Quantitative and Qualitative Analysis,\" in Proc. 58th Annu. Meeting Assoc. Comput. Linguistics (ACL), Online, 2020, pp. 5182-5197.",
-    "[8] A. Hanselowski, H. P. Ji, V. Stoyanov, and I. Gurevych, \"A Retrospective Analysis of the Fake News Challenge Stance-Detection Task,\" in Proc. 27th Int. Conf. Comput. Linguistics (COLING), Santa Fe, NM, 2018, pp. 1859-1874.",
-    "[9] B. D. Horne and S. Adali, \"This Just In: Fake News Packs a Lot in Title, Uses Less Words, and Is More Repetitive,\" in Proc. 11th Int. AAAI Conf. Web and Social Media (ICWSM), Montreal, Canada, 2017, pp. 759-766.",
-    "[10] R. Aly, Z. Guo, M. Schlichtkrull, J. Thorne, A. Vlachos, C. Christodoulopoulos, O. Cocarascu, and A. Mittal, \"FEVEROUS: Fact Extraction and VERification Over Unstructured and Structured information,\" in Adv. Neural Inf. Process. Syst. (NeurIPS), vol. 34, 2021, pp. 25674-25687.",
-    "[11] M. Hardalov, A. Arora, P. Nakov, and I. Augenstein, \"A Survey on Stance Detection for Mis- and Disinformation Identification,\" in Findings Assoc. Comput. Linguistics: NAACL 2022, Seattle, WA, 2022, pp. 1259-1277.",
-    "[12] J. Norregaard, B. D. Horne, and S. Adali, \"NELA-GT-2018: A Large Multi-Labelled News Dataset for The Study of Misinformation in News Articles,\" in Proc. 13th Int. AAAI Conf. Web and Social Media (ICWSM), Munich, Germany, 2019, pp. 630-638.",
-    "[13] United Nations General Assembly, \"Transforming our world: The 2030 Agenda for Sustainable Development,\" Resolution A/RES/70/1, United Nations, New York, NY, USA, 2015.",
-    "[14] Government of India, \"The Digital Personal Data Protection Act, 2023,\" Act No. 22 of 2023, The Gazette of India, Ministry of Law and Justice, New Delhi, India, Aug. 2023."
+    "[2] W. Y. Wang, \"\"Liar, Liar Pants on Fire\": A New Benchmark Dataset for Fake News Detection,\" in Proc. 55th Annu. Meeting Assoc. Comput. Linguistics (ACL), Vancouver, Canada, 2017, pp. 422-426.",
+    "[3] R. Baly, G. Karadzhov, J. Glass, and P. Nakov, \"We Can Detect Fake News with High Accuracy, but What Did We Learn? A Quantitative and Qualitative Analysis,\" in Proc. 58th Annu. Meeting Assoc. Comput. Linguistics (ACL), Online, 2020, pp. 5182-5197.",
+    "[4] R. Baly, G. Karadzhov, D. Alexandrov, J. Glass, and P. Nakov, \"Predicting factuality of reporting and bias of news media sources,\" in Proc. 2018 Conf. Empirical Methods Natural Lang. Process. (EMNLP), Brussels, Belgium, 2018, pp. 3528-3539.",
+    "[5] B. D. Horne and S. Adali, \"This Just In: Fake News Packs a Lot in Title, Uses Less Words, and Is More Repetitive,\" in Proc. 11th Int. AAAI Conf. Web and Social Media (ICWSM), Montreal, Canada, 2017, pp. 759-766.",
+    "[6] J. Thorne, A. Vlachos, C. Christodoulopoulos, and A. Mittal, \"FEVER: a large-scale dataset for Fact Extraction and VERification,\" in Proc. 2018 Conf. North American Chapter Assoc. Comput. Linguistics: Human Lang. Technol. (NAACL-HLT), New Orleans, LA, 2018, pp. 809-819.",
+    "[7] M. Hardalov, A. Arora, P. Nakov, and I. Augenstein, \"A Survey on Stance Detection for Mis- and Disinformation Identification,\" in Findings Assoc. Comput. Linguistics: NAACL 2022, Seattle, WA, 2022, pp. 1259-1277.",
+    "[8] United Nations General Assembly, \"Transforming our world: The 2030 Agenda for Sustainable Development,\" Resolution A/RES/70/1, United Nations, New York, NY, USA, 2015.",
+    "[9] Government of India, \"The Digital Personal Data Protection Act, 2023,\" Act No. 22 of 2023, The Gazette of India, Ministry of Law and Justice, New Delhi, India, Aug. 2023."
 ]

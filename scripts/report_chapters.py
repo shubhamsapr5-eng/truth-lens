@@ -1,6 +1,7 @@
 """
 Comprehensive Academic Chapters Content for TruthLens Project Report (CSS7102).
 Contains extensive academic text, tables, figures, equations, and algorithms across Chapters 1-9.
+Streamlined to focus strictly upon the 7 foundational research papers.
 """
 
 CHAPTERS = [
@@ -23,7 +24,7 @@ CHAPTERS = [
 
                     "This asymmetrical propagation dynamic is fundamentally driven by the psychological novelty hypothesis and emotional "
                     "valence exploitation: misinformation systematically leverages cognitive vulnerabilities—specifically fear, moral disgust, "
-                    "tribal identity reinforcement, and urgent panic—which maximize algorithmic algorithmic click-through rates (CTR) and user "
+                    "tribal identity reinforcement, and urgent panic—which maximize algorithmic click-through rates (CTR) and user "
                     "engagement. The real-world repercussions of unverified falsehoods are severe and systemic, encompassing the violent disruption "
                     "of democratic electoral processes, the erosion of public compliance during global epidemiological emergencies, the execution of "
                     "coordinated financial pump-and-dump market manipulations, and the severe polarization of civil society.",
@@ -46,9 +47,9 @@ CHAPTERS = [
                     "routinely engage in domain spoofing, typosquatting (e.g., registering variants of established mastheads), fast-flux DNS rotation, "
                     "and content syndication across ephemeral micro-blogs, rendering static URL filters obsolete within days of compilation.",
 
-                    "Conversely, pure text-classification systems—ranging from early n-gram Support Vector Machines to contemporary fine-tuned "
-                    "transformer models—suffer from severe architectural vulnerabilities. As rigorously demonstrated by Baly et al. [7] at ACL 2020, "
-                    "text-only classifiers trained on standard benchmarks (such as LIAR [5] or FakeNewsNet) catastrophically overfit to transient "
+                    "Conversely, pure text-classification systems—ranging from early n-gram models introduced by Wang [2] on the LIAR benchmark "
+                    "to contemporary fine-tuned transformer models—suffer from severe architectural vulnerabilities. As rigorously demonstrated "
+                    "by Baly et al. [3] at ACL 2020, text-only classifiers trained on standard benchmarks catastrophically overfit to transient "
                     "topical vocabularies, named entities, and temporal event markers rather than learning invariant structural representations of "
                     "deception. When evaluated on out-of-domain articles or newly unfolding crisis events, the classification accuracy of deep NLP "
                     "classifiers frequently drops to near-chance levels. Furthermore, deep neural networks operate as black boxes, providing opaque "
@@ -128,7 +129,7 @@ CHAPTERS = [
                 "num": "1.6",
                 "title": "Alignment with UN Sustainable Development Goals (SDGs)",
                 "paras": [
-                    "TruthLens is purposefully engineered to advance the United Nations 2030 Agenda for Sustainable Development [13], directly "
+                    "TruthLens is purposefully engineered to advance the United Nations 2030 Agenda for Sustainable Development [8], directly "
                     "contributing to three foundational Sustainable Development Goals (SDGs):",
                     "1. SDG 16 (Peace, Justice and Strong Institutions): Target 16.10 mandates public access to information and the protection of fundamental "
                     "freedoms. By equipping citizens, journalists, and academic researchers with transparent, automated credibility verification tools, "
@@ -144,8 +145,8 @@ CHAPTERS = [
                 "num": "1.7",
                 "title": "Organisation of the Report",
                 "paras": [
-                    "The remainder of this mini project report is organized as follows: Chapter 2 conducts a rigorous literature review of 12 foundational "
-                    "IEEE, ACM, and ACL studies, establishing a comparative taxonomy of fact-checking paradigms and formalizing research gaps. "
+                    "The remainder of this mini project report is organized as follows: Chapter 2 conducts a focused literature review of 7 foundational "
+                    "peer-reviewed studies, establishing a comparative taxonomy of fact-checking paradigms and formalizing research gaps. "
                     "Chapter 3 presents the proposed 3-pillar methodology, mathematical scoring formulations, domain extraction algorithms, and lexical "
                     "manipulation metrics. Chapter 4 details project management, development lifecycles, Gantt scheduling, team RACI allocations, and risk matrices. "
                     "Chapter 5 specifies functional/non-functional requirements, environment configurations, Data Flow Diagrams (Level 0 and 1), and relational "
@@ -173,7 +174,7 @@ CHAPTERS = [
                     "than automated social bots—was the predominant driver of false cascade acceleration: users were significantly more likely to retweet novel, "
                     "emotion-inducing falsehoods.",
 
-                    "Complementing diffusion kinetics, Horne and Adali [9] analyzed the structural text characteristics of viral news articles across legitimate, "
+                    "Complementing diffusion kinetics, Horne and Adali [5] analyzed the structural text characteristics of viral news articles across legitimate, "
                     "fake, and satirical outlets. Their empirical analysis demonstrated that fake news titles pack substantially more emotional and subjective words "
                     "into shorter sentences, utilizing repetitive lexical patterns designed to evoke arousal rather than convey informative nuance. These empirical "
                     "findings provide direct scientific motivation for TruthLens's second pillar: quantifying sensationalist, urgency-inducing, and outrage-oriented "
@@ -185,16 +186,16 @@ CHAPTERS = [
                 "title": "Content-Only Classifiers & Topic Overfitting Vulnerabilities",
                 "paras": [
                     "Early automated verification research focused heavily on supervised classification of raw text using linguistic features and neural architectures. "
-                    "Wang [5] introduced the LIAR benchmark, consisting of 12,836 short statements collected from PolitiFact and categorized across six truthfulness "
+                    "Wang [2] introduced the LIAR benchmark, consisting of 12,836 short statements collected from PolitiFact and categorized across six truthfulness "
                     "gradations. While convolutional and recurrent neural models achieved promising benchmarks on the training distribution, subsequent evaluations "
-                    "revealed acute generalizability limits. Shu et al. [6] surveyed data mining approaches for social media fake news, highlighting that content-only "
-                    "models struggle with newly emerging events because the classifier memorizes specific semantic entities rather than epistemic coherence.",
+                    "revealed acute generalizability limits, highlighting that content-only models struggle with newly emerging events because classifiers memorize "
+                    "specific semantic entities rather than epistemic coherence.",
 
-                    "The definitive critique of content-only deep classifiers was delivered by Baly et al. [7] at ACL 2020. Conducting exhaustive adversarial ablation "
+                    "The definitive critique of content-only deep classifiers was delivered by Baly et al. [3] at ACL 2020. Conducting exhaustive adversarial ablation "
                     "experiments across multiple state-of-the-art transformer models, the authors demonstrated that when named entities and topic words were masked, "
                     "classifier accuracy dropped precipitously, confirming that deep NLP models learn topic-specific correlation shortcuts rather than factuality. "
                     "A news article discussing an unsubstantiated conspiracy theory using sober, academic prose would be erroneously classified as highly credible, "
-                    "while a factual report covering an unusual breaking event would be flagged as fake. This finding demonstrates that content analysis alone is "
+                    "while a factual report covering an unusual breaking event would be flagged as fake. This finding proves that content analysis alone is "
                     "insufficient and must be augmented by source provenance and multi-document corroboration."
                 ]
             },
@@ -202,16 +203,15 @@ CHAPTERS = [
                 "num": "2.3",
                 "title": "Source-Level Journalistic Profiling & Media Bias / Fact Check",
                 "paras": [
-                    "Recognizing the fundamental vulnerability of text-only classification, Baly et al. [3] at EMNLP 2018 proposed shifting the unit of analysis "
+                    "Recognizing the fundamental vulnerability of text-only classification, Baly et al. [4] at EMNLP 2018 proposed shifting the unit of analysis "
                     "from individual claims to the news source itself. By profiling media outlets across Twitter metadata, Wikipedia presence, URL structure, and "
                     "historical fact-checking evaluations, their model achieved high macro-F1 scores in predicting publication factuality and political bias tiers. "
                     "Their work validated the institutional epistemology premise: a media outlet that has maintained rigorous journalistic review standards over "
                     "decades exhibits a high baseline probability of reporting verified facts.",
 
-                    "Similarly, Norregaard, Horne, and Adali [12] curated the NELA-GT-2018 dataset, comprising 713,000 news articles from 194 sources labeled by "
-                    "Media Bias / Fact Check (MBFC) and Pew Research. Their longitudinal analysis established that outlet-level ground truth ratings remain remarkably "
-                    "stable over time, providing a highly reliable prior probability. TruthLens directly operationalizes this insight by utilizing MBFC as an "
-                    "authoritative knowledge base covering 4,442 global media outlets, converting journalistic ratings into mathematical credibility weights."
+                    "Longitudinal studies establish that outlet-level ground truth ratings remain remarkably stable over time, providing a highly reliable prior "
+                    "probability. TruthLens directly operationalizes this insight by utilizing Media Bias / Fact Check (MBFC) as an authoritative knowledge base "
+                    "covering 4,442 global media outlets, converting journalistic ratings into mathematical credibility weights indexed via sub-millisecond B-Trees."
                 ]
             },
             {
@@ -219,75 +219,54 @@ CHAPTERS = [
                 "title": "Multi-Document Corroboration & Natural Language Inference (FEVER)",
                 "paras": [
                     "To verify factual claims without relying entirely on source authority, the computational linguistics community introduced automated Fact "
-                    "Extraction and VERification (FEVER). Thorne et al. [2] at NAACL 2018 formalized fact verification as a 3-stage pipeline: (1) Document Retrieval "
+                    "Extraction and VERification (FEVER). Thorne et al. [6] at NAACL 2018 formalized fact verification as a 3-stage pipeline: (1) Document Retrieval "
                     "from an external evidence corpus; (2) Evidence Sentence Selection; and (3) Natural Language Inference (NLI) to predict whether the retrieved "
                     "evidence Supports, Refutes, or exhibits NotEnoughInfo regarding the claim.",
 
-                    "Aly et al. [10] extended this paradigm to complex, multi-modal evidence across tables and text in FEVEROUS (NeurIPS 2021). The FEVER framework "
-                    "proves that truth is established through multi-document consensus: if an unusual claim is asserted, legitimate journalism will produce multiple "
-                    "corroborating articles from independent outlets. TruthLens adapts the evidence retrieval stage of FEVER by orchestrating live API queries "
-                    "across the open news web, establishing an evidence pool of corroborating and contradicting reports."
+                    "The FEVER framework establishes that truth is determined through multi-document consensus: if an unusual claim is asserted, legitimate "
+                    "journalism will produce multiple corroborating articles from independent outlets. TruthLens adapts the evidence retrieval stage of FEVER "
+                    "by orchestrating live API queries across the open news web, establishing an evidence pool of corroborating and contradicting reports."
                 ]
             },
             {
                 "num": "2.5",
-                "title": "Cross-Source Stance Detection Paradigms",
+                "title": "Cross-Source Stance Detection & Consensus Paradigms",
                 "paras": [
-                    "Cross-document stance detection evaluates the perspective of external articles toward a target claim. Hanselowski et al. [8] analyzed the "
-                    "Fake News Challenge (FNC-1) stance-detection benchmark, which task models with classifying headline-body pairs into four classes: Agree, "
-                    "Disagree, Discuss, and Unrelated. Their findings demonstrated that lexical overlap and stacked neural representations effectively distinguish "
-                    "related from unrelated documents, but fine-grained stance distinction requires bidirectional attention mechanisms.",
+                    "Cross-document stance detection evaluates the perspective of external articles toward a target claim. Hardalov et al. [7] published a "
+                    "comprehensive survey in Findings of NAACL 2022 on stance detection for misinformation identification. They established that aggregating "
+                    "stance vectors across diverse news sources provides an objective, crowdsourced veracity signal that resists individual outlet bias.",
 
-                    "Hardalov et al. [11] published a comprehensive survey in Findings of NAACL 2022 on stance detection for misinformation identification. They "
-                    "established that aggregating stance vectors across diverse news sources provides an objective, crowdsourced veracity signal that resists "
-                    "individual outlet bias. If top-tier wire services (Reuters, AP News) report an event with an 'Agree' stance, the collective epistemic confidence "
-                    "approaches certainty, whereas consensus 'Disagree' stances from reputable outlets serve as definitive proof of debunked misinformation."
+                    "If top-tier wire services report an event with a supporting stance, the collective epistemic confidence approaches certainty, whereas consensus "
+                    "refuting stances from reputable outlets serve as definitive proof of debunked misinformation. TruthLens incorporates this multi-source stance "
+                    "vector directly into its composite scoring aggregation."
                 ]
             },
             {
                 "num": "2.6",
-                "title": "Deep Transformer Architectures for Fact Verification (RoBERTa)",
+                "title": "Literature Survey Comparison Matrix (7 Foundational Studies)",
                 "paras": [
-                    "The advent of pretrained transformer models transformed Natural Language Inference. Liu et al. [4] introduced RoBERTa (Robustly Optimized "
-                    "BERT Pretraining Approach), demonstrating that training with larger batch sizes, longer sequences, dynamic masking patterns, and the removal "
-                    "of the Next Sentence Prediction (NSP) objective produces substantial performance gains over BERT across downstream reasoning benchmarks.",
-
-                    "When fine-tuned on the Multi-Genre Natural Language Inference (MNLI) dataset, RoBERTa-large achieves state-of-the-art entailment accuracy "
-                    "(>90.2%), providing an ideal cross-encoder foundation for premise-hypothesis evaluation. In the TruthLens architecture, RoBERTa-MNLI is slated "
-                    "for Phase 4 (65% milestone) to compute continuous entailment/contradiction probabilities between extracted claims and retrieved evidence pools."
-                ]
-            },
-            {
-                "num": "2.7",
-                "title": "Literature Survey Comparison Matrix (12 IEEE/Scopus Studies)",
-                "paras": [
-                    "To synthesize the theoretical and empirical foundations of automated fact verification, Table 2.1 presents a comprehensive comparative "
-                    "matrix of 12 foundational research papers across top-tier IEEE, ACM, ACL, Science, and NeurIPS venues. The matrix systematically analyzes "
-                    "each work across publication venue, methodology, evaluation dataset, key technical strengths, and inherent architectural limitations."
+                    "To synthesize the theoretical and empirical foundations of automated fact verification, Table 2.1 presents a focused comparative matrix "
+                    "of the 7 foundational research papers across top-tier IEEE, ACM, ACL, and Science venues. The matrix systematically analyzes each work "
+                    "across publication venue, methodology, evaluation dataset, key technical strengths, and inherent architectural limitations."
                 ],
                 "table": {
                     "num": "2.1",
-                    "caption": "Comprehensive Literature Survey Matrix of 12 Foundational IEEE/Scopus Research Studies",
+                    "caption": "Literature Survey Comparison Matrix of 7 Foundational Peer-Reviewed Research Studies",
                     "widths": [1.05, 0.5, 1.15, 1.0, 1.05, 1.0],
                     "headers": ["Authors & Venue", "Year", "Core Methodology", "Dataset Used", "Key Strengths", "Inherent Limitations"],
                     "rows": [
                         ["Vosoughi et al.\n(Science) [1]", "2018", "Empirical diffusion cascade modeling across 10 years", "126k rumor cascades, 3M users (Twitter)", "Definitive proof that false news spreads 6x faster than truth", "Purely observational; provides no automated detection engine"],
-                        ["Thorne et al.\n(NAACL) [2]", "2018", "3-phase Fact Verification: Retrieval + Selection + NLI", "185k claims on Wikipedia (FEVER)", "Formalized fact-checking into 3-class NLI benchmark", "Synthetic Wikipedia claims; ungrounded in real-time news web"],
-                        ["Baly et al.\n(EMNLP) [3]", "2018", "Source-level profiling using Wikipedia, Twitter, and URLs", "1,066 news outlets mapped to MBFC", "Demonstrated that source profiling outperforms claim classification", "Static feature set; slow to reflect editorial changes"],
-                        ["Liu et al.\n(arXiv) [4]", "2019", "Robustly optimized BERT pretraining with dynamic masking", "160GB text corpora, MNLI, SQuAD", "State-of-the-art transformer representation across NLP tasks", "High computational inference cost; opaque reasoning"],
-                        ["Wang\n(ACL) [5]", "2017", "Short statement classification with CNN & Bi-LSTM networks", "12.8k PolitiFact claims (LIAR)", "Pioneering benchmark for multi-class truthfulness scoring", "Overfits to named entities; ignores source provenance"],
-                        ["Shu et al.\n(ACM SIGKDD) [6]", "2017", "Survey of social media data mining and propagation trees", "FakeNewsNet (BuzzFeed & PolitiFact)", "Unified social context with news content analysis", "Social graph features unavailable for newly published articles"],
-                        ["Baly et al.\n(ACL) [7]", "2020", "Adversarial evaluation & named entity masking in transformers", "LIAR, FakeNewsNet, COVID-19", "Proved deep NLP models learn topic shortcuts, not truth", "Identified failure modes without proposing hybrid solution"],
-                        ["Hanselowski et al.\n(COLING) [8]", "2018", "Stacked neural architecture for headline-body stance detection", "FNC-1 benchmark (49k pairs)", "High macro-F1 on stance; rigorous error ablation", "Evaluates single headline-body pairs; no multi-source pool"],
-                        ["Horne & Adali\n(AAAI ICWSM) [9]", "2017", "Stylistic, lexical & complexity feature profiling of text", "Fake, Satire, Real news corpus", "Demonstrated that fake titles use repetitive, emotive syntax", "Heuristic rules fail on sophisticated adversarial propaganda"],
-                        ["Aly et al.\n(NeurIPS) [10]", "2021", "Multi-modal verification over structured tables and text", "FEVEROUS benchmark (87k claims)", "Extends NLI to structured knowledge representations", "Extremely complex pipeline; unsuitable for real-time latency"],
-                        ["Hardalov et al.\n(Findings NAACL) [11]", "2022", "Survey of cross-document stance detection paradigms", "Multi-domain stance corpora", "Formalized stance aggregation across diverse news outlets", "Does not integrate source reputation weighting"],
-                        ["Norregaard et al.\n(AAAI ICWSM) [12]", "2019", "Longitudinal multi-source news feature compilation", "NELA-GT-2018 (713k articles)", "Proved ground truth ratings remain stable over time", "Pure dataset curation; lacks automated verification inference"]
+                        ["Wang\n(ACL) [2]", "2017", "Short statement classification with CNN & Bi-LSTM networks", "12.8k PolitiFact claims (LIAR)", "Pioneering benchmark for multi-class truthfulness scoring", "Overfits to named entities; ignores source provenance"],
+                        ["Baly et al.\n(ACL) [3]", "2020", "Adversarial evaluation & named entity masking in transformers", "LIAR, FakeNewsNet, COVID-19", "Proved deep NLP models learn topic shortcuts, not truth", "Identified failure modes without proposing hybrid solution"],
+                        ["Baly et al.\n(EMNLP) [4]", "2018", "Source-level profiling using Wikipedia, Twitter, and URLs", "1,066 news outlets mapped to MBFC", "Demonstrated that source profiling outperforms claim classification", "Static feature set; slow to reflect editorial changes"],
+                        ["Horne & Adali\n(AAAI ICWSM) [5]", "2017", "Stylistic, lexical & complexity feature profiling of text", "Fake, Satire, Real news corpus", "Demonstrated that fake titles use repetitive, emotive syntax", "Heuristic rules fail on sophisticated adversarial propaganda"],
+                        ["Thorne et al.\n(NAACL) [6]", "2018", "3-phase Fact Verification: Retrieval + Selection + NLI", "185k claims on Wikipedia (FEVER)", "Formalized fact-checking into 3-class NLI benchmark", "Synthetic Wikipedia claims; ungrounded in real-time news web"],
+                        ["Hardalov et al.\n(Findings NAACL) [7]", "2022", "Survey of cross-document stance detection paradigms", "Multi-domain stance corpora", "Formalized stance aggregation across diverse news outlets", "Does not integrate source reputation weighting"]
                     ]
                 }
             },
             {
-                "num": "2.8",
+                "num": "2.7",
                 "title": "Taxonomy and Evolution of Fact-Checking Paradigms",
                 "paras": [
                     "Figure 2.1 illustrates the comprehensive taxonomy and historical evolution of automated misinformation verification paradigms. "
@@ -303,7 +282,7 @@ CHAPTERS = [
                 }
             },
             {
-                "num": "2.9",
+                "num": "2.8",
                 "title": "Summary of Research Gaps & TruthLens Value Proposition",
                 "paras": [
                     "Our systematic review of existing literature reveals four critical research gaps:",
@@ -473,7 +452,7 @@ CHAPTERS = [
                 "paras": [
                     "The engineering lifecycle of TruthLens is structured across five sequential, interdependent phases spanning a 12-week intensive development "
                     "calendar. Each phase is mapped directly to institutional evaluation reviews prescribed under course CSS7102 (Mini Project):",
-                    "Phase 1 (Weeks 1-3): Research Inception, Dataset Curation, and SQLite Schema Normalization. Literature survey of 12 IEEE papers, ingestion "
+                    "Phase 1 (Weeks 1-3): Research Inception, Dataset Curation, and SQLite Schema Normalization. Literature survey of 7 foundational papers, ingestion "
                     "of 4,442 MBFC media records, and database indexing.",
                     "Phase 2 (Weeks 4-6): Core Algorithmic Engine Engineering. Implementation of canonical domain resolution, 109-trigger lexical manipulation "
                     "scanner, and NewsAPI retrieval orchestration.",
@@ -979,7 +958,7 @@ CHAPTERS = [
                 "num": "8.2",
                 "title": "Data Privacy & Compliance with India's DPDP Act 2023",
                 "paras": [
-                    "In full compliance with India's Digital Personal Data Protection Act (DPDP Act, 2023) [14], TruthLens is engineered with Privacy-by-Design principles. "
+                    "In full compliance with India's Digital Personal Data Protection Act (DPDP Act, 2023) [9], TruthLens is engineered with Privacy-by-Design principles. "
                     "The system processes news verification queries statelessly: user input URLs and text snippets are processed in volatile memory and immediately "
                     "garbage-collected upon response generation. No personal identifiable information (PII), user IP addresses, browser cookies, or reading histories "
                     "are recorded in the SQLite database or server logs. The embedded database stores solely public media masthead ratings."
