@@ -35,7 +35,7 @@ from src.scoring.score_aggregator import ScoreAggregator, VerdictTier
 load_dotenv()
 
 # ==============================================================================
-# 1. PAGE CONFIGURATION & HIGH-TECH STYLING
+# 1. PAGE CONFIGURATION & HIGH-CONTRAST DARK CYBERPUNK STYLING
 # ==============================================================================
 st.set_page_config(
     page_title="TruthLens - AI News Credibility Engine (85% Review 4 Milestone)",
@@ -44,7 +44,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom High-End CSS with Glassmorphism, Elevated Cards & Glowing Badges
+# Custom High-End CSS with Dark Glassmorphism, Elevated Cards & Glowing Badges
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
@@ -55,45 +55,46 @@ st.markdown("""
     
     /* Top Progress Bar Widget */
     .progress-banner {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        border: 1px solid #334155;
+        background: linear-gradient(135deg, #131c2e 0%, #0b0f19 100%);
+        border: 1px solid #2563eb;
         border-radius: 16px;
-        padding: 1.1rem 1.4rem;
+        padding: 1.2rem 1.5rem;
         margin-bottom: 1.5rem;
-        box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.25);
+        box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.25);
         color: #f8fafc;
     }
     .progress-track {
-        background: #334155;
+        background: #1e293b;
         border-radius: 9999px;
         height: 12px;
         width: 100%;
         overflow: hidden;
         margin: 10px 0 6px 0;
-        position: relative;
+        border: 1px solid #334155;
     }
     .progress-fill {
         background: linear-gradient(90deg, #3b82f6 0%, #10b981 85%, #06b6d4 100%);
         height: 100%;
         border-radius: 9999px;
-        transition: width 1s ease-in-out;
+        box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
     }
     
-    /* Global Typography & Hero */
+    /* Global Typography & Hero - HIGH CONTRAST LUMINOUS GRADIENT */
     .main-title {
         font-size: 2.3rem;
         font-weight: 800;
-        background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+        color: #38bdf8;
+        background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.35rem;
         letter-spacing: -0.025em;
     }
     .sub-title {
         font-size: 1.05rem;
-        color: #64748b;
+        color: #cbd5e1;
         margin-bottom: 1.4rem;
-        line-height: 1.5;
+        line-height: 1.6;
     }
     
     /* Status KPI Pills */
@@ -101,57 +102,57 @@ st.markdown("""
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: #f1f5f9;
-        color: #334155;
-        border: 1px solid #e2e8f0;
-        padding: 5px 12px;
+        background: #131c2e;
+        color: #e2e8f0;
+        border: 1px solid #334155;
+        padding: 6px 14px;
         border-radius: 9999px;
         font-size: 0.8rem;
         font-weight: 700;
         font-family: 'JetBrains Mono', monospace;
     }
     .status-pill.success {
-        background: #ecfdf5;
-        color: #065f46;
-        border-color: #a7f3d0;
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+        border-color: rgba(16, 185, 129, 0.4);
     }
     .status-pill.primary {
-        background: #eff6ff;
-        color: #1e40af;
-        border-color: #bfdbfe;
+        background: rgba(59, 130, 246, 0.15);
+        color: #60a5fa;
+        border-color: rgba(59, 130, 246, 0.4);
     }
     .status-pill.warning {
-        background: #fffbeb;
-        color: #92400e;
-        border-color: #fde68a;
+        background: rgba(245, 158, 11, 0.15);
+        color: #fbbf24;
+        border-color: rgba(245, 158, 11, 0.4);
     }
 
-    /* Modern Elevated Cards */
+    /* Modern Elevated Cards (Dark Glassmorphism) */
     .metric-card {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
+        background: #131c2e;
+        border: 1px solid #334155;
         border-radius: 16px;
         padding: 1.25rem 1.3rem;
-        box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s ease, border-color 0.2s ease;
         margin-bottom: 1rem;
     }
     .metric-card:hover {
         transform: translateY(-2px);
-        box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.09);
-        border-color: #cbd5e1;
+        border-color: #38bdf8;
+        box-shadow: 0 8px 25px -4px rgba(56, 189, 248, 0.2);
     }
     .metric-value {
         font-size: 1.85rem;
         font-weight: 800;
-        color: #0f172a;
+        color: #f8fafc;
         letter-spacing: -0.02em;
         line-height: 1.2;
     }
     .metric-label {
         font-size: 0.76rem;
         font-weight: 700;
-        color: #64748b;
+        color: #94a3b8;
         text-transform: uppercase;
         letter-spacing: 0.08em;
         margin-bottom: 0.35rem;
@@ -159,8 +160,8 @@ st.markdown("""
     
     /* Stance Badges */
     .badge-stance-supports {
-        background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-        color: #065f46;
+        background: rgba(16, 185, 129, 0.2);
+        color: #34d399;
         border: 1.5px solid #10b981;
         padding: 5px 14px;
         border-radius: 9999px;
@@ -171,8 +172,8 @@ st.markdown("""
         gap: 6px;
     }
     .badge-stance-refutes {
-        background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-        color: #991b1b;
+        background: rgba(239, 68, 68, 0.2);
+        color: #f87171;
         border: 1.5px solid #ef4444;
         padding: 5px 14px;
         border-radius: 9999px;
@@ -183,9 +184,9 @@ st.markdown("""
         gap: 6px;
     }
     .badge-stance-neutral {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        color: #475569;
-        border: 1.5px solid #cbd5e1;
+        background: rgba(148, 163, 184, 0.2);
+        color: #cbd5e1;
+        border: 1.5px solid #64748b;
         padding: 5px 14px;
         border-radius: 9999px;
         font-size: 0.84rem;
@@ -197,18 +198,19 @@ st.markdown("""
     
     /* Evidence Card */
     .evidence-box {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        border-left: 5px solid #2563eb;
+        background: #131c2e;
+        border: 1px solid #334155;
+        border-left: 5px solid #38bdf8;
         border-radius: 12px;
         padding: 1.25rem 1.4rem;
         margin-bottom: 1rem;
-        box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.04);
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.25);
+        transition: transform 0.15s ease, border-color 0.15s ease;
     }
     .evidence-box:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px -3px rgba(15, 23, 42, 0.08);
+        border-color: #475569;
+        box-shadow: 0 8px 25px -4px rgba(0, 0, 0, 0.35);
     }
     .evidence-box.high { border-left-color: #10b981; }
     .evidence-box.mixed { border-left-color: #f59e0b; }
@@ -217,23 +219,24 @@ st.markdown("""
     /* Mono Pill */
     .mono-pill {
         font-family: 'JetBrains Mono', monospace;
-        background: #f1f5f9;
-        color: #334155;
+        background: #0b0f19;
+        color: #94a3b8;
         font-size: 0.78rem;
         padding: 3px 8px;
         border-radius: 6px;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #334155;
     }
 
     /* Math Formula Callout Box */
     .math-callout {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        background: linear-gradient(135deg, #131c2e 0%, #0b0f19 100%);
         color: #f8fafc;
         border-radius: 14px;
         padding: 1.3rem 1.6rem;
         margin: 1.2rem 0;
-        border-left: 5px solid #3b82f6;
-        box-shadow: 0 6px 20px -2px rgba(15, 23, 42, 0.15);
+        border: 1px solid #334155;
+        border-left: 5px solid #38bdf8;
+        box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.4);
     }
 
     /* Big Verdict Banner */
@@ -242,35 +245,35 @@ st.markdown("""
         padding: 1.4rem 1.8rem;
         margin: 1rem 0;
         border: 1.5px solid transparent;
-        box-shadow: 0 8px 24px -3px rgba(0,0,0,0.06);
+        box-shadow: 0 8px 25px -3px rgba(0,0,0,0.3);
     }
     .verdict-hero.verified {
-        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-        border-color: #86efac;
-        color: #14532d;
+        background: linear-gradient(135deg, rgba(6, 78, 59, 0.4) 0%, rgba(6, 95, 70, 0.5) 100%);
+        border-color: #10b981;
+        color: #ecfdf5;
     }
     .verdict-hero.likely {
-        background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
-        border-color: #fde047;
-        color: #713f12;
+        background: linear-gradient(135deg, rgba(120, 53, 15, 0.4) 0%, rgba(146, 64, 14, 0.5) 100%);
+        border-color: #f59e0b;
+        color: #fef3c7;
     }
     .verdict-hero.mixed {
-        background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-        border-color: #fdba74;
-        color: #7c2d12;
+        background: linear-gradient(135deg, rgba(124, 45, 18, 0.4) 0%, rgba(154, 52, 18, 0.5) 100%);
+        border-color: #f97316;
+        color: #ffedd5;
     }
     .verdict-hero.debunked {
-        background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-        border-color: #fca5a5;
-        color: #7f1d1d;
+        background: linear-gradient(135deg, rgba(127, 29, 29, 0.4) 0%, rgba(153, 27, 27, 0.5) 100%);
+        border-color: #ef4444;
+        color: #fee2e2;
     }
     .verdict-hero.satire {
-        background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
-        border-color: #d8b4fe;
-        color: #581c87;
+        background: linear-gradient(135deg, rgba(88, 28, 135, 0.4) 0%, rgba(107, 33, 168, 0.5) 100%);
+        border-color: #a855f7;
+        color: #f3e8ff;
     }
     .verdict-hero.conspiracy {
-        background: linear-gradient(135deg, #450a0a 0%, #7f1d1d 100%);
+        background: linear-gradient(135deg, rgba(69, 10, 10, 0.7) 0%, rgba(127, 29, 29, 0.8) 100%);
         border-color: #ef4444;
         color: #fef2f2;
     }
@@ -278,24 +281,24 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-def render_circular_gauge(score: float, label: str, color_hex: str = "#2563eb", size: int = 145, subtitle: str = ""):
-    """Renders a responsive, clean SVG circular score gauge."""
+def render_circular_gauge(score: float, label: str, color_hex: str = "#38bdf8", size: int = 145, subtitle: str = ""):
+    """Renders a responsive, high-contrast SVG circular score gauge for dark theme."""
     radius = 42
     circumference = 2 * 3.14159265 * radius
     clamped_score = max(0.0, min(100.0, float(score)))
     dashoffset = circumference - (clamped_score / 100.0) * circumference
     
     return f"""
-    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.25rem 1rem; box-shadow: 0 4px 20px -2px rgba(15,23,42,0.05); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-        <div style="font-size: 0.76rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;">{label}</div>
+    <div style="background: #131c2e; border: 1px solid #334155; border-radius: 16px; padding: 1.25rem 1rem; box-shadow: 0 4px 20px -2px rgba(0,0,0,0.3); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+        <div style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;">{label}</div>
         <div style="position: relative; width: {size}px; height: {size}px; display: flex; align-items: center; justify-content: center;">
             <svg width="{size}" height="{size}" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
-                <circle cx="50" cy="50" r="{radius}" stroke="#f1f5f9" stroke-width="9" fill="transparent" />
+                <circle cx="50" cy="50" r="{radius}" stroke="#1e293b" stroke-width="9" fill="transparent" />
                 <circle cx="50" cy="50" r="{radius}" stroke="{color_hex}" stroke-width="9" stroke-linecap="round" fill="transparent"
                     stroke-dasharray="{circumference}" stroke-dashoffset="{dashoffset}" />
             </svg>
             <div style="position: absolute; text-align: center;">
-                <div style="font-size: 1.75rem; font-weight: 800; color: #0f172a; line-height: 1;">{clamped_score:.0f}<span style="font-size: 0.95rem; font-weight: 600; color: #64748b;">%</span></div>
+                <div style="font-size: 1.75rem; font-weight: 800; color: #f8fafc; line-height: 1;">{clamped_score:.0f}<span style="font-size: 0.95rem; font-weight: 600; color: #94a3b8;">%</span></div>
                 <div style="font-size: 0.68rem; font-weight: 700; color: {color_hex}; text-transform: uppercase; margin-top: 2px;">{subtitle or 'Index'}</div>
             </div>
         </div>
@@ -358,12 +361,12 @@ def render_login():
         st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown("""
         <div style="text-align: center; margin-bottom: 2rem;">
-            <h1 style="color: #0f172a; font-size: 2.7rem; font-weight: 800; margin-bottom: 0;">🛡️ TruthLens</h1>
-            <p style="color: #2563eb; font-size: 1.15rem; font-weight: 700; margin-top: 4px;">AI-Powered Real-Time News Credibility Verification Engine</p>
-            <p style="color: #64748b; font-size: 0.9rem;">Presidency University • School of AI & AC • Review Portal (PSAIAC_61)</p>
+            <h1 style="color: #f8fafc; font-size: 2.7rem; font-weight: 800; margin-bottom: 0;">🛡️ TruthLens</h1>
+            <p style="color: #38bdf8; font-size: 1.15rem; font-weight: 700; margin-top: 4px;">AI-Powered Real-Time News Credibility Verification Engine</p>
+            <p style="color: #94a3b8; font-size: 0.9rem;">Presidency University • School of AI & AC • Review Portal (PSAIAC_61)</p>
             <div style="margin-top: 12px; display: flex; justify-content: center; gap: 8px;">
-                <span style="background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 4px 14px; border-radius: 9999px; font-weight: 800; font-size: 0.82rem;">🎯 Review 4 Milestone: 85% Complete</span>
-                <span style="background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; padding: 4px 14px; border-radius: 9999px; font-weight: 800; font-size: 0.82rem;">⚡ 27/27 Tests Passed</span>
+                <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 14px; border-radius: 9999px; font-weight: 800; font-size: 0.82rem;">🎯 Review 4 Milestone: 85% Complete</span>
+                <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); padding: 4px 14px; border-radius: 9999px; font-weight: 800; font-size: 0.82rem;">⚡ 27/27 Tests Passed</span>
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -421,15 +424,15 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("#### ⚙️ **Review 4 Milestone (85%)**")
     st.markdown("""
-    <div style="font-size: 0.82rem; line-height: 1.7; color: #334155;">
-        • <b>SQLite B-Tree Index:</b> 4,442 outlets (0.018ms) 🟢<br>
-        • <b>Lexicon Detector:</b> 109 manipulation markers 🟢<br>
-        • <b>Claim Extractor:</b> spaCy NER & assertion verbs 🟢<br>
-        • <b>Evidence Retriever:</b> Live NewsAPI corroboration 🟢<br>
-        • <b>Directional Stance:</b> RoBERTa-MNLI (+1, -1, 0) 🟢<br>
-        • <b>Credibility Formula:</b> 0.70S + 0.30W - 0.25M 🟢<br>
-        • <b>Automated Tests:</b> 27/27 Pytest passed (100%) 🟢<br>
-        • <b>System Progress:</b> 85% Review 4 Complete 🟢
+    <div style="font-size: 0.82rem; line-height: 1.7; color: #94a3b8;">
+        • <b style="color: #f8fafc;">SQLite B-Tree Index:</b> 4,442 outlets (0.018ms) 🟢<br>
+        • <b style="color: #f8fafc;">Lexicon Detector:</b> 109 manipulation markers 🟢<br>
+        • <b style="color: #f8fafc;">Claim Extractor:</b> spaCy NER & assertion verbs 🟢<br>
+        • <b style="color: #f8fafc;">Evidence Retriever:</b> Live NewsAPI corroboration 🟢<br>
+        • <b style="color: #f8fafc;">Directional Stance:</b> RoBERTa-MNLI (+1, -1, 0) 🟢<br>
+        • <b style="color: #f8fafc;">Credibility Formula:</b> 0.70S + 0.30W - 0.25M 🟢<br>
+        • <b style="color: #f8fafc;">Automated Tests:</b> 27/27 Pytest passed (100%) 🟢<br>
+        • <b style="color: #f8fafc;">System Progress:</b> 85% Review 4 Complete 🟢
     </div>
     """, unsafe_allow_html=True)
 
@@ -466,7 +469,7 @@ st.markdown("""
             <div style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-top: 2px;">TruthLens System Progress: 85% Complete</div>
         </div>
         <div style="text-align: right;">
-            <span style="background: #10b981; color: #ffffff; padding: 4px 12px; border-radius: 9999px; font-weight: 800; font-size: 0.85rem;">● 85% OPERATIONAL</span>
+            <span style="background: #10b981; color: #ffffff; padding: 4px 12px; border-radius: 9999px; font-weight: 800; font-size: 0.85rem; box-shadow: 0 0 10px rgba(16,185,129,0.5);">● 85% OPERATIONAL</span>
         </div>
     </div>
     <div class="progress-track">
@@ -620,7 +623,7 @@ if menu == "🎯 Credibility Verification Suite":
                     <div>
                         <div style="font-size: 0.85rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;">TruthLens Executive Assessment</div>
                         <h2 style="margin: 4px 0; font-size: 1.8rem; font-weight: 800;">{assessment.verdict_badge}</h2>
-                        <div style="font-size: 1rem; opacity: 0.9; margin-top: 4px;">{assessment.summary_verdict}</div>
+                        <div style="font-size: 1rem; opacity: 0.95; margin-top: 4px;">{assessment.summary_verdict}</div>
                     </div>
                     <div style="text-align: right;">
                         <div style="font-size: 2.8rem; font-weight: 800; line-height: 1;">{assessment.final_score:.0f}<span style="font-size: 1.4rem;">%</span></div>
@@ -655,7 +658,7 @@ if menu == "🎯 Credibility Verification Suite":
                 <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 700; color: #ffffff;">
                     {assessment.math_formula_explanation}
                 </div>
-                <div style="font-size: 0.82rem; color: #cbd5e1; margin-top: 8px; line-height: 1.5;">
+                <div style="font-size: 0.85rem; color: #cbd5e1; margin-top: 8px; line-height: 1.6;">
                     • <b>Weighted Consensus Direction (&Phi;̄):</b> {assessment.weighted_consensus_phi:+.3f} across {assessment.total_evidence_sources} sources ({assessment.supporting_sources_count} Supports, {assessment.refuting_sources_count} Refutes, {assessment.neutral_sources_count} Neutral)<br>
                     • <b>Origin Reputation Factor:</b> {origin_rep.source_name} ({origin_rep.domain}) rated <b>{origin_rep.factual_reporting}</b> factuality with bias <b>{origin_rep.bias}</b><br>
                     • <b>Linguistic Penalty:</b> {manip_report.risk_level.upper()} ({assessment.manipulation_index:.0f}/100) deducted {assessment.manipulation_penalty:.1f} points from aggregate score
@@ -690,8 +693,8 @@ if menu == "🎯 Credibility Verification Suite":
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 8px;">
                         <div>
                             <span class="mono-pill">Source #{idx}</span>
-                            <strong style="font-size: 1.05rem; color: #0f172a; margin-left: 6px;">{safe_source}</strong>
-                            <span style="color: #64748b; font-size: 0.85rem; margin-left: 4px;">({safe_domain})</span>
+                            <strong style="font-size: 1.05rem; color: #f8fafc; margin-left: 6px;">{safe_source}</strong>
+                            <span style="color: #94a3b8; font-size: 0.85rem; margin-left: 4px;">({safe_domain})</span>
                         </div>
                         <div style="display: flex; gap: 8px; align-items: center;">
                             {st_badge}
@@ -699,17 +702,17 @@ if menu == "🎯 Credibility Verification Suite":
                         </div>
                     </div>
                     <h4 style="margin: 0.3rem 0; font-size: 1.12rem; font-weight: 700;">
-                        <a href="{safe_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #1e40af;">{safe_title}</a>
+                        <a href="{safe_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #60a5fa;">{safe_title}</a>
                     </h4>
-                    <p style="color: #334155; font-size: 0.93rem; margin: 0.4rem 0 0.6rem 0; line-height: 1.5;">{safe_snippet}</p>
-                    <div style="background: #f8fafc; border-radius: 6px; padding: 6px 10px; font-size: 0.82rem; color: #475569; margin-bottom: 8px;">
+                    <p style="color: #cbd5e1; font-size: 0.93rem; margin: 0.4rem 0 0.6rem 0; line-height: 1.5;">{safe_snippet}</p>
+                    <div style="background: #0b0f19; border: 1px solid #334155; border-radius: 6px; padding: 6px 10px; font-size: 0.82rem; color: #94a3b8; margin-bottom: 8px;">
                         💡 <strong>Directional NLI Stance:</strong> {safe_expl}
                     </div>
-                    <div style="display: flex; gap: 12px; font-size: 0.78rem; color: #64748b; flex-wrap: wrap; border-top: 1px solid #f1f5f9; padding-top: 6px;">
-                        <span>📅 Published: <strong>{safe_pub}</strong></span>
-                        <span>⚖️ Political Bias: <strong>{safe_bias}</strong></span>
-                        <span>📊 Authority Weight (W_rep): <strong>{art.weight_factor:.2f}</strong></span>
-                        <span>🎯 Overlap Salience: <strong>{st_res.overlap_score * 100:.0f}%</strong></span>
+                    <div style="display: flex; gap: 12px; font-size: 0.78rem; color: #94a3b8; flex-wrap: wrap; border-top: 1px solid #1e293b; padding-top: 6px;">
+                        <span>📅 Published: <strong style="color: #cbd5e1;">{safe_pub}</strong></span>
+                        <span>⚖️ Political Bias: <strong style="color: #cbd5e1;">{safe_bias}</strong></span>
+                        <span>📊 Authority Weight (W_rep): <strong style="color: #cbd5e1;">{art.weight_factor:.2f}</strong></span>
+                        <span>🎯 Overlap Salience: <strong style="color: #cbd5e1;">{st_res.overlap_score * 100:.0f}%</strong></span>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -757,28 +760,28 @@ if menu == "🎯 Credibility Verification Suite":
                 g_sub = "Verified" if rep.percentage_score >= 80 else ("Mixed" if rep.percentage_score >= 40 else ("Satire" if rep.is_satire else "Low Trust"))
                 st.markdown(render_circular_gauge(rep.percentage_score, "Credibility Score", color_hex=g_col, subtitle=g_sub), unsafe_allow_html=True)
             with m2:
-                fact_color = "#065f46" if "HIGH" in rep.factual_reporting else ("#92400e" if "MIXED" in rep.factual_reporting else "#991b1b")
+                fact_color = "#34d399" if "HIGH" in rep.factual_reporting else ("#fbbf24" if "MIXED" in rep.factual_reporting else "#f87171")
                 st.markdown(f"""
                 <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Factual Reporting</div>
                     <div class="metric-value" style="font-size: 1.35rem; color: {fact_color};">{rep.factual_reporting.upper()}</div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Editorial standard evaluation</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Editorial standard evaluation</div>
                 </div>
                 """, unsafe_allow_html=True)
             with m3:
                 st.markdown(f"""
                 <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Political Bias</div>
-                    <div class="metric-value" style="font-size: 1.35rem; color: #1e40af;">{rep.bias.upper()}</div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Spectrum orientation</div>
+                    <div class="metric-value" style="font-size: 1.35rem; color: #60a5fa;">{rep.bias.upper()}</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Spectrum orientation</div>
                 </div>
                 """, unsafe_allow_html=True)
             with m4:
                 st.markdown(f"""
                 <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Corroboration Weight</div>
-                    <div class="metric-value" style="font-size: 1.6rem; color: #0f172a;">{rep.weight_factor:.2f} <span style="font-size: 0.95rem; color: #64748b;">/ 1.0</span></div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Equation factor (W_origin)</div>
+                    <div class="metric-value" style="font-size: 1.6rem; color: #f8fafc;">{rep.weight_factor:.2f} <span style="font-size: 0.95rem; color: #94a3b8;">/ 1.0</span></div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Equation factor (W_origin)</div>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -850,15 +853,15 @@ if menu == "🎯 Credibility Verification Suite":
                 <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Risk Category</div>
                     <div class="metric-value" style="font-size: 1.35rem; color: {r_col};">{res.risk_level.upper()}</div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Evaluated against 109 triggers</div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Evaluated against 109 triggers</div>
                 </div>
                 """, unsafe_allow_html=True)
             with k3:
                 st.markdown(f"""
                 <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Triggers Caught</div>
-                    <div class="metric-value" style="font-size: 1.6rem; color: #0f172a;">{len(res.flagged_phrases)} <span style="font-size: 1rem; color: #64748b;">triggers</span></div>
-                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Sensational, panic & conspiracy flags</div>
+                    <div class="metric-value" style="font-size: 1.6rem; color: #f8fafc;">{len(res.flagged_phrases)} <span style="font-size: 1rem; color: #94a3b8;">triggers</span></div>
+                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Sensational, panic & conspiracy flags</div>
                 </div>
                 """, unsafe_allow_html=True)
 
@@ -874,16 +877,16 @@ if menu == "🎯 Credibility Verification Suite":
                         seen_terms.add(term.lower())
                         escaped_term = html.escape(term)
                         if "sensational" in cat:
-                            badge = f'<span style="background-color: #fef08a; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">{escaped_term} [Sensational]</span>'
+                            badge = f'<span style="background-color: rgba(234, 179, 8, 0.25); border: 1px solid #eab308; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #fde047;">{escaped_term} [Sensational]</span>'
                         elif "fear" in cat or "urgency" in cat:
-                            badge = f'<span style="background-color: #fed7aa; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #9a3412;">{escaped_term} [Panic]</span>'
+                            badge = f'<span style="background-color: rgba(249, 115, 22, 0.25); border: 1px solid #f97316; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #fdba74;">{escaped_term} [Panic]</span>'
                         elif "conspiracy" in cat:
-                            badge = f'<span style="background-color: #fecaca; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #991b1b;">{escaped_term} [Conspiracy]</span>'
+                            badge = f'<span style="background-color: rgba(239, 68, 68, 0.25); border: 1px solid #ef4444; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #fca5a5;">{escaped_term} [Conspiracy]</span>'
                         else:
-                            badge = f'<span style="background-color: #e0e7ff; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #3730a3;">{escaped_term} [Trigger]</span>'
+                            badge = f'<span style="background-color: rgba(99, 102, 241, 0.25); border: 1px solid #6366f1; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #a5b4fc;">{escaped_term} [Trigger]</span>'
                         highlighted = re.sub(re.escape(escaped_term), badge, highlighted, flags=re.IGNORECASE)
                 
-                st.markdown(f'<div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 1.2rem; border-radius: 12px; font-size: 1.05rem; line-height: 1.8;">{highlighted}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="background-color: #131c2e; border: 1px solid #334155; padding: 1.2rem; border-radius: 12px; font-size: 1.05rem; line-height: 1.8; color: #e2e8f0;">{highlighted}</div>', unsafe_allow_html=True)
 
             if res.stylistic_flags:
                 st.markdown("**Identified Stylistic Red Flags:**")
