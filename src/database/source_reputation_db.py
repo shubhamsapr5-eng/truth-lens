@@ -104,6 +104,18 @@ class SourceReputationDB:
             self._memory_cache[canonical] = rep
             return rep
 
+        # 3b. Name or common extension match (e.g. 'reuters' -> 'reuters.com' or source_name match)
+        search_term = canonical.replace("-", " ").strip()
+        cursor.execute(
+            "SELECT * FROM sources WHERE domain = ? || '.com' OR LOWER(source_name) = ? OR LOWER(source_name) = ? LIMIT 1",
+            (canonical, canonical.lower(), search_term.lower())
+        )
+        row = cursor.fetchone()
+        if row:
+            rep = self._row_to_model(row, lookup_method="name_match")
+            self._memory_cache[canonical] = rep
+            return rep
+
         # 4. Authoritative TLD Fallback (.gov, .edu, .mil, .int)
         is_trusted, matched_tld, tld_score = is_trusted_tld(url_or_domain)
         if is_trusted:

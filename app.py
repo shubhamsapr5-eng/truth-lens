@@ -354,6 +354,20 @@ if "claim_origin" not in st.session_state:
     st.session_state.claim_origin = "https://www.reuters.com"
 if "claim_context_text" not in st.session_state:
     st.session_state.claim_context_text = "ISRO successfully launched Chandrayaan-3 and achieved historic lunar landing on August 23, 2023."
+if "inspect_target_url" not in st.session_state:
+    st.session_state.inspect_target_url = "https://www.reuters.com"
+if "cached_assessment" not in st.session_state:
+    st.session_state.cached_assessment = None
+if "cached_articles" not in st.session_state:
+    st.session_state.cached_articles = []
+if "cached_stances" not in st.session_state:
+    st.session_state.cached_stances = []
+if "cached_origin_rep" not in st.session_state:
+    st.session_state.cached_origin_rep = None
+if "cached_manip_report" not in st.session_state:
+    st.session_state.cached_manip_report = None
+if "cached_latency" not in st.session_state:
+    st.session_state.cached_latency = 0.0
 
 def render_login():
     col1, col2, col3 = st.columns([1, 2.2, 1])
@@ -442,16 +456,22 @@ with st.sidebar:
         st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
         st.session_state.claim_origin = "https://www.reuters.com"
         st.session_state.claim_context_text = "ISRO confirmed the historic soft landing of Chandrayaan-3 on the lunar south pole on August 23, 2023."
+        st.session_state.inspect_target_url = "https://www.reuters.com"
+        st.session_state.cached_assessment = None
         st.rerun()
     if st.button("🔴 Bleach Viral Cure (Refuted)", use_container_width=True):
         st.session_state.active_claim = "Drinking bleach is a proven miracle cure for viral infections"
         st.session_state.claim_origin = "https://www.naturalnews.com"
         st.session_state.claim_context_text = "SHOCKING BOMBSHELL: Big Pharma is hiding this one miracle cure that eliminates viruses instantly!"
+        st.session_state.inspect_target_url = "https://www.naturalnews.com"
+        st.session_state.cached_assessment = None
         st.rerun()
     if st.button("🎭 The Onion (Satire Override)", use_container_width=True):
         st.session_state.active_claim = "Scientists discover miracle cure for aging using moon dust"
         st.session_state.claim_origin = "https://www.theonion.com"
         st.session_state.claim_context_text = "Satirical piece on scientists claiming moon dust cures all human ailments overnight."
+        st.session_state.inspect_target_url = "https://www.theonion.com"
+        st.session_state.cached_assessment = None
         st.rerun()
 
     st.markdown("---")
@@ -526,21 +546,29 @@ if menu == "🎯 Credibility Verification Suite":
             st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
             st.session_state.claim_origin = "https://www.reuters.com"
             st.session_state.claim_context_text = "ISRO successfully launched Chandrayaan-3 from Sriharikota and completed a soft landing on the lunar South Pole on August 23, 2023."
+            st.session_state.inspect_target_url = "https://www.reuters.com"
+            st.session_state.cached_assessment = None
             st.rerun()
         if qc2.button("🔴 Bleach Cure (Debunked -> 14%)", use_container_width=True):
             st.session_state.active_claim = "Drinking bleach is a proven miracle cure for viral infections"
             st.session_state.claim_origin = "https://www.naturalnews.com"
             st.session_state.claim_context_text = "SHOCKING BOMBSHELL: Big Pharma is hiding this one simple secret miracle cure that doctors DON'T want you to know about!!!"
+            st.session_state.inspect_target_url = "https://www.naturalnews.com"
+            st.session_state.cached_assessment = None
             st.rerun()
         if qc3.button("🎭 The Onion (Satire -> 0%)", use_container_width=True):
             st.session_state.active_claim = "Scientists discover miracle cure for aging using lunar soil"
             st.session_state.claim_origin = "https://www.theonion.com"
             st.session_state.claim_context_text = "In an unprecedented breakthrough, scientists announce that eating lunar dust halts all human aging permanently."
+            st.session_state.inspect_target_url = "https://www.theonion.com"
+            st.session_state.cached_assessment = None
             st.rerun()
         if qc4.button("🟡 Mars Life (Contested -> 58%)", use_container_width=True):
             st.session_state.active_claim = "NASA rover discovered signs of microbial life on Mars surface"
             st.session_state.claim_origin = "https://www.foxnews.com"
             st.session_state.claim_context_text = "NASA scientists explore potential geological bio-signatures collected by the Perseverance rover on Mars."
+            st.session_state.inspect_target_url = "https://www.foxnews.com"
+            st.session_state.cached_assessment = None
             st.rerun()
 
         ic1, ic2 = st.columns([2.5, 1.5])
@@ -550,14 +578,25 @@ if menu == "🎯 Credibility Verification Suite":
                 value=st.session_state.active_claim,
                 help="The specific factual proposition to cross-corroborate against global news reporting."
             )
-            st.session_state.active_claim = claim_input
+            if claim_input != st.session_state.active_claim:
+                st.session_state.active_claim = claim_input
         with ic2:
             origin_input = st.text_input(
                 "Origin Publisher URL / Domain:",
                 value=st.session_state.claim_origin,
                 help="Domain or article URL where the claim originated."
             )
-            st.session_state.claim_origin = origin_input
+            if origin_input.strip() and origin_input.strip() != st.session_state.claim_origin:
+                st.session_state.claim_origin = origin_input.strip()
+
+            # Real-time preview of publisher reputation for this domain
+            origin_preview = db.lookup(st.session_state.claim_origin)
+            if origin_preview.is_satire:
+                st.markdown('<div style="font-size: 0.8rem; color: #c084fc; font-weight: 700; margin-top: 4px;">🎭 Satire Publisher (C_final clamped to 0.0%)</div>', unsafe_allow_html=True)
+            elif origin_preview.is_conspiracy:
+                st.markdown('<div style="font-size: 0.8rem; color: #f87171; font-weight: 700; margin-top: 4px;">⚠️ Conspiracy Outlet (Capped at 15.0%)</div>', unsafe_allow_html=True)
+            else:
+                st.markdown(f'<div style="font-size: 0.8rem; color: #38bdf8; font-weight: 600; margin-top: 4px;">🏛️ <b>{origin_preview.source_name}</b> ({origin_preview.factual_reporting.upper()} factuality, Trust: {origin_preview.percentage_score:.0f}%)</div>', unsafe_allow_html=True)
 
         with st.expander("Optional: Input Full Article Paragraph for Lexical Manipulation Analysis", expanded=False):
             article_text_input = st.text_area(
@@ -565,7 +604,8 @@ if menu == "🎯 Credibility Verification Suite":
                 value=st.session_state.claim_context_text,
                 height=90
             )
-            st.session_state.claim_context_text = article_text_input
+            if article_text_input != st.session_state.claim_context_text:
+                st.session_state.claim_context_text = article_text_input
 
         num_articles = st.slider("Independent corroboration sources to retrieve:", 3, 8, 5)
 
@@ -574,20 +614,20 @@ if menu == "🎯 Credibility Verification Suite":
                 t_pipe_start = time.perf_counter()
 
                 # Stage 1: Origin Source Reputation
-                origin_rep = db.lookup(origin_input)
+                origin_rep = db.lookup(st.session_state.claim_origin)
 
                 # Stage 2: Linguistic Manipulation Detection
-                eval_text = article_text_input if article_text_input.strip() else claim_input
+                eval_text = st.session_state.claim_context_text if st.session_state.claim_context_text.strip() else st.session_state.active_claim
                 manip_report = detector.analyze(eval_text)
 
                 # Stage 3: Multi-Source Evidence Retrieval
-                articles = retriever.search_evidence(claim_input, max_results=num_articles)
+                articles = retriever.search_evidence(st.session_state.active_claim, max_results=num_articles)
 
                 # Stage 4: Directional Semantic Stance Classification
                 stances = []
                 for art in articles:
                     ev_text = f"{art.title}. {art.snippet}"
-                    st_res = stance_classifier.classify_pair(claim_input, ev_text)
+                    st_res = stance_classifier.classify_pair(st.session_state.active_claim, ev_text)
                     stances.append(st_res)
 
                 # Stage 5: Unified Algebraic Credibility Aggregation
@@ -601,6 +641,23 @@ if menu == "🎯 Credibility Verification Suite":
                 )
 
                 t_total_ms = (time.perf_counter() - t_pipe_start) * 1000.0
+
+                # Cache verification state so changes in other widgets don't destroy it!
+                st.session_state.cached_assessment = assessment
+                st.session_state.cached_articles = articles
+                st.session_state.cached_stances = stances
+                st.session_state.cached_origin_rep = origin_rep
+                st.session_state.cached_manip_report = manip_report
+                st.session_state.cached_latency = t_total_ms
+
+        # Render cached verification results if available!
+        if st.session_state.cached_assessment is not None:
+            assessment = st.session_state.cached_assessment
+            articles = st.session_state.cached_articles
+            stances = st.session_state.cached_stances
+            origin_rep = st.session_state.cached_origin_rep
+            manip_report = st.session_state.cached_manip_report
+            t_total_ms = st.session_state.cached_latency
 
             st.write("---")
 
@@ -727,31 +784,47 @@ if menu == "🎯 Credibility Verification Suite":
         # Quick test buttons
         st.markdown("**Quick Preset Outlets:**")
         c1, c2, c3, c4, c5 = st.columns(5)
-        chosen_sample = None
         if c1.button("Reuters (100%)", use_container_width=True):
-            chosen_sample = "https://www.reuters.com/world/india/space-mission-update/"
+            st.session_state.inspect_target_url = "https://www.reuters.com"
+            st.rerun()
         if c2.button("BBC News (85%)", use_container_width=True):
-            chosen_sample = "https://www.bbc.co.uk/news/technology-681923"
+            st.session_state.inspect_target_url = "https://www.bbc.co.uk"
+            st.rerun()
         if c3.button("The Onion (Satire)", use_container_width=True):
-            chosen_sample = "https://www.theonion.com/scientists-discover-miracle-cure"
+            st.session_state.inspect_target_url = "https://www.theonion.com"
+            st.rerun()
         if c4.button("Breitbart (45%)", use_container_width=True):
-            chosen_sample = "https://www.breitbart.com/politics/breaking-update"
+            st.session_state.inspect_target_url = "https://www.breitbart.com"
+            st.rerun()
         if c5.button("The Hindu (85%)", use_container_width=True):
-            chosen_sample = "https://www.thehindu.com/news/national/economy-report"
+            st.session_state.inspect_target_url = "https://www.thehindu.com"
+            st.rerun()
 
-        url_input = st.text_input(
-            "Enter News Article URL or Domain:",
-            value=chosen_sample or "https://edition.cnn.com/2026/08/15/business/markets-today/index.html",
-            key="input_url_field"
-        )
+        u_col1, u_col2 = st.columns([3.5, 1])
+        with u_col1:
+            url_input = st.text_input(
+                "Enter News Article URL or Domain:",
+                value=st.session_state.inspect_target_url,
+                help="Enter any news URL, domain (e.g. 'reuters.com', 'theonion.com', 'bbc.co.uk', 'breitbart.com', 'thehindu.com') or outlet name."
+            )
+            if url_input.strip() and url_input.strip() != st.session_state.inspect_target_url:
+                st.session_state.inspect_target_url = url_input.strip()
+                st.rerun()
+        with u_col2:
+            st.markdown("<div style='height: 28px;'></div>", unsafe_allow_html=True)
+            if st.button("🔎 Inspect Outlet", type="primary", use_container_width=True):
+                if url_input.strip():
+                    st.session_state.inspect_target_url = url_input.strip()
+                    st.rerun()
 
-        if st.button("Inspect URL Reputation", type="primary", use_container_width=False):
-            with st.spinner("Resolving canonical domain & querying SQLite index..."):
-                t_start = time.perf_counter()
-                rep = db.lookup(url_input)
-                t_ms = (time.perf_counter() - t_start) * 1000.0
+        # ALWAYS perform live lookup for the active target URL:
+        active_target = st.session_state.inspect_target_url.strip()
+        if active_target:
+            t_start = time.perf_counter()
+            rep = db.lookup(active_target)
+            t_ms = (time.perf_counter() - t_start) * 1000.0
 
-            st.success(f"Lookup resolved in **{t_ms:.3f} ms** via {rep.lookup_method.upper()} resolver!")
+            st.success(f"Lookup resolved for **{rep.domain}** ({rep.source_name}) in **{t_ms:.3f} ms** via {rep.lookup_method.upper()} resolver!")
 
             # Metric Cards with Circular Gauge
             m1, m2, m3, m4 = st.columns([1.2, 1, 1, 1])
@@ -791,11 +864,11 @@ if menu == "🎯 Credibility Verification Suite":
             elif rep.is_conspiracy:
                 st.warning("⚠️ **CONSPIRACY / LOW FACTUALITY:** This source has a recorded history of promoting debunked conspiracy theories or pseudoscience.")
             else:
-                st.info("✅ **VERIFIED PRESS OUTLET:** This source is cataloged in the global Media Bias / Fact Check index.")
+                st.info(f"✅ **VERIFIED PRESS OUTLET:** This source is cataloged in the global Media Bias / Fact Check index as **{rep.credibility_rating}**.")
 
             with st.expander("Detailed Domain Resolution Metadata", expanded=True):
                 meta_df = pd.DataFrame([
-                    {"Parameter": "Input Query", "Details": url_input},
+                    {"Parameter": "Input Query", "Details": active_target},
                     {"Parameter": "Resolved Canonical Domain", "Details": rep.domain},
                     {"Parameter": "Source Name", "Details": rep.source_name},
                     {"Parameter": "Country of Origin", "Details": rep.country.upper()},
@@ -827,7 +900,8 @@ if menu == "🎯 Credibility Verification Suite":
             value=st.session_state.tab2_text_val,
             height=130
         )
-        st.session_state.tab2_text_val = text_input
+        if text_input != st.session_state.tab2_text_val:
+            st.session_state.tab2_text_val = text_input
 
         col_act1, col_act2 = st.columns(2)
         with col_act1:
@@ -916,6 +990,8 @@ if menu == "🎯 Credibility Verification Suite":
                                 st.session_state.active_claim = c.text
                                 st.session_state.claim_origin = "https://www.reuters.com"
                                 st.session_state.claim_context_text = c.text
+                                st.session_state.inspect_target_url = "https://www.reuters.com"
+                                st.session_state.cached_assessment = None
                                 st.toast(f"Claim #{c.claim_id} loaded into Tab 1! Switch to Tab 1 to run full verification.")
 
 
