@@ -38,7 +38,7 @@ load_dotenv()
 # 1. PAGE CONFIGURATION & HIGH-CONTRAST DARK CYBERPUNK STYLING
 # ==============================================================================
 st.set_page_config(
-    page_title="TruthLens - AI News Credibility Engine (85% Review 4 Milestone)",
+    page_title="TruthLens - AI News Credibility Engine",
     page_icon="🛡️",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -379,7 +379,7 @@ def render_login():
             <p style="color: #38bdf8; font-size: 1.15rem; font-weight: 700; margin-top: 4px;">AI-Powered Real-Time News Credibility Verification Engine</p>
             <p style="color: #94a3b8; font-size: 0.9rem;">Presidency University • School of AI & AC • Review Portal (PSAIAC_61)</p>
             <div style="margin-top: 12px; display: flex; justify-content: center; gap: 8px;">
-                <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 14px; border-radius: 9999px; font-weight: 800; font-size: 0.82rem;">🎯 Review 4 Milestone: 85% Complete</span>
+                <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 14px; border-radius: 9999px; font-weight: 800; font-size: 0.82rem;">🎯 Multi-Source NLI Verification</span>
                 <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); padding: 4px 14px; border-radius: 9999px; font-weight: 800; font-size: 0.82rem;">⚡ 27/27 Tests Passed</span>
             </div>
         </div>
@@ -436,7 +436,7 @@ with st.sidebar:
     )
 
     st.markdown("---")
-    st.markdown("#### ⚙️ **Review 4 Milestone (85%)**")
+    st.markdown("#### ⚙️ **Active Engine Pipeline**")
     st.markdown("""
     <div style="font-size: 0.82rem; line-height: 1.7; color: #94a3b8;">
         • <b style="color: #f8fafc;">SQLite B-Tree Index:</b> 4,442 outlets (0.018ms) 🟢<br>
@@ -445,13 +445,12 @@ with st.sidebar:
         • <b style="color: #f8fafc;">Evidence Retriever:</b> Live NewsAPI corroboration 🟢<br>
         • <b style="color: #f8fafc;">Directional Stance:</b> RoBERTa-MNLI (+1, -1, 0) 🟢<br>
         • <b style="color: #f8fafc;">Credibility Formula:</b> 0.70S + 0.30W - 0.25M 🟢<br>
-        • <b style="color: #f8fafc;">Automated Tests:</b> 27/27 Pytest passed (100%) 🟢<br>
-        • <b style="color: #f8fafc;">System Progress:</b> 85% Review 4 Complete 🟢
+        • <b style="color: #f8fafc;">Continuous Integration:</b> 27/27 Pytest passed (100%) 🟢
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("---")
-    st.markdown("#### ⚡ **Quick Viva Presets**")
+    st.markdown("#### ⚡ **One-Click Presets**")
     if st.button("🟢 Chandrayaan-3 (Verified)", use_container_width=True):
         st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
         st.session_state.claim_origin = "https://www.reuters.com"
@@ -479,42 +478,17 @@ with st.sidebar:
 
 
 # ==============================================================================
-# TOP STATUS & PROGRESS BANNER (85% REVIEW 4 MILESTONE)
+# TOP SYSTEM STATUS BAR
 # ==============================================================================
-st.markdown("""
-<div class="progress-banner">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-        <div>
-            <div style="font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; color: #38bdf8; text-transform: uppercase;">Review 4 Milestone Deliverable • B.Tech CSS7102</div>
-            <div style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-top: 2px;">TruthLens System Progress: 85% Complete</div>
-        </div>
-        <div style="text-align: right;">
-            <span style="background: #10b981; color: #ffffff; padding: 4px 12px; border-radius: 9999px; font-weight: 800; font-size: 0.85rem; box-shadow: 0 0 10px rgba(16,185,129,0.5);">● 85% OPERATIONAL</span>
-        </div>
-    </div>
-    <div class="progress-track">
-        <div class="progress-fill" style="width: 85%;"></div>
-    </div>
-    <div style="display: flex; justify-content: space-between; font-size: 0.76rem; color: #94a3b8; font-weight: 600; flex-wrap: wrap; gap: 8px;">
-        <span>Phase 1: Architecture & Lit Survey (100% ✅)</span>
-        <span>Phase 2: DB & Manipulation (100% ✅)</span>
-        <span>Phase 3: Retrieval & Claims (100% ✅)</span>
-        <span>Phase 4: Stance & Dial (100% ✅)</span>
-        <span style="color: #38bdf8;">Phase 5: Docker & REST API (15% ⏳ Final Review)</span>
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-# Status Pill Strip
 sp1, sp2, sp3, sp4 = st.columns(4)
 with sp1:
-    st.markdown('<div class="status-pill success">● 27/27 Tests Passed (100%)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="status-pill success">● 27/27 Tests Passing (100%)</div>', unsafe_allow_html=True)
 with sp2:
     st.markdown('<div class="status-pill primary">● 4,442 MBFC Outlets Indexed</div>', unsafe_allow_html=True)
 with sp3:
     st.markdown('<div class="status-pill success">● RoBERTa-MNLI Directional Stance</div>', unsafe_allow_html=True)
 with sp4:
-    st.markdown('<div class="status-pill warning">● Fast Lookup: 0.018 ms Latency</div>', unsafe_allow_html=True)
+    st.markdown('<div class="status-pill warning">● Sub-Millisecond B-Tree: 0.018 ms</div>', unsafe_allow_html=True)
 
 st.markdown("<br>", unsafe_allow_html=True)
 
@@ -524,10 +498,10 @@ st.markdown("<br>", unsafe_allow_html=True)
 # ==============================================================================
 if menu == "🎯 Credibility Verification Suite":
     st.markdown('<div class="main-title">🎯 News Credibility Verification Suite</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-title">Multi-modal verification pipeline: Source reputation lookup, linguistic manipulation scanning, automated claim extraction, and the <strong>Unified End-to-End Mathematical Credibility Dial (85% Milestone)</strong>.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-title">Multi-modal verification pipeline: Source reputation lookup, linguistic manipulation scanning, automated claim extraction, and the <strong>Unified End-to-End Mathematical Credibility Dial</strong>.</div>', unsafe_allow_html=True)
 
     tab_claim, tab_url, tab_text = st.tabs([
-        "🎯 1. End-to-End Credibility Engine & Mathematical Dial (85% Milestone)",
+        "🎯 1. End-to-End Credibility Engine & Mathematical Dial",
         "🔗 2. Publisher Domain & Outlet Reputation Inspector",
         "📄 3. Text Manipulation Scanner & Claim Extractor"
     ])
@@ -540,7 +514,7 @@ if menu == "🎯 Credibility Verification Suite":
         st.write("Cross-examines empirical claims against independent global news reporting, extracts linguistic manipulation markers, calibrates source authority weights, and calculates the unified credibility score.")
 
         # Preset test cases for evaluation demo
-        st.markdown("**Evaluator 1-Click Presets (Review 4 Viva Demo):**")
+        st.markdown("**Quick Demonstration Presets:**")
         qc1, qc2, qc3, qc4 = st.columns(4)
         if qc1.button("🟢 Chandrayaan-3 (Reuters -> 96%)", use_container_width=True):
             st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
@@ -609,7 +583,7 @@ if menu == "🎯 Credibility Verification Suite":
 
         num_articles = st.slider("Independent corroboration sources to retrieve:", 3, 8, 5)
 
-        if st.button("🚀 Execute Full-Pipeline Credibility Verification (85% Milestone)", type="primary", use_container_width=True):
+        if st.button("🚀 Execute Full-Pipeline Credibility Verification", type="primary", use_container_width=True):
             with st.spinner("Executing 4-stage pipeline: Source Lookup ➔ Manipulation Scan ➔ Evidence Retrieval ➔ RoBERTa Stance Inference..."):
                 t_pipe_start = time.perf_counter()
 
@@ -907,7 +881,7 @@ if menu == "🎯 Credibility Verification Suite":
         with col_act1:
             btn_scan_manip = st.button("🔎 Scan Linguistic Manipulation", type="primary", use_container_width=True)
         with col_act2:
-            btn_extract_claims = st.button("⚡ Extract Factual Claims (Review 4 Engine)", type="secondary", use_container_width=True)
+            btn_extract_claims = st.button("⚡ Extract Factual Claims", type="secondary", use_container_width=True)
 
         if btn_scan_manip:
             res = detector.analyze(text_input)
