@@ -1,0 +1,16 @@
+[Unit]
+Description=TruthLens FastAPI REST Microservice
+After=network.target
+
+[Service]
+Type=simple
+User=shubh
+WorkingDirectory=/home/shubh/truth-lens
+Environment="PATH=/home/shubh/truth-lens/venv/bin:/usr/local/bin:/usr/bin"
+Environment="PYTHONPATH=/home/shubh/truth-lens"
+ExecStart=/home/shubh/truth-lens/venv/bin/uvicorn src.api.main:app --host 0.0.0.0 --port 8000 --workers 2
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
