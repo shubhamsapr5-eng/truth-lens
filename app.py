@@ -482,7 +482,7 @@ with st.sidebar:
 # ==============================================================================
 sp1, sp2, sp3, sp4 = st.columns(4)
 with sp1:
-    st.markdown('<div class="status-pill success">● 27/27 Tests Passing (100%)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="status-pill success">● 38/38 Tests Passing (100%)</div>', unsafe_allow_html=True)
 with sp2:
     st.markdown('<div class="status-pill primary">● 4,442 MBFC Outlets Indexed</div>', unsafe_allow_html=True)
 with sp3:
