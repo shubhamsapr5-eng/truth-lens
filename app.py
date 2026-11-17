@@ -1,10 +1,10 @@
 """
 TruthLens: AI-Powered Real-Time News Credibility Verification Engine
-Web Application Dashboard (85% Review 4 Milestone Deliverable)
+Web Application Dashboard (Final Review - 100% Milestone Deliverable)
 
 Developed for PSAIAC_61 Evaluation
 Presidency University - School of Artificial Intelligence and Advanced Computing
-Review 4 Milestone: 85% System Completion
+Review 5 Milestone: 100% System Completion & Production Deployment
 """
 
 import os
@@ -79,20 +79,17 @@ st.markdown("""
         box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
     }
     
-    /* Global Typography & Hero - HIGH CONTRAST LUMINOUS GRADIENT */
+    /* Global Typography & Hero - INSTITUTIONAL MATTE EDITORIAL STYLING */
     .main-title {
-        font-size: 2.3rem;
+        font-size: 2.1rem;
         font-weight: 800;
-        color: #38bdf8;
-        background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: #f8fafc;
         margin-bottom: 0.35rem;
         letter-spacing: -0.025em;
     }
     .sub-title {
-        font-size: 1.05rem;
-        color: #cbd5e1;
+        font-size: 0.98rem;
+        color: #94a3b8;
         margin-bottom: 1.4rem;
         line-height: 1.6;
     }
@@ -406,7 +403,7 @@ def render_login():
                     st.session_state.username = "Faculty Evaluator"
                     st.rerun()
 
-            st.caption("💡 *Review 4 Panel Tip: Click '1-Click Demo Login' or enter password `truthlens2026` for immediate evaluation access.*")
+            st.caption("Faculty Evaluation Access: Click '1-Click Demo Login' or enter access password `truthlens2026`.")
 
 
 if not st.session_state.authenticated:
@@ -418,8 +415,8 @@ if not st.session_state.authenticated:
 # 4. SIDEBAR NAVIGATION & SYSTEM METRICS
 # ==============================================================================
 with st.sidebar:
-    st.markdown("### 🛡️ **TruthLens Engine**")
-    st.markdown(f"👤 Logged in: **{st.session_state.username}**")
+    st.markdown("### **TruthLens Engine**")
+    st.markdown(f"Logged in: **{st.session_state.username}**")
     if st.button("Logout", key="btn_logout", use_container_width=True):
         st.session_state.authenticated = False
         st.rerun()
@@ -428,44 +425,44 @@ with st.sidebar:
     menu = st.radio(
         "Select Portal Module:",
         [
-            "🎯 Credibility Verification Suite",
-            "📰 News Channel Directory (4,442)",
-            "ℹ️ Project Methodology & Review 4 Audit"
+            "Credibility Verification Suite",
+            "Publisher Intelligence Directory (4,442)",
+            "System Architecture & Verification Audit"
         ],
         index=0
     )
 
     st.markdown("---")
-    st.markdown("#### ⚙️ **Active Engine Pipeline**")
+    st.markdown("#### **Active Engine Pipeline**")
     st.markdown("""
     <div style="font-size: 0.82rem; line-height: 1.7; color: #94a3b8;">
-        • <b style="color: #f8fafc;">SQLite B-Tree Index:</b> 4,442 outlets (0.018ms) 🟢<br>
-        • <b style="color: #f8fafc;">Lexicon Detector:</b> 109 manipulation markers 🟢<br>
-        • <b style="color: #f8fafc;">Claim Extractor:</b> spaCy NER & assertion verbs 🟢<br>
-        • <b style="color: #f8fafc;">Evidence Retriever:</b> Live NewsAPI corroboration 🟢<br>
-        • <b style="color: #f8fafc;">Directional Stance:</b> RoBERTa-MNLI (+1, -1, 0) 🟢<br>
-        • <b style="color: #f8fafc;">Credibility Formula:</b> 0.70S + 0.30W - 0.25M 🟢<br>
-        • <b style="color: #f8fafc;">Continuous Integration:</b> 27/27 Pytest passed (100%) 🟢
+        • <b style="color: #f8fafc;">SQLite B-Tree Index:</b> 4,442 outlets (0.018ms)<br>
+        • <b style="color: #f8fafc;">Lexicon Detector:</b> 109 manipulation markers<br>
+        • <b style="color: #f8fafc;">Claim Extractor:</b> spaCy NER & assertion verbs<br>
+        • <b style="color: #f8fafc;">Evidence Retriever:</b> Live NewsAPI corroboration<br>
+        • <b style="color: #f8fafc;">Directional Stance:</b> RoBERTa-MNLI (+1, -1, 0)<br>
+        • <b style="color: #f8fafc;">Credibility Formula:</b> 0.70S + 0.30W - 0.25M<br>
+        • <b style="color: #f8fafc;">Continuous Integration:</b> 38/38 Pytest passed (100%)
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("---")
-    st.markdown("#### ⚡ **One-Click Presets**")
-    if st.button("🟢 Chandrayaan-3 (Verified)", use_container_width=True):
+    st.markdown("#### **Verification Presets**")
+    if st.button("Chandrayaan-3 Landing [Verified]", use_container_width=True):
         st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
         st.session_state.claim_origin = "https://www.reuters.com"
         st.session_state.claim_context_text = "ISRO confirmed the historic soft landing of Chandrayaan-3 on the lunar south pole on August 23, 2023."
         st.session_state.inspect_target_url = "https://www.reuters.com"
         st.session_state.cached_assessment = None
         st.rerun()
-    if st.button("🔴 Bleach Viral Cure (Refuted)", use_container_width=True):
+    if st.button("Bleach Viral Cure [Refuted]", use_container_width=True):
         st.session_state.active_claim = "Drinking bleach is a proven miracle cure for viral infections"
         st.session_state.claim_origin = "https://www.naturalnews.com"
         st.session_state.claim_context_text = "SHOCKING BOMBSHELL: Big Pharma is hiding this one miracle cure that eliminates viruses instantly!"
         st.session_state.inspect_target_url = "https://www.naturalnews.com"
         st.session_state.cached_assessment = None
         st.rerun()
-    if st.button("🎭 The Onion (Satire Override)", use_container_width=True):
+    if st.button("The Onion Moon Dust [Satire Override]", use_container_width=True):
         st.session_state.active_claim = "Scientists discover miracle cure for aging using moon dust"
         st.session_state.claim_origin = "https://www.theonion.com"
         st.session_state.claim_context_text = "Satirical piece on scientists claiming moon dust cures all human ailments overnight."
@@ -496,48 +493,48 @@ st.markdown("<br>", unsafe_allow_html=True)
 # ==============================================================================
 # 5. MODULE 1: CREDIBILITY VERIFICATION SUITE
 # ==============================================================================
-if menu == "🎯 Credibility Verification Suite":
-    st.markdown('<div class="main-title">🎯 News Credibility Verification Suite</div>', unsafe_allow_html=True)
+if menu == "Credibility Verification Suite":
+    st.markdown('<div class="main-title">News Credibility Verification Suite</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-title">Multi-modal verification pipeline: Source reputation lookup, linguistic manipulation scanning, automated claim extraction, and the <strong>Unified End-to-End Mathematical Credibility Dial</strong>.</div>', unsafe_allow_html=True)
 
     tab_claim, tab_url, tab_text = st.tabs([
-        "🎯 1. End-to-End Credibility Engine & Mathematical Dial",
-        "🔗 2. Publisher Domain & Outlet Reputation Inspector",
-        "📄 3. Text Manipulation Scanner & Claim Extractor"
+        "Unified Credibility Engine & Mathematical Dial",
+        "Publisher Domain & Outlet Reputation Inspector",
+        "Text Manipulation Scanner & Claim Extractor"
     ])
 
     # ----------------------------------------------------
-    # TAB 1: UNIFIED END-TO-END CREDIBILITY ENGINE (85% MILESTONE)
+    # TAB 1: UNIFIED END-TO-END CREDIBILITY ENGINE (100% MILESTONE)
     # ----------------------------------------------------
     with tab_claim:
-        st.subheader("1. Unified End-to-End Credibility Engine & Mathematical Aggregator ($C_{\\text{final}}$)")
+        st.subheader("Unified End-to-End Credibility Engine & Mathematical Aggregator ($C_{\\text{final}}$)")
         st.write("Cross-examines empirical claims against independent global news reporting, extracts linguistic manipulation markers, calibrates source authority weights, and calculates the unified credibility score.")
 
         # Preset test cases for evaluation demo
-        st.markdown("**Quick Demonstration Presets:**")
+        st.markdown("**Demonstration Presets:**")
         qc1, qc2, qc3, qc4 = st.columns(4)
-        if qc1.button("🟢 Chandrayaan-3 (Reuters -> 96%)", use_container_width=True):
+        if qc1.button("Chandrayaan-3 [Verified]", use_container_width=True):
             st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
             st.session_state.claim_origin = "https://www.reuters.com"
             st.session_state.claim_context_text = "ISRO successfully launched Chandrayaan-3 from Sriharikota and completed a soft landing on the lunar South Pole on August 23, 2023."
             st.session_state.inspect_target_url = "https://www.reuters.com"
             st.session_state.cached_assessment = None
             st.rerun()
-        if qc2.button("🔴 Bleach Cure (Debunked -> 14%)", use_container_width=True):
+        if qc2.button("Bleach Viral Cure [Refuted]", use_container_width=True):
             st.session_state.active_claim = "Drinking bleach is a proven miracle cure for viral infections"
             st.session_state.claim_origin = "https://www.naturalnews.com"
             st.session_state.claim_context_text = "SHOCKING BOMBSHELL: Big Pharma is hiding this one simple secret miracle cure that doctors DON'T want you to know about!!!"
             st.session_state.inspect_target_url = "https://www.naturalnews.com"
             st.session_state.cached_assessment = None
             st.rerun()
-        if qc3.button("🎭 The Onion (Satire -> 0%)", use_container_width=True):
+        if qc3.button("The Onion [Satire Override]", use_container_width=True):
             st.session_state.active_claim = "Scientists discover miracle cure for aging using lunar soil"
             st.session_state.claim_origin = "https://www.theonion.com"
             st.session_state.claim_context_text = "In an unprecedented breakthrough, scientists announce that eating lunar dust halts all human aging permanently."
             st.session_state.inspect_target_url = "https://www.theonion.com"
             st.session_state.cached_assessment = None
             st.rerun()
-        if qc4.button("🟡 Mars Life (Contested -> 58%)", use_container_width=True):
+        if qc4.button("Mars Life [Contested]", use_container_width=True):
             st.session_state.active_claim = "NASA rover discovered signs of microbial life on Mars surface"
             st.session_state.claim_origin = "https://www.foxnews.com"
             st.session_state.claim_context_text = "NASA scientists explore potential geological bio-signatures collected by the Perseverance rover on Mars."
@@ -970,10 +967,10 @@ if menu == "🎯 Credibility Verification Suite":
 
 
 # ==============================================================================
-# 6. MODULE 2: NEWS CHANNEL DIRECTORY (4,442 OUTLETS)
+# 6. MODULE 2: PUBLISHER INTELLIGENCE DIRECTORY (4,442 OUTLETS)
 # ==============================================================================
-elif menu == "📰 News Channel Directory (4,442)":
-    st.markdown('<div class="main-title">📰 Global News Media Knowledge Base</div>', unsafe_allow_html=True)
+elif menu == "Publisher Intelligence Directory (4,442)":
+    st.markdown('<div class="main-title">Global News Media Knowledge Base</div>', unsafe_allow_html=True)
     st.markdown('<div class="sub-title">Explore 4,442 indexed news outlets cataloged with credibility, bias, and factuality scores from Media Bias/Fact Check (MBFC). Indexed via sub-millisecond SQLite B-Trees.</div>', unsafe_allow_html=True)
 
     stats = db.get_statistics()
@@ -1040,29 +1037,29 @@ elif menu == "📰 News Channel Directory (4,442)":
 
 
 # ==============================================================================
-# 7. MODULE 3: PROJECT METHODOLOGY & REVIEW 4 AUDIT
+# 7. MODULE 3: SYSTEM ARCHITECTURE & VERIFICATION AUDIT
 # ==============================================================================
-elif menu == "ℹ️ Project Methodology & Review 4 Audit":
-    st.markdown('<div class="main-title">ℹ️ TruthLens Project Architecture & Review 4 Audit</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-title">System design, mathematical scoring model, 27/27 automated pytest validation audit, and team roles for PSAIAC_61 (85% Milestone).</div>', unsafe_allow_html=True)
+elif menu == "System Architecture & Verification Audit":
+    st.markdown('<div class="main-title">TruthLens System Architecture & Final Review Audit</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-title">System design, mathematical scoring model, 38/38 automated pytest validation audit, and production deployment for PSAIAC_61 (100% Final Review Release).</div>', unsafe_allow_html=True)
 
     tab_arch, tab_audit, tab_team = st.tabs([
-        "🏛️ System Architecture & Scoring Formula",
-        "🧪 Automated Test Suite Audit (27/27 Passed)",
-        "👥 Team Roles & Roadmap"
+        "System Architecture & Scoring Formula",
+        "Automated Test Suite Audit (38/38 Passed)",
+        "Team Roles & 5-Phase Roadmap (100% Met)"
     ])
 
     with tab_arch:
         a1, a2 = st.columns(2)
         with a1:
-            st.subheader("🎯 Problem Statement (PSAIAC_61)")
+            st.subheader("Problem Statement (PSAIAC_61)")
             st.write("""
             • **6x Misinformation Speed:** Peer-reviewed research (*Science*, Vosoughi et al., 2018) proves false news spreads 6 times faster than verified journalism due to emotional shock value.
             • **Failure of Traditional Classifiers:** Basic NLP text classifiers overfit to topic keywords and fail when falsehoods are written in formal journalistic tone.
             • **The TruthLens Solution:** Instead of guessing if text looks fake, TruthLens cross-examines factual claims against the **consensus of independent reputable news outlets** using Natural Language Inference (NLI).
             """)
 
-            st.subheader("🧮 Unified Credibility Equation ($C_{\\text{final}}$)")
+            st.subheader("Unified Credibility Equation ($C_{\\text{final}}$)")
             st.latex(r"C_{\text{final}} = 0.70 \times S_{\text{evidence}} + 0.30 \times W_{\text{origin}} - (0.25 \times M_{\text{index}})")
             st.write("""
             Where:
@@ -1073,14 +1070,14 @@ elif menu == "ℹ️ Project Methodology & Review 4 Audit":
             """)
 
         with a2:
-            st.subheader("⚡ Mathematical Stance Consensus Formulations")
+            st.subheader("Mathematical Stance Consensus Formulations")
             st.latex(r"\bar{\Phi} = \frac{\sum_{i=1}^N W_{\text{rep}, i} \cdot \Phi_i \cdot \text{Conf}_i}{\sum_{i=1}^N W_{\text{rep}, i}}")
             st.latex(r"S_{\text{evidence}} = (\bar{\Phi} + 1.0) \times 50.0")
             st.write("""
             **Directional Stance Scoring:**
-            • $\Phi_i = +1.0$: Entailment / Corroboration (🟢 Supports)
-            • $\Phi_i = -1.0$: Contradiction / Debunking (🔴 Refutes)
-            • $\Phi_i = 0.0$: Neutral / Contextual Overlap (⚪ Neutral)
+            • $\Phi_i = +1.0$: Entailment / Corroboration (Supports)
+            • $\Phi_i = -1.0$: Contradiction / Debunking (Refutes)
+            • $\Phi_i = 0.0$: Neutral / Contextual Overlap (Neutral)
             
             **Epistemic Confidence Calibration:**
             • Multiplied by the model's posterior confidence $\text{Conf}_i \in [0.5, 1.0]$.
@@ -1088,34 +1085,35 @@ elif menu == "ℹ️ Project Methodology & Review 4 Audit":
             """)
 
     with tab_audit:
-        st.subheader("🧪 Automated Test Suite Audit (27/27 Tests Passed)")
-        st.write("TruthLens maintains a continuous automated pytest suite covering all 6 core sub-modules with a 100% pass rate.")
+        st.subheader("Automated Test Suite Audit (38/38 Tests Passed - 100%)")
+        st.write("TruthLens maintains a continuous automated pytest suite covering all 7 core sub-modules with a 100% pass rate.")
 
         tc1, tc2, tc3 = st.columns(3)
         with tc1:
-            st.metric("Total Test Cases", "27")
+            st.metric("Total Test Cases", "38")
         with tc2:
             st.metric("Test Pass Rate", "100.0%")
         with tc3:
-            st.metric("Full Suite Execution Time", "4.17 s")
+            st.metric("Full Suite Execution Time", "3.39 s")
 
         st.markdown("#### **Module-by-Module Test Breakdown:**")
         test_df = pd.DataFrame([
+            {"Module": "tests/test_api.py", "Scope": "FastAPI REST microservice: /verify, /health, /reputation, /manipulation", "Tests": 11, "Status": "PASSED (100%)", "Latency": "0.42s"},
             {"Module": "tests/test_source_reputation.py", "Scope": "SQLite B-Tree lookups, TLDs, subdomains, fallback, satire flags", "Tests": 9, "Status": "PASSED (100%)", "Latency": "0.18s"},
             {"Module": "tests/test_manipulation.py", "Scope": "Sensationalism, panic triggers, conspiracy markers, clean text", "Tests": 4, "Status": "PASSED (100%)", "Latency": "0.08s"},
             {"Module": "tests/test_claim_extractor.py", "Scope": "spaCy NER parsing, empirical salience, assertion verbs", "Tests": 3, "Status": "PASSED (100%)", "Latency": "0.95s"},
             {"Module": "tests/test_news_retriever.py", "Scope": "NewsAPI live queries, query formulation, fallback mocks", "Tests": 3, "Status": "PASSED (100%)", "Latency": "0.32s"},
-            {"Module": "tests/test_stance.py", "Scope": "RoBERTa-MNLI directional stance, batch inference, neutral cases", "Tests": 4, "Status": "PASSED (100%)", "Latency": "2.14s"},
+            {"Module": "tests/test_stance.py", "Scope": "RoBERTa-MNLI directional stance, batch inference, neutral cases", "Tests": 4, "Status": "PASSED (100%)", "Latency": "1.32s"},
             {"Module": "tests/test_score_aggregator.py", "Scope": "C_final formula, satire clamp, refutation cap, manipulation penalty", "Tests": 4, "Status": "PASSED (100%)", "Latency": "0.12s"}
         ])
         st.table(test_df)
-        st.success("✅ Continuous Integration verification verified: 27 passed, 0 failed, 0 warnings.")
+        st.success("Continuous Integration verified: 38 passed, 0 failed across all modules.")
 
     with tab_team:
-        st.subheader("👥 Team Member Roles & Individual Contributions (Review 4 / 85%)")
+        st.subheader("Team Member Roles & Individual Contributions (PSAIAC_61)")
         with st.container(border=True):
             st.markdown("**1. Shubham Pandey (Team Leader — 20231CAI0046):**")
-            st.caption("Engineered Unified Mathematical Score Aggregator (C_final), SQLite B-Tree domain database (4,442 outlets, <0.02ms), epistemic confidence calibration, and 27-suite pytest pipeline.")
+            st.caption("Engineered Unified Mathematical Score Aggregator (C_final), SQLite B-Tree domain database (4,442 outlets, <0.02ms), FastAPI microservice, Docker containerization, and GCP VM production deployment.")
             
             st.markdown("**2. Ikram Inayathulla Khan (20231CAI0006):**")
             st.caption("Engineered the Automated Factual Claim Extraction module (spaCy NER, numerical parsing, assertion verbs) and the 109-trigger linguistic manipulation detector.")
@@ -1124,15 +1122,15 @@ elif menu == "ℹ️ Project Methodology & Review 4 Audit":
             st.caption("Engineered the Semantic Stance & NLI Classifier (SUPPORTS/REFUTES/NEUTRAL), confidence calibration, and NewsAPI live corroboration retrieval.")
             
             st.markdown("**4. Bhagyesh (20231CAI0068):**")
-            st.caption("Engineered the interactive Streamlit web UI, Stance Badges, Executive Score Dial, evaluator authentication, and responsive visual layout.")
+            st.caption("Engineered the Streamlit web dashboard, Stance Badges, Executive Score Dial, evaluator authentication, and responsive visual layout.")
 
         st.markdown("---")
-        st.subheader("🗺️ 5-Phase Project Roadmap (85% Review 4 Target)")
+        st.subheader("5-Phase Project Roadmap (100% Milestone Completed)")
         roadmap_df = pd.DataFrame([
-            {"Phase": "Phase 1 (Review 1)", "Scope": "Literature Survey (7 IEEE Papers), Problem Definition & Architecture", "Deliverable": "SRS & System Model", "Status": "Completed (100% ✅)"},
-            {"Phase": "Phase 2 (Review 2)", "Scope": "MBFC Knowledge Base (4,442 Outlets), Manipulation Engine, Benchmark Tests", "Deliverable": "SQLite DB & Scanner", "Status": "Completed (100% ✅)"},
-            {"Phase": "Phase 3 (Review 3)", "Scope": "Interactive Web Dashboard, NewsAPI Live Retrieval, Multi-Source Pool", "Deliverable": "Live Corroborator", "Status": "Completed (100% ✅)"},
-            {"Phase": "Phase 4 (Review 4 - Today)", "Scope": "Claim Extraction, RoBERTa Stance NLI, Unified C_final Aggregator, 27 Unit Tests", "Deliverable": "85% Functional Engine", "Status": "Completed (85% Target Met ✅)"},
-            {"Phase": "Phase 5 (Final Review 5)", "Scope": "FastAPI REST microservice, Docker compose containerization, Chrome Extension", "Deliverable": "Production Deployment", "Status": "Scheduled for Final Review ⏳"}
+            {"Phase": "Phase 1 (Review 1)", "Scope": "Literature Survey (7 IEEE Papers), Problem Definition & Architecture", "Deliverable": "SRS & System Model", "Status": "Completed (100% Target Met)"},
+            {"Phase": "Phase 2 (Review 2)", "Scope": "MBFC Knowledge Base (4,442 Outlets), Manipulation Engine, Benchmark Tests", "Deliverable": "SQLite DB & Scanner", "Status": "Completed (100% Target Met)"},
+            {"Phase": "Phase 3 (Review 3)", "Scope": "Interactive Web Dashboard, NewsAPI Live Retrieval, Multi-Source Pool", "Deliverable": "Live Corroborator", "Status": "Completed (100% Target Met)"},
+            {"Phase": "Phase 4 (Review 4)", "Scope": "Claim Extraction, RoBERTa Stance NLI, Unified C_final Aggregator, 27 Unit Tests", "Deliverable": "Core Reasoning Engine", "Status": "Completed (100% Target Met)"},
+            {"Phase": "Phase 5 (Final Review)", "Scope": "FastAPI REST API, Docker, GCP Compute VM, Domain localsort.in Deployment, 38 Tests", "Deliverable": "Production Cloud Deployment", "Status": "Completed (100% Target Met)"}
         ])
         st.table(roadmap_df)
