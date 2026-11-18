@@ -27,6 +27,14 @@ def test_api_health():
     assert "ScoreAggregator" in data["modules_loaded"]
 
 
+def test_api_sources_search():
+    response = client.get("/api/sources/search?q=guardian")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data) >= 1
+    assert any("guardian" in item["domain"].lower() for item in data)
+
+
 def test_api_reputation_known_high_trust():
     response = client.get("/api/reputation/reuters.com")
     assert response.status_code == 200

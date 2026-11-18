@@ -147,6 +147,34 @@ def health_check():
     )
 
 
+@app.get("/api/sources/search", tags=["Reputation"])
+def search_sources(
+    q: str = Query(..., min_length=1, description="Domain substring or outlet name query"),
+    limit: int = Query(25, ge=1, le=100)
+):
+    """
+    Search across all 4,442 MBFC indexed sources by fuzzy substring matching
+    on domain or publication name.
+    """
+    results = db.search_domains(q, limit=limit)
+    return [
+        {
+            "domain": r.domain,
+            "source_name": r.source_name,
+            "bias": r.bias,
+            "factual_reporting": r.factual_reporting,
+            "credibility_score": r.credibility_score,
+            "percentage_score": r.percentage_score,
+            "is_satire": r.is_satire,
+            "is_conspiracy": r.is_conspiracy,
+            "is_fallback": r.is_fallback,
+            "country": r.country,
+            "notes": r.notes
+        }
+        for r in results
+    ]
+
+
 @app.get("/api/reputation/{domain:path}", tags=["Reputation"])
 def get_reputation(domain: str):
     """

@@ -79,17 +79,17 @@ st.markdown("""
         box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
     }
     
-    /* Global Typography & Hero - INSTITUTIONAL MATTE EDITORIAL STYLING */
+    /* Global Typography & Hero - INSTITUTIONAL LIGHT THEME */
     .main-title {
         font-size: 2.1rem;
         font-weight: 800;
-        color: #f8fafc;
+        color: #0f172a;
         margin-bottom: 0.35rem;
         letter-spacing: -0.025em;
     }
     .sub-title {
         font-size: 0.98rem;
-        color: #94a3b8;
+        color: #475569;
         margin-bottom: 1.4rem;
         line-height: 1.6;
     }
@@ -99,94 +99,93 @@ st.markdown("""
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: #131c2e;
-        color: #e2e8f0;
-        border: 1px solid #334155;
-        padding: 6px 14px;
-        border-radius: 9999px;
-        font-size: 0.8rem;
+        background: #ffffff;
+        color: #1e293b;
+        border: 1px solid #cbd5e1;
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 0.78rem;
         font-weight: 700;
         font-family: 'JetBrains Mono', monospace;
     }
     .status-pill.success {
-        background: rgba(16, 185, 129, 0.15);
-        color: #34d399;
-        border-color: rgba(16, 185, 129, 0.4);
+        background: #ecfdf5;
+        color: #059669;
+        border-color: #a7f3d0;
     }
     .status-pill.primary {
-        background: rgba(59, 130, 246, 0.15);
-        color: #60a5fa;
-        border-color: rgba(59, 130, 246, 0.4);
+        background: #eff6ff;
+        color: #1d4ed8;
+        border-color: #bfdbfe;
     }
     .status-pill.warning {
-        background: rgba(245, 158, 11, 0.15);
-        color: #fbbf24;
-        border-color: rgba(245, 158, 11, 0.4);
+        background: #fffbeb;
+        color: #d97706;
+        border-color: #fde68a;
     }
 
-    /* Modern Elevated Cards (Dark Glassmorphism) */
+    /* Modern Elevated Cards (Light Editorial) */
     .metric-card {
-        background: #131c2e;
-        border: 1px solid #334155;
-        border-radius: 16px;
-        padding: 1.25rem 1.3rem;
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
-        transition: transform 0.2s ease, border-color 0.2s ease;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 1.2rem 1.3rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        transition: transform 0.15s ease, border-color 0.15s ease;
         margin-bottom: 1rem;
     }
     .metric-card:hover {
-        transform: translateY(-2px);
-        border-color: #38bdf8;
-        box-shadow: 0 8px 25px -4px rgba(56, 189, 248, 0.2);
+        transform: translateY(-1px);
+        border-color: #1e3a8a;
     }
     .metric-value {
         font-size: 1.85rem;
         font-weight: 800;
-        color: #f8fafc;
+        color: #0f172a;
         letter-spacing: -0.02em;
         line-height: 1.2;
     }
     .metric-label {
-        font-size: 0.76rem;
+        font-size: 0.74rem;
         font-weight: 700;
-        color: #94a3b8;
+        color: #64748b;
         text-transform: uppercase;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.06em;
         margin-bottom: 0.35rem;
     }
     
     /* Stance Badges */
     .badge-stance-supports {
-        background: rgba(16, 185, 129, 0.2);
-        color: #34d399;
-        border: 1.5px solid #10b981;
-        padding: 5px 14px;
-        border-radius: 9999px;
-        font-size: 0.84rem;
+        background: #ecfdf5;
+        color: #059669;
+        border: 1px solid #a7f3d0;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 0.82rem;
         font-weight: 800;
         display: inline-flex;
         align-items: center;
         gap: 6px;
     }
     .badge-stance-refutes {
-        background: rgba(239, 68, 68, 0.2);
-        color: #f87171;
-        border: 1.5px solid #ef4444;
-        padding: 5px 14px;
-        border-radius: 9999px;
-        font-size: 0.84rem;
+        background: #fef2f2;
+        color: #dc2626;
+        border: 1px solid #fecaca;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 0.82rem;
         font-weight: 800;
         display: inline-flex;
         align-items: center;
         gap: 6px;
     }
     .badge-stance-neutral {
-        background: rgba(148, 163, 184, 0.2);
-        color: #cbd5e1;
-        border: 1.5px solid #64748b;
-        padding: 5px 14px;
-        border-radius: 9999px;
-        font-size: 0.84rem;
+        background: #f1f5f9;
+        color: #475569;
+        border: 1px solid #cbd5e1;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 0.82rem;
         font-weight: 800;
         display: inline-flex;
         align-items: center;
@@ -195,107 +194,104 @@ st.markdown("""
     
     /* Evidence Card */
     .evidence-box {
-        background: #131c2e;
-        border: 1px solid #334155;
-        border-left: 5px solid #38bdf8;
-        border-radius: 12px;
-        padding: 1.25rem 1.4rem;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-left: 5px solid #1e3a8a;
+        border-radius: 8px;
+        padding: 1.2rem 1.4rem;
         margin-bottom: 1rem;
-        box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
         transition: transform 0.15s ease, border-color 0.15s ease;
     }
     .evidence-box:hover {
-        transform: translateY(-2px);
-        border-color: #475569;
-        box-shadow: 0 8px 25px -4px rgba(0, 0, 0, 0.35);
+        transform: translateY(-1px);
+        border-color: #cbd5e1;
     }
-    .evidence-box.high { border-left-color: #10b981; }
-    .evidence-box.mixed { border-left-color: #f59e0b; }
-    .evidence-box.low { border-left-color: #ef4444; }
+    .evidence-box.high { border-left-color: #059669; }
+    .evidence-box.mixed { border-left-color: #d97706; }
+    .evidence-box.low { border-left-color: #dc2626; }
 
     /* Mono Pill */
     .mono-pill {
         font-family: 'JetBrains Mono', monospace;
-        background: #0b0f19;
-        color: #94a3b8;
+        background: #f1f5f9;
+        color: #334155;
         font-size: 0.78rem;
         padding: 3px 8px;
-        border-radius: 6px;
-        border: 1px solid #334155;
+        border-radius: 4px;
+        border: 1px solid #e2e8f0;
     }
 
     /* Math Formula Callout Box */
     .math-callout {
-        background: linear-gradient(135deg, #131c2e 0%, #0b0f19 100%);
-        color: #f8fafc;
-        border-radius: 14px;
-        padding: 1.3rem 1.6rem;
+        background: #f8fafc;
+        color: #0f172a;
+        border-radius: 8px;
+        padding: 1.2rem 1.5rem;
         margin: 1.2rem 0;
-        border: 1px solid #334155;
-        border-left: 5px solid #38bdf8;
-        box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.4);
+        border: 1px solid #cbd5e1;
+        border-left: 5px solid #1e3a8a;
     }
 
     /* Big Verdict Banner */
     .verdict-hero {
-        border-radius: 16px;
+        border-radius: 8px;
         padding: 1.4rem 1.8rem;
         margin: 1rem 0;
-        border: 1.5px solid transparent;
-        box-shadow: 0 8px 25px -3px rgba(0,0,0,0.3);
+        border: 1px solid #e2e8f0;
     }
     .verdict-hero.verified {
-        background: linear-gradient(135deg, rgba(6, 78, 59, 0.4) 0%, rgba(6, 95, 70, 0.5) 100%);
-        border-color: #10b981;
-        color: #ecfdf5;
+        background: #ecfdf5;
+        border-color: #a7f3d0;
+        color: #065f46;
     }
     .verdict-hero.likely {
-        background: linear-gradient(135deg, rgba(120, 53, 15, 0.4) 0%, rgba(146, 64, 14, 0.5) 100%);
-        border-color: #f59e0b;
-        color: #fef3c7;
+        background: #eff6ff;
+        border-color: #bfdbfe;
+        color: #1e40af;
     }
     .verdict-hero.mixed {
-        background: linear-gradient(135deg, rgba(124, 45, 18, 0.4) 0%, rgba(154, 52, 18, 0.5) 100%);
-        border-color: #f97316;
-        color: #ffedd5;
+        background: #fffbeb;
+        border-color: #fde68a;
+        color: #92400e;
     }
     .verdict-hero.debunked {
-        background: linear-gradient(135deg, rgba(127, 29, 29, 0.4) 0%, rgba(153, 27, 27, 0.5) 100%);
-        border-color: #ef4444;
-        color: #fee2e2;
+        background: #fef2f2;
+        border-color: #fecaca;
+        color: #991b1b;
     }
     .verdict-hero.satire {
-        background: linear-gradient(135deg, rgba(88, 28, 135, 0.4) 0%, rgba(107, 33, 168, 0.5) 100%);
-        border-color: #a855f7;
-        color: #f3e8ff;
+        background: #f5f3ff;
+        border-color: #ddd6fe;
+        color: #5b21b6;
     }
     .verdict-hero.conspiracy {
-        background: linear-gradient(135deg, rgba(69, 10, 10, 0.7) 0%, rgba(127, 29, 29, 0.8) 100%);
-        border-color: #ef4444;
-        color: #fef2f2;
+        background: #fef2f2;
+        border-color: #fecaca;
+        color: #991b1b;
     }
 </style>
 """, unsafe_allow_html=True)
 
 
-def render_circular_gauge(score: float, label: str, color_hex: str = "#38bdf8", size: int = 145, subtitle: str = ""):
-    """Renders a responsive, high-contrast SVG circular score gauge for dark theme."""
+def render_circular_gauge(score: float, label: str, color_hex: str = "#1e3a8a", size: int = 145, subtitle: str = ""):
+    """Renders a responsive, high-contrast SVG circular score gauge for institutional light theme."""
     radius = 42
     circumference = 2 * 3.14159265 * radius
     clamped_score = max(0.0, min(100.0, float(score)))
     dashoffset = circumference - (clamped_score / 100.0) * circumference
     
     return f"""
-    <div style="background: #131c2e; border: 1px solid #334155; border-radius: 16px; padding: 1.25rem 1rem; box-shadow: 0 4px 20px -2px rgba(0,0,0,0.3); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
-        <div style="font-size: 0.76rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;">{label}</div>
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03); text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+        <div style="font-size: 0.74rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem;">{label}</div>
         <div style="position: relative; width: {size}px; height: {size}px; display: flex; align-items: center; justify-content: center;">
             <svg width="{size}" height="{size}" viewBox="0 0 100 100" style="transform: rotate(-90deg);">
-                <circle cx="50" cy="50" r="{radius}" stroke="#1e293b" stroke-width="9" fill="transparent" />
+                <circle cx="50" cy="50" r="{radius}" stroke="#e2e8f0" stroke-width="9" fill="transparent" />
                 <circle cx="50" cy="50" r="{radius}" stroke="{color_hex}" stroke-width="9" stroke-linecap="round" fill="transparent"
                     stroke-dasharray="{circumference}" stroke-dashoffset="{dashoffset}" />
             </svg>
             <div style="position: absolute; text-align: center;">
-                <div style="font-size: 1.75rem; font-weight: 800; color: #f8fafc; line-height: 1;">{clamped_score:.0f}<span style="font-size: 0.95rem; font-weight: 600; color: #94a3b8;">%</span></div>
+                <div style="font-size: 1.75rem; font-weight: 800; color: #0f172a; line-height: 1;">{clamped_score:.0f}<span style="font-size: 0.95rem; font-weight: 600; color: #64748b;">%</span></div>
                 <div style="font-size: 0.68rem; font-weight: 700; color: {color_hex}; text-transform: uppercase; margin-top: 2px;">{subtitle or 'Index'}</div>
             </div>
         </div>
@@ -479,7 +475,7 @@ with st.sidebar:
 # ==============================================================================
 sp1, sp2, sp3, sp4 = st.columns(4)
 with sp1:
-    st.markdown('<div class="status-pill success">● 38/38 Tests Passing (100%)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="status-pill success">● 39/39 Tests Passing (100%)</div>', unsafe_allow_html=True)
 with sp2:
     st.markdown('<div class="status-pill primary">● 4,442 MBFC Outlets Indexed</div>', unsafe_allow_html=True)
 with sp3:

@@ -155,14 +155,13 @@ def create_strict_ieee_paper():
         "closed-world natural language classification task, relying predominantly upon lexical sentiment or superficial stylistic cues. Such paradigms "
         "predictably collapse when falsehoods are drafted in formal journalistic language or conversely when legitimate breaking journalism covers "
         "anomalous real-world emergencies. In this paper, we propose TruthLens, an open-world multi-modal news verification architecture that "
-        "cross-examines unverified statements against the empirical consensus of independent global journalism. TruthLens synthesizes five specialized "
+        "cross-examines unverified statements against the empirical consensus of independent global journalism. TruthLens synthesizes four specialized "
         "subsystems: (i) an ultra-low latency Canonical Domain Resolver indexing 4,442 international press outlets via an optimized SQLite B-Tree "
         "database (<0.02ms query latency), (ii) an automated Factual Claim Extractor isolating empirical assertions via Named Entity Recognition (NER), "
         "numerical heuristics, and assertion verbs while filtering subjective opinion noise, (iii) an automated Evidence Retrieval and Directional "
         "Natural Language Inference (NLI) engine classifying claim-evidence stance into discrete polarities (Supports: +1.0, Refutes: -1.0, Neutral: 0.0) "
-        "with calibrated probabilistic confidence, (iv) a mathematically unified Credibility Score Aggregator synthesizing multi-source stance consensus, "
-        "origin publisher authority, and lexical manipulation penalties, and (v) a containerized asynchronous FastAPI REST microservice deployed in production "
-        "on Google Cloud Platform with custom domain routing. Across comprehensive empirical benchmarks and 38 automated test suites, TruthLens "
+        "with calibrated probabilistic confidence, and (iv) a mathematically unified Credibility Score Aggregator synthesizing multi-source stance consensus, "
+        "origin publisher authority, and lexical manipulation penalties. Across comprehensive empirical benchmarks and 27 automated test suites, TruthLens "
         "achieves 100% verification stability, sub-second pipeline throughput (<1.8s), sub-millisecond stance inference (<0.05s), and decisive discrimination "
         "against sophisticated disinformation campaigns and satirical fabrications."
     )
@@ -335,10 +334,7 @@ def create_strict_ieee_paper():
         "• We develop an automated Evidence Retrieval and Directional Natural Language Inference (NLI) engine classifying claim-evidence stance into discrete polarities (Supports: +1.0, Refutes: -1.0, Neutral: 0.0) with probabilistic confidence calibration."
     )
     add_bullet(
-        "• We formulate a unified multi-factor algebraic credibility aggregation equation C_final with explicit penalty attribution and empirical validation across 1,000 iterations and 38 automated test suites."
-    )
-    add_bullet(
-        "• We architect and deploy an asynchronous FastAPI REST microservice containerized via Docker and operationalized in production on Google Cloud Platform (GCP) with custom domain SSL routing."
+        "• We formulate a unified multi-factor algebraic credibility aggregation equation C_final with explicit penalty attribution and empirical validation across 1,000 iterations and 27 automated test suites."
     )
 
     # -------------------------------------------------------------------------
@@ -509,11 +505,6 @@ def create_strict_ieee_paper():
         "Scores map to four actionable verdicts: VERIFIED (>= 75%), CAUTION (50–74%), LOW TRUST (20–49%), and DEBUNKED / SATIRE (< 20%)."
     )
 
-    add_subsec_head("F", "Asynchronous Microservice Architecture & Production Cloud Deployment")
-    add_body(
-        "To support high-concurrency client evaluation and cross-platform consumption, TruthLens is packaged as an asynchronous REST microservice using FastAPI and Uvicorn. The engine exposes five decoupled REST endpoints: /api/verify (end-to-end consensus verification), /api/reputation/{domain} (sub-millisecond B-Tree lookup), /api/manipulation (lexical framing analysis), /api/claims (factual claim extraction), and /health (system diagnostics). Containerized using a multi-stage Docker build with persistent SQLite volumes, TruthLens is deployed in production on Google Cloud Platform Compute Engine (e2-medium, 2 vCPUs, 4GB RAM) in asia-south1 behind an Nginx reverse proxy, coupled with Google-managed SSL via Firebase Hosting on custom domain localsort.in."
-    )
-
     # -------------------------------------------------------------------------
     # SECTION IV: EXPERIMENTAL EVALUATION & RESULTS
     # -------------------------------------------------------------------------
@@ -529,7 +520,7 @@ def create_strict_ieee_paper():
     )
 
     # TABLE II: LATENCY BENCHMARKS
-    tbl_lat = doc.add_table(rows=8, cols=3)
+    tbl_lat = doc.add_table(rows=7, cols=3)
     tbl_lat.alignment = WD_TABLE_ALIGNMENT.CENTER
     tbl_lat.autofit = False
     set_ieee_borders(tbl_lat)
@@ -566,7 +557,6 @@ def create_strict_ieee_paper():
         ("Linguistic Manipulation Scanner", "0.245 ms", "109 Precompiled Regex Objects"),
         ("Claim Extraction & Filtering", "0.038 ms", "Rule-based NER heuristic filter"),
         ("Total Local Pipeline Execution", "0.275 ms", "Integrated CPU processing"),
-        ("FastAPI Microservice Dispatch", "0.420 ms", "Asynchronous ASGI worker pool"),
         ("NewsAPI Live Evidence Retrieval", "482.60 ms", "Remote HTTPS Network I/O")
     ]
     for row_idx, row_vals in enumerate(lat_data, start=1):
@@ -592,7 +582,7 @@ def create_strict_ieee_paper():
 
     add_subsec_head("B", "Automated Quality Assurance & Pytest Verification")
     add_body(
-        "Software robustness was validated using Pytest across 38 comprehensive unit and integration tests organized in seven test suites: (1) 'test_api.py' (11 tests: FastAPI REST endpoints, JSON validation, health probes, CORS compliance), (2) 'test_source_reputation.py' (9 tests: canonical URL normalization, B-Tree index traversal, ccTLD parsing, satire flags), (3) 'test_manipulation.py' (4 tests: regex triggers, lexical boundary assertions, M_index calibration), (4) 'test_claim_extractor.py' (3 tests: spaCy NER parsing, assertion verb filters, subjective modal suppression), (5) 'test_news_retriever.py' (3 tests: query formulation, API response handling, network timeouts), (6) 'test_stance.py' (4 tests: RoBERTa-MNLI directional stance, batch inference, neutral cases), and (7) 'test_score_aggregator.py' (4 tests: C_final piecewise logic, satire hard-clamp, refutation capping, manipulation penalties). The entire 38-test suite achieved a 100% pass rate in 3.39 seconds with zero memory leaks."
+        "Software robustness was validated using Pytest 8.1.1 across 27 unit and integration tests organized in four test suites: (1) 'test_source_reputation.py' (8 tests: URL normalization, B-Tree index traversal, TLD handling), (2) 'test_text_analysis.py' (7 tests: regex triggers, boundary matching, M_index calibration), (3) 'test_news_search.py' (4 tests: query formatting, API response handling, network timeouts), and (4) 'test_phase4_engine.py' (8 tests: claim extraction, NLI stance polarities, multi-factor score aggregation). The entire test suite achieved a 100% pass rate in 0.14 seconds with zero memory leaks."
     )
 
     add_subsec_head("C", "Real-World Case Study Verification Profiles")
@@ -698,11 +688,11 @@ def create_strict_ieee_paper():
     # -------------------------------------------------------------------------
     add_sec_head("VI", "Conclusion and Future Work")
     add_body(
-        "In this paper, we presented TruthLens, an open-world multi-modal news credibility verification architecture that unifies institutional source reputation, length-normalized lexical manipulation analysis, automated factual claim extraction, real-time multi-source stance inference, and containerized microservice deployment. By departing from vulnerable closed-world text classification and operationalizing journalistic cross-examination, TruthLens establishes robust veracity grounding while executing with sub-millisecond local latency (0.275 ms) across 4,442 international press outlets, validated across 38 automated test suites and live production deployment on Google Cloud Platform.",
+        "In this paper, we presented TruthLens, an open-world multi-modal news credibility verification architecture that unifies institutional source reputation, length-normalized lexical manipulation analysis, automated factual claim extraction, and real-time multi-source stance inference. By departing from vulnerable closed-world text classification and operationalizing journalistic cross-examination, TruthLens establishes robust veracity grounding while executing with sub-millisecond local latency (0.275 ms) across 4,442 international press outlets.",
         indent=False
     )
     add_body(
-        "Future engineering milestones include: (1) specialized domain-adapted cross-encoder fine-tuning on high-stakes conflict and epidemiological crisis corpora, (2) automated multimodal image verification and deepfake forensic cross-referencing, and (3) multilingual cross-lingual zero-shot stance transfer for low-resource regional journalism."
+        "Future engineering milestones include: (1) end-to-end fine-tuning of RoBERTa-large on specialized conflict and epidemiological fact-checking corpora, (2) automated multimodal image verification to detect manipulated visual context, and (3) packaging the pipeline as high-throughput asynchronous REST microservices containerized via Docker for cloud edge integration."
     )
 
     # -------------------------------------------------------------------------
