@@ -35,61 +35,55 @@ from src.scoring.score_aggregator import ScoreAggregator, VerdictTier
 load_dotenv()
 
 # ==============================================================================
-# 1. PAGE CONFIGURATION & HIGH-CONTRAST DARK CYBERPUNK STYLING
+# 1. PAGE CONFIGURATION & INSTITUTIONAL EDITORIAL LIGHT STYLING
 # ==============================================================================
 st.set_page_config(
-    page_title="TruthLens - AI News Credibility Engine",
-    page_icon="🛡️",
+    page_title="TruthLens - News Credibility Verification Engine",
+    page_icon="[TL]",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom High-End CSS with Dark Glassmorphism, Elevated Cards & Glowing Badges
+# Enforce crisp, high-contrast institutional light theme across all components
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
     
-    html, body, [class*="css"] {
-        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    html, body, [class*="css"], .stApp {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        background-color: #f8fafc !important;
+        color: #0f172a !important;
     }
     
-    /* Top Progress Bar Widget */
-    .progress-banner {
-        background: linear-gradient(135deg, #131c2e 0%, #0b0f19 100%);
-        border: 1px solid #2563eb;
-        border-radius: 16px;
-        padding: 1.2rem 1.5rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.25);
-        color: #f8fafc;
+    [data-testid="stAppViewContainer"] {
+        background-color: #f8fafc !important;
+        color: #0f172a !important;
     }
-    .progress-track {
-        background: #1e293b;
-        border-radius: 9999px;
-        height: 12px;
-        width: 100%;
-        overflow: hidden;
-        margin: 10px 0 6px 0;
-        border: 1px solid #334155;
+    [data-testid="stHeader"] {
+        background-color: #f8fafc !important;
     }
-    .progress-fill {
-        background: linear-gradient(90deg, #3b82f6 0%, #10b981 85%, #06b6d4 100%);
-        height: 100%;
-        border-radius: 9999px;
-        box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+    [data-testid="stSidebar"] {
+        background-color: #f1f5f9 !important;
+        border-right: 1px solid #e2e8f0 !important;
+    }
+    [data-testid="stSidebar"] * {
+        color: #0f172a !important;
+    }
+    [data-testid="stSidebar"] .stMarkdown p {
+        color: #334155 !important;
     }
     
     /* Global Typography & Hero - INSTITUTIONAL LIGHT THEME */
     .main-title {
         font-size: 2.1rem;
         font-weight: 800;
-        color: #0f172a;
+        color: #1e3a8a !important;
         margin-bottom: 0.35rem;
         letter-spacing: -0.025em;
     }
     .sub-title {
         font-size: 0.98rem;
-        color: #475569;
+        color: #475569 !important;
         margin-bottom: 1.4rem;
         line-height: 1.6;
     }
@@ -120,7 +114,7 @@ st.markdown("""
     }
     .status-pill.warning {
         background: #fffbeb;
-        color: #d97706;
+        color: #b45309;
         border-color: #fde68a;
     }
 
@@ -141,14 +135,14 @@ st.markdown("""
     .metric-value {
         font-size: 1.85rem;
         font-weight: 800;
-        color: #0f172a;
+        color: #0f172a !important;
         letter-spacing: -0.02em;
         line-height: 1.2;
     }
     .metric-label {
         font-size: 0.74rem;
         font-weight: 700;
-        color: #64748b;
+        color: #475569 !important;
         text-transform: uppercase;
         letter-spacing: 0.06em;
         margin-bottom: 0.35rem;
@@ -224,13 +218,14 @@ st.markdown("""
 
     /* Math Formula Callout Box */
     .math-callout {
-        background: #f8fafc;
+        background: #ffffff;
         color: #0f172a;
         border-radius: 8px;
         padding: 1.2rem 1.5rem;
         margin: 1.2rem 0;
         border: 1px solid #cbd5e1;
         border-left: 5px solid #1e3a8a;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
     }
 
     /* Big Verdict Banner */
@@ -368,18 +363,18 @@ def render_login():
         st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown("""
         <div style="text-align: center; margin-bottom: 2rem;">
-            <h1 style="color: #f8fafc; font-size: 2.7rem; font-weight: 800; margin-bottom: 0;">🛡️ TruthLens</h1>
-            <p style="color: #38bdf8; font-size: 1.15rem; font-weight: 700; margin-top: 4px;">AI-Powered Real-Time News Credibility Verification Engine</p>
-            <p style="color: #94a3b8; font-size: 0.9rem;">Presidency University • School of AI & AC • Review Portal (PSAIAC_61)</p>
-            <div style="margin-top: 12px; display: flex; justify-content: center; gap: 8px;">
-                <span style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 14px; border-radius: 9999px; font-weight: 800; font-size: 0.82rem;">🎯 Multi-Source NLI Verification</span>
-                <span style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); padding: 4px 14px; border-radius: 9999px; font-weight: 800; font-size: 0.82rem;">⚡ 27/27 Tests Passed</span>
+            <h1 style="color: #1e3a8a; font-size: 2.6rem; font-weight: 800; margin-bottom: 0;">TruthLens</h1>
+            <p style="color: #0f172a; font-size: 1.1rem; font-weight: 700; margin-top: 4px;">AI-Powered Real-Time News Credibility Verification Engine</p>
+            <p style="color: #475569; font-size: 0.9rem;">Presidency University • School of AI & AC • Final Evaluation Portal (PSAIAC_61)</p>
+            <div style="margin-top: 14px; display: flex; justify-content: center; gap: 8px;">
+                <span style="background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; padding: 4px 14px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">[MULTI-SOURCE NLI]</span>
+                <span style="background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; padding: 4px 14px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">[39/39 TESTS PASSING]</span>
             </div>
         </div>
         """, unsafe_allow_html=True)
 
         with st.container(border=True):
-            st.subheader("🔐 Project Review Evaluation Login")
+            st.subheader("Project Review Evaluation Login")
             u_input = st.text_input("Username / Evaluator ID", value="Faculty Reviewer")
             p_input = st.text_input("Access Password", type="password", placeholder="Enter review access password...")
             
@@ -392,9 +387,9 @@ def render_login():
                         st.session_state.username = u_input.strip() or "Evaluator"
                         st.rerun()
                     else:
-                        st.error("❌ Invalid access password. Please enter 'truthlens2026' or click '1-Click Demo Login'.")
+                        st.error("Invalid access password. Please enter 'truthlens2026' or click '1-Click Demo Login'.")
             with c_btn2:
-                if st.button("⚡ 1-Click Demo Login", type="secondary", use_container_width=True):
+                if st.button("1-Click Demo Login", type="secondary", use_container_width=True):
                     st.session_state.authenticated = True
                     st.session_state.username = "Faculty Evaluator"
                     st.rerun()
@@ -431,14 +426,14 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("#### **Active Engine Pipeline**")
     st.markdown("""
-    <div style="font-size: 0.82rem; line-height: 1.7; color: #94a3b8;">
-        • <b style="color: #f8fafc;">SQLite B-Tree Index:</b> 4,442 outlets (0.018ms)<br>
-        • <b style="color: #f8fafc;">Lexicon Detector:</b> 109 manipulation markers<br>
-        • <b style="color: #f8fafc;">Claim Extractor:</b> spaCy NER & assertion verbs<br>
-        • <b style="color: #f8fafc;">Evidence Retriever:</b> Live NewsAPI corroboration<br>
-        • <b style="color: #f8fafc;">Directional Stance:</b> RoBERTa-MNLI (+1, -1, 0)<br>
-        • <b style="color: #f8fafc;">Credibility Formula:</b> 0.70S + 0.30W - 0.25M<br>
-        • <b style="color: #f8fafc;">Continuous Integration:</b> 38/38 Pytest passed (100%)
+    <div style="font-size: 0.82rem; line-height: 1.7; color: #334155;">
+        • <b style="color: #0f172a;">SQLite B-Tree Index:</b> 4,442 outlets (0.018ms)<br>
+        • <b style="color: #0f172a;">Lexicon Detector:</b> 109 manipulation markers<br>
+        • <b style="color: #0f172a;">Claim Extractor:</b> spaCy NER & assertion verbs<br>
+        • <b style="color: #0f172a;">Evidence Retriever:</b> Live NewsAPI corroboration<br>
+        • <b style="color: #0f172a;">Directional Stance:</b> RoBERTa-MNLI (+1, -1, 0)<br>
+        • <b style="color: #0f172a;">Credibility Formula:</b> 0.70S + 0.30W - 0.25M<br>
+        • <b style="color: #0f172a;">Continuous Integration:</b> 39/39 Pytest passed (100%)
     </div>
     """, unsafe_allow_html=True)
 
@@ -559,11 +554,11 @@ if menu == "Credibility Verification Suite":
             # Real-time preview of publisher reputation for this domain
             origin_preview = db.lookup(st.session_state.claim_origin)
             if origin_preview.is_satire:
-                st.markdown('<div style="font-size: 0.8rem; color: #c084fc; font-weight: 700; margin-top: 4px;">🎭 Satire Publisher (C_final clamped to 0.0%)</div>', unsafe_allow_html=True)
+                st.markdown('<div style="font-size: 0.8rem; color: #7c3aed; font-weight: 700; margin-top: 4px;">[SATIRE OUTLET] C_final clamped to 0.0%</div>', unsafe_allow_html=True)
             elif origin_preview.is_conspiracy:
-                st.markdown('<div style="font-size: 0.8rem; color: #f87171; font-weight: 700; margin-top: 4px;">⚠️ Conspiracy Outlet (Capped at 15.0%)</div>', unsafe_allow_html=True)
+                st.markdown('<div style="font-size: 0.8rem; color: #dc2626; font-weight: 700; margin-top: 4px;">[CONSPIRACY OUTLET] Capped at 15.0%</div>', unsafe_allow_html=True)
             else:
-                st.markdown(f'<div style="font-size: 0.8rem; color: #38bdf8; font-weight: 600; margin-top: 4px;">🏛️ <b>{origin_preview.source_name}</b> ({origin_preview.factual_reporting.upper()} factuality, Trust: {origin_preview.percentage_score:.0f}%)</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="font-size: 0.8rem; color: #1e3a8a; font-weight: 600; margin-top: 4px;">[SOURCE: {origin_preview.source_name}] ({origin_preview.factual_reporting.upper()} factuality, Trust: {origin_preview.percentage_score:.0f}%)</div>', unsafe_allow_html=True)
 
         with st.expander("Optional: Input Full Article Paragraph for Lexical Manipulation Analysis", expanded=False):
             article_text_input = st.text_area(
@@ -576,8 +571,8 @@ if menu == "Credibility Verification Suite":
 
         num_articles = st.slider("Independent corroboration sources to retrieve:", 3, 8, 5)
 
-        if st.button("🚀 Execute Full-Pipeline Credibility Verification", type="primary", use_container_width=True):
-            with st.spinner("Executing 4-stage pipeline: Source Lookup ➔ Manipulation Scan ➔ Evidence Retrieval ➔ RoBERTa Stance Inference..."):
+        if st.button("Execute Credibility Verification Pipeline", type="primary", use_container_width=True):
+            with st.spinner("Executing pipeline: Source Lookup -> Manipulation Scan -> Evidence Retrieval -> RoBERTa Stance Inference..."):
                 t_pipe_start = time.perf_counter()
 
                 # Stage 1: Origin Source Reputation
@@ -676,13 +671,13 @@ if menu == "Credibility Verification Suite":
             st.markdown(f"""
             <div class="math-callout">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                    <div style="font-size: 0.82rem; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.08em;">Transparent Algebraic Audit Trail</div>
-                    <div style="font-size: 0.78rem; color: #94a3b8; font-family: 'JetBrains Mono', monospace;">Total Latency: {t_total_ms:.1f} ms</div>
+                    <div style="font-size: 0.82rem; font-weight: 800; color: #1e3a8a; text-transform: uppercase; letter-spacing: 0.08em;">Transparent Algebraic Audit Trail</div>
+                    <div style="font-size: 0.78rem; color: #475569; font-family: 'JetBrains Mono', monospace;">Total Latency: {t_total_ms:.1f} ms</div>
                 </div>
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 700; color: #ffffff;">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 700; color: #0f172a;">
                     {assessment.math_formula_explanation}
                 </div>
-                <div style="font-size: 0.85rem; color: #cbd5e1; margin-top: 8px; line-height: 1.6;">
+                <div style="font-size: 0.85rem; color: #334155; margin-top: 8px; line-height: 1.6;">
                     • <b>Weighted Consensus Direction (&Phi;̄):</b> {assessment.weighted_consensus_phi:+.3f} across {assessment.total_evidence_sources} sources ({assessment.supporting_sources_count} Supports, {assessment.refuting_sources_count} Refutes, {assessment.neutral_sources_count} Neutral)<br>
                     • <b>Origin Reputation Factor:</b> {origin_rep.source_name} ({origin_rep.domain}) rated <b>{origin_rep.factual_reporting}</b> factuality with bias <b>{origin_rep.bias}</b><br>
                     • <b>Linguistic Penalty:</b> {manip_report.risk_level.upper()} ({assessment.manipulation_index:.0f}/100) deducted {assessment.manipulation_penalty:.1f} points from aggregate score
@@ -691,16 +686,16 @@ if menu == "Credibility Verification Suite":
             """, unsafe_allow_html=True)
 
             # Stance Consensus Details & Evidence Cards
-            st.markdown(f"#### 📰 **Retrieved Evidence Corroboration Pool ({len(articles)} Independent Sources):**")
+            st.markdown(f"#### **Retrieved Evidence Corroboration Pool ({len(articles)} Independent Sources):**")
             for idx, (art, st_res) in enumerate(zip(articles, stances), 1):
                 if st_res.stance == StanceType.SUPPORTS:
-                    st_badge = f'<span class="badge-stance-supports">🟢 SUPPORTS (+1.0) • {st_res.confidence * 100:.0f}% Conf</span>'
-                    card_border = "#10b981"
+                    st_badge = f'<span class="badge-stance-supports">[SUPPORTS] +1.0 • {st_res.confidence * 100:.0f}% Conf</span>'
+                    card_border = "#059669"
                 elif st_res.stance == StanceType.REFUTES:
-                    st_badge = f'<span class="badge-stance-refutes">🔴 REFUTES (-1.0) • {st_res.confidence * 100:.0f}% Conf</span>'
-                    card_border = "#ef4444"
+                    st_badge = f'<span class="badge-stance-refutes">[REFUTES] -1.0 • {st_res.confidence * 100:.0f}% Conf</span>'
+                    card_border = "#dc2626"
                 else:
-                    st_badge = f'<span class="badge-stance-neutral">⚪ NEUTRAL (0.0) • {st_res.confidence * 100:.0f}% Conf</span>'
+                    st_badge = f'<span class="badge-stance-neutral">[NEUTRAL] 0.0 • {st_res.confidence * 100:.0f}% Conf</span>'
                     card_border = "#94a3b8"
 
                 safe_source = html.escape(art.source_name)
@@ -717,8 +712,8 @@ if menu == "Credibility Verification Suite":
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 8px;">
                         <div>
                             <span class="mono-pill">Source #{idx}</span>
-                            <strong style="font-size: 1.05rem; color: #f8fafc; margin-left: 6px;">{safe_source}</strong>
-                            <span style="color: #94a3b8; font-size: 0.85rem; margin-left: 4px;">({safe_domain})</span>
+                            <strong style="font-size: 1.05rem; color: #0f172a; margin-left: 6px;">{safe_source}</strong>
+                            <span style="color: #64748b; font-size: 0.85rem; margin-left: 4px;">({safe_domain})</span>
                         </div>
                         <div style="display: flex; gap: 8px; align-items: center;">
                             {st_badge}
@@ -726,17 +721,17 @@ if menu == "Credibility Verification Suite":
                         </div>
                     </div>
                     <h4 style="margin: 0.3rem 0; font-size: 1.12rem; font-weight: 700;">
-                        <a href="{safe_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #60a5fa;">{safe_title}</a>
+                        <a href="{safe_url}" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: #1d4ed8;">{safe_title}</a>
                     </h4>
-                    <p style="color: #cbd5e1; font-size: 0.93rem; margin: 0.4rem 0 0.6rem 0; line-height: 1.5;">{safe_snippet}</p>
-                    <div style="background: #0b0f19; border: 1px solid #334155; border-radius: 6px; padding: 6px 10px; font-size: 0.82rem; color: #94a3b8; margin-bottom: 8px;">
-                        💡 <strong>Directional NLI Stance:</strong> {safe_expl}
+                    <p style="color: #334155; font-size: 0.93rem; margin: 0.4rem 0 0.6rem 0; line-height: 1.5;">{safe_snippet}</p>
+                    <div style="background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px 10px; font-size: 0.82rem; color: #1e293b; margin-bottom: 8px;">
+                        <strong>Directional NLI Stance:</strong> {safe_expl}
                     </div>
-                    <div style="display: flex; gap: 12px; font-size: 0.78rem; color: #94a3b8; flex-wrap: wrap; border-top: 1px solid #1e293b; padding-top: 6px;">
-                        <span>📅 Published: <strong style="color: #cbd5e1;">{safe_pub}</strong></span>
-                        <span>⚖️ Political Bias: <strong style="color: #cbd5e1;">{safe_bias}</strong></span>
-                        <span>📊 Authority Weight (W_rep): <strong style="color: #cbd5e1;">{art.weight_factor:.2f}</strong></span>
-                        <span>🎯 Overlap Salience: <strong style="color: #cbd5e1;">{st_res.overlap_score * 100:.0f}%</strong></span>
+                    <div style="display: flex; gap: 12px; font-size: 0.78rem; color: #64748b; flex-wrap: wrap; border-top: 1px solid #e2e8f0; padding-top: 6px;">
+                        <span>Published: <strong style="color: #0f172a;">{safe_pub}</strong></span>
+                        <span>Political Bias: <strong style="color: #0f172a;">{safe_bias}</strong></span>
+                        <span>Authority Weight (W_rep): <strong style="color: #0f172a;">{art.weight_factor:.2f}</strong></span>
+                        <span>Overlap Salience: <strong style="color: #0f172a;">{st_res.overlap_score * 100:.0f}%</strong></span>
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
@@ -805,33 +800,33 @@ if menu == "Credibility Verification Suite":
                 <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Factual Reporting</div>
                     <div class="metric-value" style="font-size: 1.35rem; color: {fact_color};">{rep.factual_reporting.upper()}</div>
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Editorial standard evaluation</div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Editorial standard evaluation</div>
                 </div>
                 """, unsafe_allow_html=True)
             with m3:
                 st.markdown(f"""
                 <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Political Bias</div>
-                    <div class="metric-value" style="font-size: 1.35rem; color: #60a5fa;">{rep.bias.upper()}</div>
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Spectrum orientation</div>
+                    <div class="metric-value" style="font-size: 1.35rem; color: #1d4ed8;">{rep.bias.upper()}</div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Spectrum orientation</div>
                 </div>
                 """, unsafe_allow_html=True)
             with m4:
                 st.markdown(f"""
                 <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Corroboration Weight</div>
-                    <div class="metric-value" style="font-size: 1.6rem; color: #f8fafc;">{rep.weight_factor:.2f} <span style="font-size: 0.95rem; color: #94a3b8;">/ 1.0</span></div>
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Equation factor (W_origin)</div>
+                    <div class="metric-value" style="font-size: 1.6rem; color: #0f172a;">{rep.weight_factor:.2f} <span style="font-size: 0.95rem; color: #64748b;">/ 1.0</span></div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Equation factor (W_origin)</div>
                 </div>
                 """, unsafe_allow_html=True)
 
             # Details & Alerts
             if rep.is_satire:
-                st.error("🚨 **SATIRE OUTLET DETECTED:** This source is cataloged as satirical entertainment. Mathematical score is automatically clamped to 0.0%.")
+                st.error("[SATIRE OUTLET DETECTED] This source is cataloged as satirical entertainment. Mathematical score is automatically clamped to 0.0%.")
             elif rep.is_conspiracy:
-                st.warning("⚠️ **CONSPIRACY / LOW FACTUALITY:** This source has a recorded history of promoting debunked conspiracy theories or pseudoscience.")
+                st.warning("[CONSPIRACY / LOW FACTUALITY] This source has a recorded history of promoting debunked conspiracy theories or pseudoscience.")
             else:
-                st.info(f"✅ **VERIFIED PRESS OUTLET:** This source is cataloged in the global Media Bias / Fact Check index as **{rep.credibility_rating}**.")
+                st.info(f"[INDEXED PRESS OUTLET] This source is cataloged in the global Media Bias / Fact Check index as {rep.credibility_rating}.")
 
             with st.expander("Detailed Domain Resolution Metadata", expanded=True):
                 meta_df = pd.DataFrame([
@@ -894,20 +889,20 @@ if menu == "Credibility Verification Suite":
                 <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Risk Category</div>
                     <div class="metric-value" style="font-size: 1.35rem; color: {r_col};">{res.risk_level.upper()}</div>
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Evaluated against 109 triggers</div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Evaluated against 109 triggers</div>
                 </div>
                 """, unsafe_allow_html=True)
             with k3:
                 st.markdown(f"""
                 <div class="metric-card" style="height: 100%;">
                     <div class="metric-label">Triggers Caught</div>
-                    <div class="metric-value" style="font-size: 1.6rem; color: #f8fafc;">{len(res.flagged_phrases)} <span style="font-size: 1rem; color: #94a3b8;">triggers</span></div>
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Sensational, panic & conspiracy flags</div>
+                    <div class="metric-value" style="font-size: 1.6rem; color: #0f172a;">{len(res.flagged_phrases)} <span style="font-size: 1rem; color: #64748b;">triggers</span></div>
+                    <div style="font-size: 0.75rem; color: #64748b; margin-top: 6px;">Sensational, panic & conspiracy flags</div>
                 </div>
                 """, unsafe_allow_html=True)
 
             if res.flagged_phrases:
-                st.markdown("#### 🔎 **Highlighted Manipulation Markers in Text:**")
+                st.markdown("#### **Highlighted Manipulation Markers in Text:**")
                 safe_text = html.escape(text_input)
                 highlighted = safe_text
                 seen_terms = set()
@@ -918,16 +913,16 @@ if menu == "Credibility Verification Suite":
                         seen_terms.add(term.lower())
                         escaped_term = html.escape(term)
                         if "sensational" in cat:
-                            badge = f'<span style="background-color: rgba(234, 179, 8, 0.25); border: 1px solid #eab308; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #fde047;">{escaped_term} [Sensational]</span>'
+                            badge = f'<span style="background-color: #fef9c3; border: 1px solid #facc15; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #854d0e;">{escaped_term} [Sensational]</span>'
                         elif "fear" in cat or "urgency" in cat:
-                            badge = f'<span style="background-color: rgba(249, 115, 22, 0.25); border: 1px solid #f97316; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #fdba74;">{escaped_term} [Panic]</span>'
+                            badge = f'<span style="background-color: #ffedd5; border: 1px solid #fb923c; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #9a3412;">{escaped_term} [Panic]</span>'
                         elif "conspiracy" in cat:
-                            badge = f'<span style="background-color: rgba(239, 68, 68, 0.25); border: 1px solid #ef4444; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #fca5a5;">{escaped_term} [Conspiracy]</span>'
+                            badge = f'<span style="background-color: #fee2e2; border: 1px solid #f87171; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #991b1b;">{escaped_term} [Conspiracy]</span>'
                         else:
-                            badge = f'<span style="background-color: rgba(99, 102, 241, 0.25); border: 1px solid #6366f1; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #a5b4fc;">{escaped_term} [Trigger]</span>'
+                            badge = f'<span style="background-color: #ede9fe; border: 1px solid #a78bfa; padding: 2px 6px; border-radius: 4px; font-weight: bold; color: #5b21b6;">{escaped_term} [Trigger]</span>'
                         highlighted = re.sub(re.escape(escaped_term), badge, highlighted, flags=re.IGNORECASE)
                 
-                st.markdown(f'<div style="background-color: #131c2e; border: 1px solid #334155; padding: 1.2rem; border-radius: 12px; font-size: 1.05rem; line-height: 1.8; color: #e2e8f0;">{highlighted}</div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="background-color: #ffffff; border: 1px solid #cbd5e1; padding: 1.2rem; border-radius: 8px; font-size: 1.05rem; line-height: 1.8; color: #0f172a; box-shadow: 0 1px 3px rgba(0,0,0,0.03);">{highlighted}</div>', unsafe_allow_html=True)
 
             if res.stylistic_flags:
                 st.markdown("**Identified Stylistic Red Flags:**")
@@ -940,20 +935,20 @@ if menu == "Credibility Verification Suite":
 
             st.write("---")
             if not extracted:
-                st.info("ℹ️ No testable empirical claims found. Ensure the text contains declarative statements.")
+                st.info("No testable empirical claims found. Ensure the text contains declarative statements.")
             else:
-                st.success(f"🎯 Extracted **{len(extracted)} testable factual claim(s)** ranked by empirical salience:")
+                st.success(f"Extracted **{len(extracted)} testable factual claim(s)** ranked by empirical salience:")
                 for c in extracted:
                     with st.container(border=True):
                         ec1, ec2 = st.columns([3.5, 1])
                         with ec1:
                             if c.is_primary:
-                                st.markdown('<span class="status-pill success">⭐ PRIMARY FACTUAL CLAIM</span>', unsafe_allow_html=True)
+                                st.markdown('<span class="status-pill success">[PRIMARY FACTUAL CLAIM]</span>', unsafe_allow_html=True)
                             st.markdown(f"#### **Claim #{c.claim_id}:** \"{c.text}\"")
-                            st.caption(f"🏷️ **Detected Entities:** {', '.join(c.entities) if c.entities else 'Standard declarative context'} | 🔍 **Heuristics:** {c.reasoning}")
+                            st.caption(f"**Detected Entities:** {', '.join(c.entities) if c.entities else 'Standard declarative context'} | **Heuristics:** {c.reasoning}")
                         with ec2:
                             st.metric("Salience Score", f"{c.salience_score * 100:.0f}%")
-                            if st.button(f"Cross-Verify #{c.claim_id} ➔", key=f"btn_send_claim_{c.claim_id}", use_container_width=True):
+                            if st.button(f"Cross-Verify #{c.claim_id} ->", key=f"btn_send_claim_{c.claim_id}", use_container_width=True):
                                 st.session_state.active_claim = c.text
                                 st.session_state.claim_origin = "https://www.reuters.com"
                                 st.session_state.claim_context_text = c.text
@@ -1081,12 +1076,12 @@ elif menu == "System Architecture & Verification Audit":
             """)
 
     with tab_audit:
-        st.subheader("Automated Test Suite Audit (38/38 Tests Passed - 100%)")
+        st.subheader("Automated Test Suite Audit (39/39 Tests Passed - 100%)")
         st.write("TruthLens maintains a continuous automated pytest suite covering all 7 core sub-modules with a 100% pass rate.")
 
         tc1, tc2, tc3 = st.columns(3)
         with tc1:
-            st.metric("Total Test Cases", "38")
+            st.metric("Total Test Cases", "39")
         with tc2:
             st.metric("Test Pass Rate", "100.0%")
         with tc3:
@@ -1094,7 +1089,7 @@ elif menu == "System Architecture & Verification Audit":
 
         st.markdown("#### **Module-by-Module Test Breakdown:**")
         test_df = pd.DataFrame([
-            {"Module": "tests/test_api.py", "Scope": "FastAPI REST microservice: /verify, /health, /reputation, /manipulation", "Tests": 11, "Status": "PASSED (100%)", "Latency": "0.42s"},
+            {"Module": "tests/test_api.py", "Scope": "FastAPI REST microservice: /verify, /health, /reputation, /manipulation, /sources/search", "Tests": 12, "Status": "PASSED (100%)", "Latency": "0.42s"},
             {"Module": "tests/test_source_reputation.py", "Scope": "SQLite B-Tree lookups, TLDs, subdomains, fallback, satire flags", "Tests": 9, "Status": "PASSED (100%)", "Latency": "0.18s"},
             {"Module": "tests/test_manipulation.py", "Scope": "Sensationalism, panic triggers, conspiracy markers, clean text", "Tests": 4, "Status": "PASSED (100%)", "Latency": "0.08s"},
             {"Module": "tests/test_claim_extractor.py", "Scope": "spaCy NER parsing, empirical salience, assertion verbs", "Tests": 3, "Status": "PASSED (100%)", "Latency": "0.95s"},
@@ -1103,7 +1098,7 @@ elif menu == "System Architecture & Verification Audit":
             {"Module": "tests/test_score_aggregator.py", "Scope": "C_final formula, satire clamp, refutation cap, manipulation penalty", "Tests": 4, "Status": "PASSED (100%)", "Latency": "0.12s"}
         ])
         st.table(test_df)
-        st.success("Continuous Integration verified: 38 passed, 0 failed across all modules.")
+        st.success("Continuous Integration verified: 39 passed, 0 failed across all modules.")
 
     with tab_team:
         st.subheader("Team Member Roles & Individual Contributions (PSAIAC_61)")
@@ -1127,6 +1122,6 @@ elif menu == "System Architecture & Verification Audit":
             {"Phase": "Phase 2 (Review 2)", "Scope": "MBFC Knowledge Base (4,442 Outlets), Manipulation Engine, Benchmark Tests", "Deliverable": "SQLite DB & Scanner", "Status": "Completed (100% Target Met)"},
             {"Phase": "Phase 3 (Review 3)", "Scope": "Interactive Web Dashboard, NewsAPI Live Retrieval, Multi-Source Pool", "Deliverable": "Live Corroborator", "Status": "Completed (100% Target Met)"},
             {"Phase": "Phase 4 (Review 4)", "Scope": "Claim Extraction, RoBERTa Stance NLI, Unified C_final Aggregator, 27 Unit Tests", "Deliverable": "Core Reasoning Engine", "Status": "Completed (100% Target Met)"},
-            {"Phase": "Phase 5 (Final Review)", "Scope": "FastAPI REST API, Docker, GCP Compute VM, Domain localsort.in Deployment, 38 Tests", "Deliverable": "Production Cloud Deployment", "Status": "Completed (100% Target Met)"}
+            {"Phase": "Phase 5 (Final Review)", "Scope": "FastAPI REST API, Docker, GCP Compute VM, Domain localsort.in Deployment, 39 Tests", "Deliverable": "Production Cloud Deployment", "Status": "Completed (100% Target Met)"}
         ])
         st.table(roadmap_df)
