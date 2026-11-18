@@ -1,7 +1,7 @@
 """
-Unified Mathematical Credibility Score Aggregator for TruthLens (65% Milestone)
+Unified Mathematical Credibility Score Aggregator for TruthLens (PSAIAC_61)
 
-Implements the formal peer-reviewed scoring equation:
+Implements the multi-signal credibility scoring equation:
   C_final = 0.70 * S_evidence + 0.30 * W_origin - (0.25 * M_index)
 
 Where:
