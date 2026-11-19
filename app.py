@@ -337,13 +337,15 @@ if "authenticated" not in st.session_state:
 if "username" not in st.session_state:
     st.session_state.username = ""
 if "active_claim" not in st.session_state:
-    st.session_state.active_claim = "ISRO successfully completed a soft landing of Chandrayaan-3 on the lunar south pole"
+    st.session_state.active_claim = ""
 if "claim_origin" not in st.session_state:
-    st.session_state.claim_origin = "https://www.reuters.com"
+    st.session_state.claim_origin = ""
 if "claim_context_text" not in st.session_state:
-    st.session_state.claim_context_text = "ISRO successfully launched Chandrayaan-3 and achieved historic lunar landing on August 23, 2023."
+    st.session_state.claim_context_text = ""
 if "inspect_target_url" not in st.session_state:
-    st.session_state.inspect_target_url = "https://www.reuters.com"
+    st.session_state.inspect_target_url = ""
+if "tab2_text_val" not in st.session_state:
+    st.session_state.tab2_text_val = ""
 if "cached_assessment" not in st.session_state:
     st.session_state.cached_assessment = None
 if "cached_articles" not in st.session_state:
